@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Tenno.tv" />
+    <meta property="og:description" content="It's YouTube, but less suck." />
+    <meta property="og:url" content="https://tenno.tv" />
+    <meta property="og:image" content="https://i.imgur.com/vH13j9B.png" />
+
+    <title>Tenno.tv</title>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Global Site Tag, Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47080716-9"></script>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- Cookies CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!--- Bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootswatch CSS -->
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/materia/bootstrap.min.css" />
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="https://i.imgur.com/vH13j9B.png"/>
+
+    <!-- Local stylesheet -->
+    <link rel="stylesheet" type="text/css" href="./lib/styles.css">
+    <!-- scripts! -->
+    <script src="./lib/main.js"></script>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-inverse navbar-default navbar-fixed-top" id="top-nav">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <img class="navbar-brand" src="https://i.imgur.com/xOpIktm.png" alt="logo"/>
+        </div>
+        <div class="btn-group navbar-right pull-right" id="resets">
+          <button type="button" class="btn btn-sm btn-danger btn-reset" data-reset="all">Reset</button>
+          <button type="button" class="btn btn-sm btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item btn-reset" href="#" data-reset="toggles">Just Toggles</a>
+            <a class="dropdown-item btn-reset" href="#" data-reset="videos">Just Watched Videos</a>
+          </div>
+        </div>
+        <div class="btn-group btn-group-toggle navbar-right" data-toggle="buttons" id="options">
+          <label class="btn btn-sm btn-secondary opts-h" name="Weapons Toggle" id="toggle-weapon">
+            <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-weapon-check"> Weapons
+          </label>
+          <label class="btn btn-sm btn-secondary opts-h" name="Warframes Toggle" id="toggle-warframe">
+            <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-warframe-check"> Warframes
+          </label>
+          <label class="btn btn-sm btn-secondary opts-h" name="Machinima Toggle" id="toggle-machinima">
+            <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-machinima-check"> Machinima
+          </label>
+          <label class="btn btn-sm btn-secondary opts-h" name="SFM Toggle" id="toggle-sfm">
+            <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-sfm-check"> SFM
+          </label>
+          <label class="btn btn-sm btn-secondary opts-h" name="Lore Toggle" id="toggle-lore">
+            <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-lore-check"> Lore
+          </label>
+          <label class="btn btn-sm btn-secondary opts-h" name="Talk Toggle" id="toggle-talk">
+            <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-talk-check"> Talk
+          </label>
+        </div>
+      </div>
+    </nav>
+
+    <!-- under construction warning -->
+    <div class="alert alert-dismissible alert-dark">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Excuse our mess!</strong> We are still under construction, but in the meantime, check out a sister site <a href="https://hub.warframestat.us/" target="_blank" rel="noopener">here</a>
+    </div>
+
+    <!-- body: display -->
+    <div class="container">
+      <div class="row">
+        <!-- video -->
+        <div class="embed-responsive embed-responsive-16by9 col-md-12" id="playerWrapper">
+          <div id="player">Loading player...</div>
+        </div>
+        <br />
+        <br />
+      </div>
+      <div class="row">
+        <div class="col-md-12" id="t-wrap">
+          <table class="table table-hover table-dark">
+            <thead>
+              <tr>
+                <th scope="col" class="numRow col-md-1">#</th>
+                <th scope="col" class="title col-md-6">Title</th>
+                <th scope="col" class="author col-md-2">Owner</th>
+                <th scope="col" class="tags col-md-3">Tags</th>
+              </tr>
+            </thead>
+            <tbody id="playlist">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="navbar-footer navbar-fixed-bottom text-center" id="footer">
+      <div class="row" id="footer-row">
+        <div class="col-lg-12" id="footer-content">
+          <a name="Copyright Warframe Community Devs" href="#credits" data-target="#wfcd" data-toggle="modal" style="outline:none;">©2018 WFCD</a>
+          <span> | </span>
+          <a name="License" href="#license" data-target="#license" data-toggle="modal" style="outline:none;">License</a>
+          <span> | </span>
+          <a name="Discord" href="https://discord.gg/jGZxH9f" rel="noopener" target="_blank">Discord</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- License Information -->
+    <div class="modal fade" id="license" tabindex="-1" role="dialog" aria-labelledby="licenseLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">License Information</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" name="Dismiss Modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Concepted and Crafted by <a name="Tobiah Github" rel="noopener" target="_blank" href="https://github.com/tobitenno">Tobiah</a> and Xenogelion with contributions from others on the Warframe Community Developers team.
+            <br /><br /> The Tenno.TV project is committed to open source. This project is licensed and distributed under
+            <a name="Apache License" rel="noopener" target="_blank" href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>
+            <br /><br /> Warframe and the Warframe logo are registered trademarks of Digital Extremes Ltd. Tenno.tv is not affiliated with Digital Extremes Ltd. in any way.
+            <br /><br /> You are entitled to a copy of this project AS IS, and you are free to modify it to your heart's desires. You must include a copy of this license to all future modification and releases. You can read more about the terms of the license
+            <a name="Apache License" rel="noopener" target="_blank" href="https://choosealicense.com/licenses/apache-2.0/">here</a>.
+          </div>
+          <div class="modal-footer">
+            <button name="Dismiss Modal" type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" style="cursor:pointer;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WFCD Information -->
+    <div class="modal fade" id="wfcd" tabindex="-1" role="dialog" aria-labelledby="wfcdLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Warframe Community Developers</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" name="Dismiss Modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This project is part of the Warframe Community Developers.<br>
+            <a name="Tenno TV Github" href="https://github.com/WFCD/tenno-tv" rel="noopener" target="_blank">Click here to view GitHub project.</a>
+            <br><br>
+            <a name="Warframe Comm Dev Github" rel="noopener" target="_blank" href="https://github.com/WFCD">
+            <img class="wfcd-banner img-rounded" style="padding: 10px 10px 10px 10px" src="https://warframestat.us/wfcd.png" /></a>
+            <br><br> Pull requests are welcome, please submit any issues found to the project's
+            <a name="Hub Issues" rel="noopener" target="_blank" href="https://github.com/WFCD/tenno-tv/issues">issue tracker</a>.
+            <br><br> Content creators channels have been parsed and added to our database with their consent.
+          </div>
+          <div class="modal-footer">
+            <button name="Dismiss Modal" type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" style="cursor:pointer;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
