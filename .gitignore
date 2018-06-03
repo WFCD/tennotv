@@ -56,3 +56,11 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Production css and js files
+public/css/*
+public/js/*
+public/sums.json
+
+# Original files created while diffing
+*.orig
