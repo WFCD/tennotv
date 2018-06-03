@@ -1,17 +1,19 @@
 {
   "name": "tennotv",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Warframe YouTube Content",
   "scripts": {
     "test": "npm run pre && mocha spec mochaspec.js",
     "postinstall": "npm install -g gulp-cli",
     "start": "npm run pre && node ./bin/www",
     "pre": "gulp && gulp hash",
-    "dev": "npm i nodemon@latest && nodemon"
+    "dev": "npm i nodemon@latest && nodemon",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WFCD/tennotv.git"
+    "url": "https://github.com/WFCD/tennotv.git"
   },
   "keywords": [
     "warframe",
@@ -49,7 +51,9 @@
     "eslint-plugin-react": "^7.7.0",
     "greenkeeper-lockfile": "^1.14.0",
     "mocha": "^5.1.1",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "travis-deploy-once": "^5.0.0",
+    "semantic-release": "^15.5.0"
   },
   "engines": {
     "node": ">=8.9.0",
