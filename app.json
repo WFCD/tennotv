@@ -1,0 +1,26 @@
+{
+  "name": "tennotv",
+  "description": "Tenno.tv. Warframe YouTube content, but not behind YouTube's troubling systems.",
+  "keywords": [
+    "warframe",
+    "vod"
+  ],
+  "repository": "https://github.com/WFCD/tennotv",
+  "website": "https://tenno.tv",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

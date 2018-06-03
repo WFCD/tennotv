@@ -227,13 +227,6 @@ $(document).ready(function() {
   });
   loadToggles();
 
-  /* G-tag analytics */
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-47080716-9');
-
   // justifyBtnGroup('options');
 
   /* Still not reloading, but it wipes data */
@@ -256,7 +249,7 @@ $(document).ready(function() {
     }
     window.location.reload(true);
   });
-  
+
   $('.navbar-brand').on('click', () => { window.location.reload(true); });
 });
 getVideos(true);

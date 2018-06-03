@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Tenno.Tv | {{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Tenno.tv" />
+    <meta property="og:description" content="It's YouTube, but less suck." />
+    <meta property="og:url" content="https://tenno.tv" />
+    <meta property="og:image" content="img/logo.png?v={{lookup sums 'img/logo.png`'}}" />
+
+    {{> analytics}}
+    {{> dependencies}}
+  </head>
+  <body>
+    {{> nav}}
+    <div class="alert alert-dismissible alert-dark">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Excuse our mess!</strong> We are still under construction, but in the meantime, check out a sister site <a href="https://hub.warframestat.us/" target="_blank" rel="noopener">here</a>
+    </div>
+    {{{body}}}
+    {{> footer}}
+  </body>
+</html>

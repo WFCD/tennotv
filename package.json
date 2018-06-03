@@ -1,0 +1,58 @@
+{
+  "name": "tennotv",
+  "version": "1.0.0",
+  "description": "Warframe YouTube Content",
+  "scripts": {
+    "test": "npm run pre && mocha spec mochaspec.js",
+    "postinstall": "npm install -g gulp-cli",
+    "start": "npm run pre && node ./bin/www",
+    "pre": "gulp && gulp hash",
+    "dev": "npm i nodemon@latest && nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WFCD/tennotv.git"
+  },
+  "keywords": [
+    "warframe",
+    "tennotv"
+  ],
+  "author": "TobiTenno",
+  "license": "APACHE 2.0",
+  "bugs": {
+    "url": "https://github.com/WFCD/tennotv/issues"
+  },
+  "homepage": "https://tenno.tv",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "cookie-parser": "^1.4.3",
+    "debug": "~3.1.0",
+    "del": "^3.0.0",
+    "eslint": "^4.19.1",
+    "express": "~4.16.3",
+    "express-handlebars": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-minify": "git://github.com/zbennett10/gulp-minify.git#e1d8905041af230fd0fb980aa8a26c12c53e03f7",
+    "hbs": "^4.0.1",
+    "serve-favicon": "~2.5.0",
+    "sinon": "5.0.9",
+    "supertest": "^3.0.0",
+    "winston": "^2.4.2"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "greenkeeper-lockfile": "^1.14.0",
+    "gulp-hashsum": "^1.2.0",
+    "mocha": "^5.1.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=8.9.0",
+    "npm": ">=5.5.1"
+  }
+}
