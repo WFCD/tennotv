@@ -43,9 +43,9 @@ img.navbar-brand {
 
 #t-wrap table {
     border-collapse: separate;
-    border:solid var(--primary-c) 1px;
-    border-radius:6px;
+    border: solid var(--primary-c) 1px;
     -moz-border-radius:6px;
+    border-radius:6px;
 }
 
 #t-wrap td, #t-wrap th {

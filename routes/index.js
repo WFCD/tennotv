@@ -1,4 +1,3 @@
-'use strict';
 // Routing page for pages on the root level
 
 const express = require('express');
@@ -14,7 +13,6 @@ router.get('/', (req, res) => {
   winston.info(`Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
   res.render('index', {title: 'Index', sums});
 });
-
 
 router.get('/404', (req, res) => {
   winston.info(`Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
