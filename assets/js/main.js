@@ -10,11 +10,8 @@ const validToggles = ['weapon', 'warframe', 'machinima', 'sfm', 'lore', 'talk'];
 
 /* Helpers */
 const titleCase = str => {
-  const stringArr = str.toLowerCase().split(' ');
-  for (let i = 0; i < str.length; i += 1) {
-    stringArr[i] = stringArr[i].charAt(0).toUpperCase() + stringArr[i].slice(1);
-  }
-  return str.join(' ');
+  if (!str) return '';
+  return str.toLowerCase().split(' ').map(token => token.charAt(0).toUpperCase() + token.slice(1));
 };
 
 /* Video Queue */
@@ -39,6 +36,8 @@ function getVideos(useQueue) {
     referrer: 'no-referrer',
   };
   const url = `${serviceAPI}?${opts.join('&')}`;
+  // eslint-disable-next-line no-console
+  console.debug(`[DEBUG] Requsting: ${url}`);
   const request = new Request(url, requestInfo);
 
   fetch(request)
@@ -58,8 +57,9 @@ function getVideos(useQueue) {
     });
 }
 function makeTags(tagArray) {
+  if (!tagArray || tagArray.length === 0) return '';
   return $.map(tagArray, tag => {
-    if (tag) {
+    if (tag && tag !== null) {
       return `<span class="badge badge-light">${titleCase(tag)}</span>`;
     }
     return '';
