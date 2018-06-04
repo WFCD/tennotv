@@ -67,10 +67,13 @@ function makeTags(tagArray) {
 }
 function makeRow(video) {
   /* eslint-disable no-plusplus */
+  let authorRow = `<td class="author col-md-2"><a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">`;
+  authorRow += video.author_ty_thumbnail ? `<img class='author-img' alt='${video.account_name}'>` : '';
+  authorRow += `<span class='author-name'>${video.account_name}</span></a></td>`;
   return `<tr id="${video.video_id}" class="video-row">
     <td scope="row" class="numRow col-md-1" style>${++lastInd}</th>
     <td class="title col-md-6"><a href="${video.video_id}" target="_blank" rel="noopener" name="${video.video_title}">${video.video_title}</a></td>
-    <td class="author col-md-2"><a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${video.account_name}</a></td>
+    ${authorRow}
     <td class="tags col-md-3">${makeTags(video.video_tag_ids)}</td>
   </tr>`;
 }
