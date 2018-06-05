@@ -76,7 +76,7 @@ img.navbar-brand {
 #t-wrap thead { border-bottom: 1px; }
 .table thead th { border-bottom: 2px solid var(--primary-c)}
 
-.author-img { display: none; }
+.author-img { display: none; max-height: 50px; }
 
 /* Modal content */
 .modal-content { background-color: rgba(40, 40, 40, .8); color: var(--primary-c) }
