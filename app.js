@@ -24,8 +24,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-// dev logger that should not be used in prod
-
 app.use(router);
 
 module.exports = app;
