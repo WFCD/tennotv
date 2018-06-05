@@ -66,12 +66,11 @@ function makeTags(tagArray) {
   }).slice(0, 5).join('');
 }
 function makeRow(video) {
-  /* eslint-disable no-plusplus */
-  let authorRow = `<td class="author col-md-2"><a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">`;
-  authorRow += video.author_yt_thumbnail ? `<img class="author-img" alt="${video.account_name}" src="${video.author_yt_thumbnail}">` : '';
-  authorRow += `<span class='author-name'>${video.account_name}</span></a></td>`;
-  
-  
+  const authorSpan = `<span class='author-name'>${video.account_name}</span>`;
+  const authorImg = video.author_yt_thumbnail ? `<img class="author-img" alt="${video.account_name}" title="${video.account_name}" src="${video.author_yt_thumbnail}">` : '';
+  const authorLink = `<a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${authorImg}${authorSpan}</a>`
+  const authorRow = `<td class="author col-md-2">${authorLink}</td>`;
+
   return `<tr id="${video.video_id}" class="video-row">
     <td scope="row" class="numRow col-md-1" style>${++lastInd}</th>
     <td class="title col-md-6"><a href="${video.video_id}" target="_blank" rel="noopener" name="${video.video_title}">${video.video_title}</a></td>
