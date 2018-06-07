@@ -177,7 +177,8 @@ function startVideo(videoId) {
 function getCurrentToggles() {
   const currentToggles = [];
   validToggles.forEach(toggle => {
-    if (localStorage.getItem(toggle) !== null) {
+    const val = localStorage.getItem(toggle);
+    if (val !== null && val === 'on') {
       currentToggles.push(toggle);
     }
   });
