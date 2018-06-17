@@ -2,8 +2,6 @@
 
 const express = require('express');
 const winston = require('winston');
-const FlakeId = require('flake-idgen');
-const intformat = require('biguint-format');
 
 const router = express.Router();
 const logger = winston.createLogger();
@@ -16,7 +14,7 @@ logger.level = process.env.LOG_LEVEL || 'error'; // default to error, we don't n
 router.get('/', (req, res) => {
   logger.log('silly', `Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
   res.render('index', {
-    title: 'Index', sums, nid: intformat(new FlakeId().next(), 'dec'), serviceAPI: process.env.SERVICE_API_URL || 'https://api.warframestat.us/tennotv',
+    title: 'Index', sums, serviceAPI: process.env.SERVICE_API_URL || 'https://api.warframestat.us/tennotv',
   });
 });
 

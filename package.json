@@ -35,7 +35,6 @@
     "eslint": "^4.19.1",
     "express": "~4.16.3",
     "express-handlebars": "^3.0.0",
-    "flake-idgen": "^1.1.0",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^3.9.4",
     "gulp-hashsum": "^1.2.0",

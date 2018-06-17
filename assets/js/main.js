@@ -1,5 +1,5 @@
 /* Actual useful stuff */
-/* globals localStorage, navigator, $, fetch, Request, YT, nid, serviceAPI, SVGInjector */
+/* globals localStorage, navigator, $, fetch, Request, YT, FlakeId, serviceAPI, SVGInjector */
 let queue = [];
 const historicalVideos = [];
 let lastInd = 0;
@@ -18,7 +18,7 @@ const titleCase = str => {
 const generateNewToken = () => {
   const currentToken = localStorage.getItem('watcherToken');
   if (typeof currentToken === 'undefined' || (currentToken && !currentToken.length) || !currentToken) {
-    const token = nid; // eslint-disable-line new-cap
+    const token = new FlakeId().gen();
     localStorage.setItem('watcherToken', token);
     return token;
   }
