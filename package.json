@@ -26,6 +26,7 @@
   },
   "homepage": "https://tenno.tv",
   "dependencies": {
+    "biguint-format": "^1.0.0",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "cookie-parser": "^1.4.3",
@@ -34,11 +35,13 @@
     "eslint": "^4.19.1",
     "express": "~4.16.3",
     "express-handlebars": "^3.0.0",
+    "flake-idgen": "^1.1.0",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^3.9.4",
     "gulp-hashsum": "^1.2.0",
     "gulp-minify": "git://github.com/zbennett10/gulp-minify.git#e1d8905041af230fd0fb980aa8a26c12c53e03f7",
     "hbs": "^4.0.1",
+    "nodemon": "^1.17.5",
     "serve-favicon": "~2.5.0",
     "sinon": "6.0.0",
     "supertest": "^3.0.0",
@@ -58,5 +61,15 @@
   "engines": {
     "node": ">=8.9.0",
     "npm": ">=6.1.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "public/js/*",
+      "public/css/*",
+      "public/sums.json"
+    ],
+    "env": {
+      "SERVICE_API_URL": "http://localhost:3001/tennotv"
+    }
   }
 }

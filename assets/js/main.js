@@ -1,12 +1,13 @@
 /* Actual useful stuff */
-/* globals localStorage, navigator, $, fetch, Request, YT */
-const serviceAPI = 'https://api.warframestat.us/tennotv';
+/* globals localStorage, navigator, $, fetch, Request, YT, nid, serviceAPI, SVGInjector */
 let queue = [];
+const historicalVideos = [];
 let lastInd = 0;
 let player;
 let done = true;
 let ready = false;
-const validToggles = ['weapon', 'warframe', 'machinima', 'sfm', 'lore', 'talk'];
+let playlistVid;
+const validToggles = ['weapon', 'warframe', 'machinima', 'sfm', 'lore', 'talk', 'fashion'];
 
 /* Helpers */
 const titleCase = str => {
@@ -14,13 +15,94 @@ const titleCase = str => {
   return str.toLowerCase().split(' ').map(token => token.charAt(0).toUpperCase() + token.slice(1));
 };
 
+const generateNewToken = () => {
+  const currentToken = localStorage.getItem('watcherToken');
+  if (typeof currentToken === 'undefined' || (currentToken && !currentToken.length) || !currentToken) {
+    const token = nid; // eslint-disable-line new-cap
+    localStorage.setItem('watcherToken', token);
+    return token;
+  }
+  return currentToken;
+};
+
 /* Video Queue */
-function addWatchedVideo(id) {
+async function addVideoToUserHistory(id) {
+  const requestInfo = {
+    method: 'POST',
+    header: {
+      'content-type': 'application/json',
+      'user-agent': navigator.userAgent,
+    },
+    body: {
+      method: 'add-watcher-history',
+      token: localStorage.getItem('watcherToken') || generateNewToken(),
+    },
+    credentials: 'omit',
+    referrer: 'no-referrer',
+  };
+  const opts = [];
+  opts.push('method=add_watcher_history');
+  opts.push(`video_id=${id}`);
+  opts.push(`token=${localStorage.getItem('watcherToken') || generateNewToken()}`);
+  const url = `${serviceAPI}?${opts.join('&')}`;
+
+  try {
+    const request = new Request(url, requestInfo);
+    const response = await fetch(request);
+    if (!response.ok) {
+      // eslint-disable-next-line no-console
+      console.error(`[ERROR] Something went wrong adding ${id} to history. Contact tennotv@warframe.gg for support.`);
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+}
+function makeHistoryRow(video) {
+  /* eslint-disable no-plusplus */
+  return `<tr id="${video.video_id}" class="video-row">
+    <td class="title col-md-7"><a href="${video.video_id}" target="_blank" rel="noopener" name="${video.video_title}">${video.video_title}</a></td>
+    <td class="author col-md-2"><a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${video.account_name}</a></td>
+    <td class="tags col-md-3">${makeTags(video.video_tag_ids)}</td>
+  </tr>`;
+}
+function addHistoryRow(id) {
+  let video;
+  $.each(historicalVideos, queueIndex => {
+    if (historicalVideos[queueIndex].video_id === id) {
+      video = historicalVideos[queueIndex];
+    }
+  });
+  if (!video) {
+    $.each(queue, queueIndex => {
+      if (queue[queueIndex].video_id === id) {
+        video = queue[queueIndex];
+      }
+    });
+    historicalVideos.push(video);
+  }
+  if (video && !$(`#historyList #${video.video_id}`).length) {
+    $('#historyList').append(makeHistoryRow(video));
+
+    $(`#historyList #${video.video_id}`).click(() => {
+      loadHistoricalVideo(video.video_id);
+    });
+    $(`#historyList #${video.video_id} .title a`).click(e => {
+      e.preventDefault();
+      loadHistoricalVideo(video.video_id);
+    });
+  }
+}
+async function addWatchedVideo(id) {
   const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '[]');
   watchedVideos.push(id);
   localStorage.setItem('watchedVideos', JSON.stringify([...new Set(watchedVideos)].filter(thing => thing !== null)));
+  if (!$(`#historyList #${id}`).length) {
+    addVideoToUserHistory(id);
+    addHistoryRow(id);
+  }
 }
-function getVideos(useQueue) {
+async function getVideos(useQueue) {
   const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '[]');
   const opts = [
     `included_tags=${getCurrentToggles().join(',')}`,
@@ -36,25 +118,49 @@ function getVideos(useQueue) {
     referrer: 'no-referrer',
   };
   const url = `${serviceAPI}?${opts.join('&')}`;
-  // eslint-disable-next-line no-console
-  console.debug(`[DEBUG] Requsting: ${url}`);
   const request = new Request(url, requestInfo);
 
-  fetch(request)
-    .then(response => {
-      if (!response.ok) {
-        // eslint-disable-next-line no-console
-        console.error('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
-        return false;
-      }
-      return response.json();
-    }).then(stuff => {
-      processVideoData(stuff);
-    })
-    .catch(e => {
+  try {
+    const response = await fetch(request);
+    if (!response.ok) {
       // eslint-disable-next-line no-console
-      console.error(e);
-    });
+      console.error('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
+    } else {
+      processVideoData(await response.json());
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+}
+async function getHistoricalVideos() {
+  const requestInfo = {
+    method: 'GET',
+    header: {
+      'content-type': 'application/json',
+      'user-agent': navigator.userAgent,
+    },
+    credentials: 'omit',
+    referrer: 'no-referrer',
+  };
+  const url = `${serviceAPI}?method=get-watched-videos-list&token=${localStorage.getItem('watcherToken') || generateNewToken()}`;
+  const request = new Request(url, requestInfo);
+
+  try {
+    const response = await fetch(request);
+    if (!response.ok) {
+      // eslint-disable-next-line no-console
+      console.error('[ERROR] Something went wrong fetching historical videos. Contact tennotv@warframe.gg for support.');
+    } else {
+      const fetchedHistoricalVideos = await response.json();
+      $.each(fetchedHistoricalVideos, videoIndex => {
+        historicalVideos.push(fetchedHistoricalVideos[videoIndex]);
+      });
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
 }
 function makeTags(tagArray) {
   if (!tagArray || tagArray.length === 0) return '';
@@ -78,15 +184,14 @@ function makeRow(video) {
     <td class="tags col-md-3">${makeTags(video.video_tag_ids)}</td>
   </tr>`;
 }
-/* eslint-enable no-plusplus */
 function updatePlaylist(newVideoArray) {
   $.each(newVideoArray, index => {
     const video = newVideoArray[index];
     $('#playlist').append(makeRow(video));
-    $(`#${video.video_id}`).click(() => {
-      startVideo(video.video_id, true);
+    $(`#playlist #${video.video_id}`).click(() => {
+      loadVideo(video.video_id);
     });
-    $(`#${video.video_id} .title a`).click(e => {
+    $(`#playlist #${video.video_id} .title a`).click(e => {
       e.preventDefault();
       loadVideo(video.video_id);
     });
@@ -101,7 +206,6 @@ function processVideoData(videoArray) {
     startVideo(videoArray[0].video_id);
   }
 }
-
 function getNextVideoId(currentVideoId) {
   let nextId;
   $.each(queue, queueIndex => {
@@ -117,26 +221,38 @@ function getNextVideoId(currentVideoId) {
 }
 function loadVideo(videoId) {
   $('.table-active').removeClass('table-active');
-  $(`#${videoId}`).addClass('table-active');
+  $(`#playlist #${videoId}`).addClass('table-active');
   player.loadVideoById(videoId);
   addWatchedVideo(videoId);
   if (queue[queue.length - 1].video_id === videoId) {
     getVideos(true);
   }
 }
+function loadHistoricalVideo(videoId) {
+  if (!playlistVid) {
+    playlistVid = player.getVideoData().video_id;
+  }
+  $('.table-active').removeClass('table-active');
+  $(`#historyList #${videoId}`).addClass('table-active');
+  player.loadVideoById(videoId);
+}
 
 /* Player events */
-
 function onPlayerReady(event) {
   event.target.playVideo();
 }
 function onPlayerStateChange(event) {
-  const vidId = player.getVideoUrl().match(/v=(.*)/i)[1];
+  const vidId = player.getVideoData().video_id;
   if (event.data === YT.PlayerState.ENDED && !done) {
     done = true;
-    const next = getNextVideoId(vidId);
+    if (playlistVid && vidId !== playlistVid) {
+      loadVideo(playlistVid);
+      playlistVid = undefined;
+    } else {
+      const next = getNextVideoId(vidId);
+      loadVideo(next);
+    }
     done = false;
-    loadVideo(next);
   }
 }
 
@@ -157,6 +273,7 @@ function startVideo(videoId) {
     done = false;
     player = new YT.Player('player', {
       videoId,
+      rel: 0,
       events: {
         onReady: onPlayerReady,
         onStateChange: onPlayerStateChange,
@@ -211,19 +328,64 @@ function handleOptionClick(event) {
   localStorage.setItem(item, newStatus);
 }
 
+/* Resets */
+function resetToggles() {
+  validToggles.forEach(thing => localStorage.removeItem(thing));
+}
+async function resetWatchedVideos() {
+  localStorage.removeItem('watchedVideos');
+  const opts = [
+    'method=delete-watched-videos-list',
+    `token=${localStorage.getItem('watcherToken') || generateNewToken()}`,
+  ];
+  const requestInfo = {
+    method: 'DELETE',
+    header: {
+      'content-type': 'application/json',
+      'user-agent': navigator.userAgent,
+    },
+    credentials: 'omit',
+    referrer: 'no-referrer',
+  };
+  const url = `${serviceAPI}?${opts.join('&')}`;
+  const request = new Request(url, requestInfo);
+
+  try {
+    const response = await fetch(request);
+    if (!response.ok) {
+      // eslint-disable-next-line no-console
+      console.error('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
+    } else {
+      processVideoData(await response.json());
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+}
+
 /* Ready, set, go! */
 $(document).ready(() => {
-  /* set up options clicks */
   $('.opts-h').on('click', handleOptionClick);
-  $(() => {
-    $('label.opts-h').tooltip({
+  $.each($('label.opts-h'), (index, element) => {
+    $(element).tooltip({
       placement: 'bottom',
-      title: 'Click to Toggle',
+      title: `Click to Toggle ${$(element).attr('data-toggle-name')}`,
     });
   });
+  $('#historyTrigger').tooltip({
+    placement: 'bottom',
+    title: 'Click to Open History',
+  });
+  $('#playlistTrigger').tooltip({
+    placement: 'bottom',
+    title: 'Click to Open Playlist',
+  });
+  $('button.btn-reset').tooltip({
+    placement: 'bottom',
+    title: 'Reset & Options',
+  });
   loadToggles();
-
-  // justifyBtnGroup('options');
 
   /* Still not reloading, but it wipes data */
   $('.btn-reset').on('click', e => {
@@ -231,14 +393,15 @@ $(document).ready(() => {
     const toReset = target.attr('data-reset');
     switch (toReset) {
     case 'all':
-      validToggles.forEach(thing => localStorage.removeItem(thing));
-      localStorage.removeItem('watchedVideos');
+      resetToggles();
+      resetWatchedVideos();
       break;
     case 'toggles':
-      validToggles.forEach(thing => localStorage.removeItem(thing));
+      resetToggles();
+      resetWatchedVideos();
       break;
     case 'videos':
-      localStorage.removeItem('watchedVideos');
+      resetWatchedVideos();
       break;
     default:
       break;
@@ -247,5 +410,7 @@ $(document).ready(() => {
   });
 
   $('.navbar-brand').on('click', () => { window.location.reload(true); });
+  SVGInjector(document.querySelectorAll('img.toggle-svg'));
 });
 getVideos(true);
+getHistoricalVideos();

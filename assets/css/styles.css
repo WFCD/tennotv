@@ -14,12 +14,21 @@ body {
 }
 
 img.navbar-brand {
-  margin-top: 10px;
   height: 50px;
 }
 
-.wfcd-banner {
-    height: 64px;
+.modal-body a img.wfcd-banner {
+  height: 110px;
+  overflow: hidden;
+  background-color: rgba(0,0,0,.9);
+}
+
+.plist-modal {
+  top: 335px;
+}
+
+.modal-backdrop.fade.show {
+  background-color: transparent;
 }
 
 .modal-dialog, .modal-body {
@@ -34,47 +43,47 @@ img.navbar-brand {
 .tags { width: 25%;}
 
 /* table scrolli-ness */
-#t-wrap thead, #t-wrap tbody { display: block; }
-#t-wrap tbody#playlist {
+.plist thead, .plist tbody { display: block; }
+.plist tbody {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: calc(33vh - 55px);
 }
 
-#t-wrap table {
-    border-collapse: separate;
-    border: solid var(--primary-c) 1px;
-    -moz-border-radius:6px;
-    border-radius:6px;
+.plist table {
+  border-collapse: separate;
+  border: solid var(--primary-c) 1px;
+  -moz-border-radius:6px;
+  border-radius:6px;
 }
 
-#t-wrap td, #t-wrap th {
+.plist td, .plist th {
     border: none;
 }
 
-#t-wrap th {
+.plist th {
     border-bottom: 1px var(--primary-c) solid;
 }
 
-#t-wrap tbody tr {border-top: none; display: flex;}
+.plist tbody tr {border-top: none; display: flex;}
 
-#t-wrap td:first-child, #t-wrap th:first-child {
+.plist td:first-child, #t-wrap th:first-child {
      border-left: none;
 }
 
-#t-wrap>table>thead>tr { width: 100%; display: flex; }
+.plist.table>thead>tr { width: 100%; display: flex; }
 
-.table-dark {
-  background-color: var(--table-c)!important;
-  /*border: var(--primary-c) 1px solid;*/
+.table-dark.plist {
+  background-color: transparent;
+  /* background-color: var(--table-c)!important; */
 }
 
 .table-dark a { color: var(--primary-c); }
 .table-dark a:visited { color: var(--red); }
 .table-dark a:hover { color: var(--red); }
-#t-wrap thead th { border-color: var(--primary-c); }
-#t-wrap thead { border-bottom: 1px; }
-.table thead th { border-bottom: 2px solid var(--primary-c)}
+.plist thead th { border-color: var(--primary-c); }
+.plist thead { border-bottom: 1px; }
+.plist.table thead th { border-bottom: 2px solid var(--primary-c)}
 
 .author-img { display: none; max-height: 50px; }
 
@@ -89,13 +98,20 @@ img.navbar-brand {
   box-shadow: 0 1px 2px var(--primary-c);
 }
 .navbar-footer {
-    bottom: 0;
-    width: 100%;
-    height: 31px;
-    position: fixed;
-    color: var(--primary-c);
-    background-color: var(--table-c);
+  bottom: 0;
+  width: 100%;
+  height: 31px;
+  position: fixed;
+  color: var(--primary-c);
+  background-color: var(--table-c);
 }
+
+.n-right {
+  margin-top: 5px;
+  box-shadow: none;
+  border:  none;
+}
+
 .navbar-footer > div > div {
     padding-top: 7px;
     padding-bottom: 7px;
@@ -126,46 +142,15 @@ input[type="checkbox"]:checked:after,
   border-color: #f50e0e;
 }
 
-/* Scrollbar */
-/* width */
-#t-wrap::-webkit-scrollbar {
-    width: 3px;
-    overflow: hidden;
+.toggle-img {
+  height: 15px;
 }
-
-/* Track */
-#t-wrap::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    overflow: hidden;
+.btn-sm {
+  height: 26px;
 }
-
-#t-wrap::-webkit-scrollbar-track:hover {
-    background: #f1f1f1;
-    overflow: hidden;
-    width:10px;
-}
-
-/* Handle */
-#t-wrap::-webkit-scrollbar-thumb {
-    background: #888;
-    overflow: hidden;
-}
-
-/* Handle on hover */
-#t-wrap::-webkit-scrollbar-thumb:hover {
-    background: #555;
-    overflow: auto;
-    padding-right: 1px;
-    width:10px;
-
-}
-/* Responsive menu */
-@media only screen and (max-width: 768px) {
-
-}
-
-@media only screen and (min-width: 768px) {
-  #opts-vertical {
-    display: none;
-  }
+.toggle-svg {
+  margin-bottom: -3px;
+  width: 16px;
+  height: 16px;
+  fill: black;
 }

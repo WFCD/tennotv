@@ -2,25 +2,31 @@
 
 const express = require('express');
 const winston = require('winston');
+const FlakeId = require('flake-idgen');
+const intformat = require('biguint-format');
 
 const router = express.Router();
+const logger = winston.createLogger();
+logger.add(new winston.transports.Console());
 
 const sums = require('../public/sums.json'); // eslint-disable-line import/no-unresolved
 
-winston.level = process.env.LOG_LEVEL || 'error'; // default to error, we don't need everything
+logger.level = process.env.LOG_LEVEL || 'error'; // default to error, we don't need everything
 
 router.get('/', (req, res) => {
-  winston.info(`Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
-  res.render('index', {title: 'Index', sums});
+  logger.log('silly', `Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
+  res.render('index', {
+    title: 'Index', sums, nid: intformat(new FlakeId().next(), 'dec'), serviceAPI: process.env.SERVICE_API_URL || 'https://api.warframestat.us/tennotv',
+  });
 });
 
 router.get('/404', (req, res) => {
-  winston.info(`Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
+  logger.log('silly', `Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
   res.render('404', {title: '404 Error', sums});
 });
 
 router.get('*', (req, res) => {
-  winston.error(`ABNORMAL ${req.method} REQUEST for ${req.originalUrl} from ${req.connection.remoteAddress}`);
+  logger.log('error', `ABNORMAL ${req.method} REQUEST for ${req.originalUrl} from ${req.connection.remoteAddress}`);
   res.render('404', {title: '404 Error', sums});
 });
 
