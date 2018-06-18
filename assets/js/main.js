@@ -320,7 +320,7 @@ function loadToggles() {
   });
 }
 function handleOptionClick(event) {
-  const item = event.target.id.replace(/toggle-/ig, '').replace(/-check/ig, '').replace('/-img/ig, '');
+  const item = event.target.id.replace(/toggle-/ig, '').replace(/-check/ig, '').replace(/-img/ig, '');
   const newStatus = $(`#toggle-${item}-check`).prop('checked') ? 'off' : 'on';
   console.debug(`[DEBUG] Clicked '${event.target.id}' | New Status: ${newStatus} | Item: ${item}`);
   if (newStatus === 'on') {
