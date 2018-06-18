@@ -23,9 +23,12 @@ img.navbar-brand {
   background-color: rgba(0,0,0,.9);
 }
 
+/*
+Remove top for now, the "clickable" background does't extend above if we do this.
 .plist-modal {
   top: 335px;
 }
+*/
 
 .modal-backdrop.fade.show {
   background-color: transparent;
