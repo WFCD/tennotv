@@ -96,7 +96,9 @@ function addHistoryRow(id) {
 async function addWatchedVideo(id) {
   const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '[]');
   watchedVideos.push(id);
-  localStorage.setItem('watchedVideos', JSON.stringify([...new Set(watchedVideos)].filter(thing => thing !== null)));
+  if (!localStorage.getItem('watcherToken')) {
+    localStorage.setItem('watchedVideos', JSON.stringify([...new Set(watchedVideos)].filter(thing => thing !== null)));
+  }
   if (!$(`#historyList #${id}`).length) {
     addVideoToUserHistory(id);
     addHistoryRow(id);
@@ -104,9 +106,16 @@ async function addWatchedVideo(id) {
 }
 async function getVideos(useQueue) {
   const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '[]');
+  let currentToken = localStorage.getItem('watcherToken');
+  if (!currentToken || !currentToken.length) {
+    currentToken = generateNewToken();
+    watchedVideos.forEach(videoId => addHistoryRow(videoId));
+    localStorage.removeItem('watchedVideos');
+  }
   const opts = [
     `included_tags=${getCurrentToggles().join(',')}`,
     `excluded_video_ids=${watchedVideos.concat(useQueue ? queue.map(video => video.video_id) : []).join(',')}`,
+    `token=${localStorage.getItem('watcherToken') || generateNewToken()}`,
   ];
   const requestInfo = {
     method: 'GET',
