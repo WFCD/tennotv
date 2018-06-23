@@ -36,16 +36,16 @@ async function addVideoToUserHistory(id) {
     body: {
       method: 'add-watcher-history',
       token: localStorage.getItem('watcherToken') || generateNewToken(),
+      video_id: id,
     },
     credentials: 'omit',
     referrer: 'no-referrer',
   };
   const opts = [];
-  opts.push('method=add_watcher_history');
+  opts.push('method=add-watcher-history');
   opts.push(`video_id=${id}`);
   opts.push(`token=${localStorage.getItem('watcherToken') || generateNewToken()}`);
   const url = `${serviceAPI}?${opts.join('&')}`;
-
   try {
     const request = new Request(url, requestInfo);
     const response = await fetch(request);
@@ -135,7 +135,8 @@ async function getVideos(useQueue) {
       // eslint-disable-next-line no-console
       console.error('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
     } else {
-      processVideoData(await response.json());
+      const videoData = await response.json();
+      processVideoData(videoData);
     }
   } catch (error) {
     // eslint-disable-next-line no-console
