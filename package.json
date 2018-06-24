@@ -42,7 +42,7 @@
     "hbs": "^4.0.1",
     "nodemon": "^1.17.5",
     "serve-favicon": "~2.5.0",
-    "sinon": "6.0.0",
+    "sinon": "6.0.1",
     "supertest": "^3.0.0",
     "winston": "^3.0.0"
   },
