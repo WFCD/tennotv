@@ -164,7 +164,9 @@ async function getHistoricalVideos() {
     } else {
       const fetchedHistoricalVideos = await response.json();
       $.each(fetchedHistoricalVideos, videoIndex => {
-        historicalVideos.push(fetchedHistoricalVideos[videoIndex]);
+        const historicalVid = fetchedHistoricalVideos[videoIndex];
+        historicalVideos.push(historicalVid);
+        addHistoryRow(historicalVid.video_id);
       });
     }
   } catch (error) {
@@ -434,9 +436,13 @@ $(document).ready(() => {
   SVGInjector(document.querySelectorAll('img.toggle-svg'));
 
   adjustPlayerSize();
-  $(window).resize(() => {
+  $('#construction').on('close.bs.alert', () => {
     adjustPlayerSize();
+    localStorage.setItem('constructionVisible', 'closed');
   });
+  $(window).resize(adjustPlayerSize);
+  const constructionOpen = localStorage.getItem('constructionVisible');
+  if (constructionOpen === 'closed') $('#construction').alert('close');
 });
 getVideos(true);
 getHistoricalVideos();
