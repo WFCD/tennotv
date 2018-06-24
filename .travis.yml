@@ -6,7 +6,6 @@ notifications:
 node_js:
   # - "node"
   - '6'
-  - 'lts/*'
   - '8'
 
 cache:

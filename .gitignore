@@ -60,6 +60,7 @@ typings/
 # Production css and js files
 public/css/*
 public/js/*
+!public/js/flakeid.min.js
 public/sums.json
 
 # Original files created while diffing
