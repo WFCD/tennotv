@@ -374,6 +374,17 @@ async function resetWatchedVideos() {
   }
 }
 
+const adjustPlayerSize = () => {
+  let height = $(window).height() - $('#top-nav').height() - $('#footer-content').height() - ($('#construction').length > 0 ? $('#construction').height() : 0) - 100;
+  let width = (height / 9) * 16;
+  if (width > $(window).width()) {
+    width = $(window).width();
+    height = (width / 16) * 9;
+  }
+  $('#playerWrapper').height(height);
+  $('#playerWrapper').width(width);
+};
+
 /* Ready, set, go! */
 $(document).ready(() => {
   $('.opts-h').on('click', handleOptionClick);
@@ -421,6 +432,11 @@ $(document).ready(() => {
 
   $('.navbar-brand').on('click', () => { window.location.reload(true); });
   SVGInjector(document.querySelectorAll('img.toggle-svg'));
+
+  adjustPlayerSize();
+  $(window).resize(() => {
+    adjustPlayerSize();
+  });
 });
 getVideos(true);
 getHistoricalVideos();
