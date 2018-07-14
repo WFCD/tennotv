@@ -344,7 +344,7 @@ function handleOptionClick(event) {
 function resetToggles() {
   validToggles.forEach(thing => localStorage.removeItem(thing));
 }
-async function resetWatchedVideos() {
+const resetWatchedVideos = async () => {
   localStorage.removeItem('watchedVideos');
   const opts = [
     'method=delete-watched-videos-list',
@@ -374,7 +374,28 @@ async function resetWatchedVideos() {
     // eslint-disable-next-line no-console
     console.error(error);
   }
-}
+};
+
+const handleReset = async e => {
+  const target = $(e.currentTarget);
+  const toReset = target.attr('data-reset');
+  switch (toReset) {
+  case 'all':
+    resetToggles();
+    await resetWatchedVideos();
+    break;
+  case 'toggles':
+    resetToggles();
+    await resetWatchedVideos();
+    break;
+  case 'videos':
+    await resetWatchedVideos();
+    break;
+  default:
+    break;
+  }
+  window.location.reload(true);
+};
 
 const adjustPlayerSize = () => {
   let height = $(window).height() - $('#top-nav').height() - $('#footer-content').height() - ($('#construction').length > 0 ? $('#construction').height() : 0) - 100;
@@ -388,7 +409,7 @@ const adjustPlayerSize = () => {
 };
 
 /* Ready, set, go! */
-$(document).ready(async () => {
+$(document).ready(() => {
   $('.opts-h').on('click', handleOptionClick);
   $.each($('label.opts-h'), (index, element) => {
     $(element).tooltip({
@@ -411,26 +432,7 @@ $(document).ready(async () => {
   loadToggles();
 
   /* Still not reloading, but it wipes data */
-  $('.btn-reset').on('click', async e => {
-    const target = $(e.currentTarget);
-    const toReset = target.attr('data-reset');
-    switch (toReset) {
-    case 'all':
-      resetToggles();
-      await resetWatchedVideos();
-      break;
-    case 'toggles':
-      resetToggles();
-      await resetWatchedVideos();
-      break;
-    case 'videos':
-      await resetWatchedVideos();
-      break;
-    default:
-      break;
-    }
-    window.location.reload(true);
-  });
+  $('.btn-reset').on('click', handleReset);
 
   $('.navbar-brand').on('click', () => { window.location.reload(true); });
   SVGInjector(document.querySelectorAll('img.toggle-svg'));
