@@ -325,9 +325,9 @@ function loadToggles() {
     }
     // set cookie if it doesn't exist
     if (!currentToggleStatus) {
-      localStorage.setItem(toggle, 'on');
-      $(`#toggle-${toggle}-check`).prop('checked', true);
-      $(`#toggle-${toggle}`).addClass('active');
+      localStorage.setItem(toggle, 'off');
+      $(`#toggle-${toggle}-check`).prop('checked', false);
+      $(`#toggle-${toggle}`).removeClass('active');
     }
   });
 }
