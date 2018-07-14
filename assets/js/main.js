@@ -388,7 +388,7 @@ const adjustPlayerSize = () => {
 };
 
 /* Ready, set, go! */
-$(document).ready(() => {
+$(document).ready(async () => {
   $('.opts-h').on('click', handleOptionClick);
   $.each($('label.opts-h'), (index, element) => {
     $(element).tooltip({
@@ -411,20 +411,20 @@ $(document).ready(() => {
   loadToggles();
 
   /* Still not reloading, but it wipes data */
-  $('.btn-reset').on('click', e => {
+  $('.btn-reset').on('click', async e => {
     const target = $(e.currentTarget);
     const toReset = target.attr('data-reset');
     switch (toReset) {
     case 'all':
       resetToggles();
-      resetWatchedVideos();
+      await resetWatchedVideos();
       break;
     case 'toggles':
       resetToggles();
-      resetWatchedVideos();
+      await resetWatchedVideos();
       break;
     case 'videos':
-      resetWatchedVideos();
+      await resetWatchedVideos();
       break;
     default:
       break;
