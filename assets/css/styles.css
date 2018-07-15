@@ -23,13 +23,6 @@ img.navbar-brand {
   background-color: rgba(0,0,0,.9);
 }
 
-/*
-Remove top for now, the "clickable" background does't extend above if we do this.
-.plist-modal {
-  top: 335px;
-}
-*/
-
 .modal-backdrop.fade.show {
   background-color: transparent;
 }
@@ -78,7 +71,6 @@ Remove top for now, the "clickable" background does't extend above if we do this
 
 .table-dark.plist {
   background-color: transparent;
-  /* background-color: var(--table-c)!important; */
 }
 
 .table-dark a { color: var(--primary-c); }
@@ -91,7 +83,7 @@ Remove top for now, the "clickable" background does't extend above if we do this
 .author-img { display: none; max-height: 50px; }
 
 /* Modal content */
-.modal-content { background-color: rgba(40, 40, 40, .8); color: var(--primary-c) }
+.modal-content { background-color: rgba(40, 40, 40, .8); color: var(--primary-c); overflow-x: hidden; }
 .modal-content img { background-color: rgba(255, 255, 255, 0.3); }
 .modal-footer { border-top: #131313; }
 .modal-header { border-bottom: #131313; }

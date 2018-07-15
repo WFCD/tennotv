@@ -116,7 +116,7 @@ async function getVideos(useQueue) {
     localStorage.removeItem('watchedVideos');
   }
   const opts = [
-    `included_tags=${getCurrentToggles().join(',')}`,
+    limitToCreator ? '' : `included_tags=${getCurrentToggles().join(',')}`,
     `excluded_video_ids=${watchedVideos.concat(useQueue ? queue.map(video => video.video_id) : []).join(',')}`,
     `token=${localStorage.getItem('watcherToken') || generateNewToken()}`,
     limitToCreator ? `content_creator_ids=${limitToCreator}` : '',
@@ -432,6 +432,10 @@ $(document).ready(() => {
   $('#feedbackTrigger').tooltip({
     placement: 'bottom',
     title: 'Feedback',
+  });
+  $('#creatorsTrigger').tooltip({
+    placement: 'bottom',
+    title: 'Content Creators',
   });
   $('button.btn-reset').tooltip({
     placement: 'bottom',
