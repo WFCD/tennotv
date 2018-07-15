@@ -148,11 +148,15 @@ input[type="checkbox"]:checked:after,
 .toggle-img {
   height: 15px;
 }
+
+.icons8-Comment {
+  margin-top: -2px;
+}
+
 .btn-sm {
   height: 26px;
 }
 .toggle-svg {
-  margin-bottom: -3px;
   width: 16px;
   height: 16px;
   fill: black;

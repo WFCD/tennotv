@@ -1,5 +1,8 @@
 /* Actual useful stuff */
-/* globals localStorage, navigator, $, fetch, Request, YT, FlakeId, serviceAPI, SVGInjector */
+/*
+globals localStorage, navigator, $, fetch,
+Request, YT, FlakeId, serviceAPI, SVGInjector, limitToCreator
+*/
 let queue = [];
 const historicalVideos = [];
 let lastInd = 0;
@@ -116,6 +119,7 @@ async function getVideos(useQueue) {
     `included_tags=${getCurrentToggles().join(',')}`,
     `excluded_video_ids=${watchedVideos.concat(useQueue ? queue.map(video => video.video_id) : []).join(',')}`,
     `token=${localStorage.getItem('watcherToken') || generateNewToken()}`,
+    limitToCreator ? `content_creator_ids=${limitToCreator}` : '',
   ];
   const requestInfo = {
     method: 'GET',
@@ -424,6 +428,10 @@ $(document).ready(() => {
   $('#playlistTrigger').tooltip({
     placement: 'bottom',
     title: 'Click to Open Playlist',
+  });
+  $('#feedbackTrigger').tooltip({
+    placement: 'bottom',
+    title: 'Feedback',
   });
   $('button.btn-reset').tooltip({
     placement: 'bottom',
