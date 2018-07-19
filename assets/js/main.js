@@ -1,10 +1,11 @@
 /* Actual useful stuff */
 /*
-globals localStorage, navigator, $, fetch,
+globals localStorage, navigator, $, fetch, gapi
 Request, YT, FlakeId, serviceAPI, SVGInjector, limitToCreator
 */
 let queue = [];
 const historicalVideos = [];
+const contentCreators = [];
 let lastInd = 0;
 let player;
 let done = true;
@@ -26,6 +27,58 @@ const generateNewToken = () => {
     return token;
   }
   return currentToken;
+};
+const getAuthorInfo = id => {
+  const queueResults = queue.filter(vid => vid.video_id === id);
+  const historyResults = queue.filter(vid => vid.video_id === id);
+  const histResult = historyResults.length ? historyResults[0] : undefined;
+  const result = queueResults.length ? queueResults[0] : histResult;
+  return contentCreators.filter(creator => creator.author_id === result.author_id)[0];
+};
+const setSubscriberBar = () => {
+  const author = getAuthorInfo(player.getVideoData().video_id);
+  if (author) {
+    $('#sub-div').attr('data-channelid', author.youtube_key);
+
+    gapi.ytsubscribe.go('yt-subscribe-container');
+    $('#yt-subscribe-container').show();
+  } else {
+    $('#yt-subscribe-container').hide();
+  }
+};
+const getContentCreators = async () => {
+  const requestInfo = {
+    method: 'GET',
+    header: {
+      'content-type': 'application/json',
+      'user-agent': navigator.userAgent,
+    },
+    credentials: 'omit',
+    referrer: 'no-referrer',
+  };
+  const opts = [];
+  opts.push('method=get-content-creators');
+  const url = `${serviceAPI}?${opts.join('&')}`;
+  try {
+    const request = new Request(url, requestInfo);
+    const response = await fetch(request);
+    if (!response.ok) {
+      // eslint-disable-next-line no-console
+      console.error('[ERROR] Something went wrong content creators. Contact tennotv@warframe.gg for support.');
+    } else {
+      contentCreators.unshift(...(await response.json()));
+      if (!$('#sub-div').attr('data-channelid')) {
+        setTimeout(setSubscriberBar, 1000);
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+};
+const resetSubBar = () => {
+  $('#yt-subscribe-container').empty();
+  $('#yt-subscribe-container').append('<div id="sub-div" class="g-ytsubscribe"></div>');
 };
 
 /* Video Queue */
@@ -240,6 +293,8 @@ function loadVideo(videoId) {
   $(`#playlist #${videoId}`).addClass('table-active');
   player.loadVideoById(videoId);
   addWatchedVideo(videoId);
+  resetSubBar();
+  setTimeout(setSubscriberBar, 1000);
   if (queue[queue.length - 1].video_id === videoId) {
     getVideos(true);
   }
@@ -251,6 +306,8 @@ function loadHistoricalVideo(videoId) {
   $('.table-active').removeClass('table-active');
   $(`#historyList #${videoId}`).addClass('table-active');
   player.loadVideoById(videoId);
+  resetSubBar();
+  setTimeout(setSubscriberBar, 1000);
 }
 
 /* Player events */
@@ -446,7 +503,6 @@ $(document).ready(() => {
   /* Still not reloading, but it wipes data */
   $('.btn-reset').on('click', handleReset);
 
-  $('.navbar-brand').on('click', () => { window.location.reload(true); });
   SVGInjector(document.querySelectorAll('img.toggle-svg'));
 
   adjustPlayerSize();
@@ -457,6 +513,9 @@ $(document).ready(() => {
   $(window).resize(adjustPlayerSize);
   const constructionOpen = localStorage.getItem('constructionVisible');
   if (constructionOpen === 'closed') $('#construction').alert('close');
+
+  gapi.load('ytsubscribe');
+  getContentCreators();
 });
 getVideos(true);
 getHistoricalVideos();
