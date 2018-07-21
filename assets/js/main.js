@@ -3,6 +3,7 @@
 globals localStorage, navigator, $, fetch, gapi
 Request, YT, FlakeId, serviceAPI, SVGInjector, limitToCreator
 */
+/* eslint-disable no-console */
 let queue = [];
 const historicalVideos = [];
 const contentCreators = [];
@@ -36,14 +37,20 @@ const getAuthorInfo = id => {
   return contentCreators.filter(creator => creator.author_id === result.author_id)[0];
 };
 const setSubscriberBar = () => {
-  const author = getAuthorInfo(player.getVideoData().video_id);
-  if (author) {
-    $('#sub-div').attr('data-channelid', author.youtube_key);
+  try {
+    if (player) {
+      const author = getAuthorInfo(player.getVideoData().video_id);
+      if (author) {
+        $('#sub-div').attr('data-channelid', author.youtube_key);
 
-    gapi.ytsubscribe.go('yt-subscribe-container');
-    $('#yt-subscribe-container').show();
-  } else {
-    $('#yt-subscribe-container').hide();
+        gapi.ytsubscribe.go('yt-subscribe-container');
+        $('#yt-subscribe-container').show();
+      } else {
+        $('#yt-subscribe-container').hide();
+      }
+    }
+  } catch (error) {
+    console.error('[ERROR] Failure fetching author info. Ensure player is loaded.');
   }
 };
 const getContentCreators = async () => {
