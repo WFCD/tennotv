@@ -6,7 +6,7 @@ const contentCreators = async ({
       router.get(`/${creator.name}`, (req, res) => {
         logger.log('silly', `Received ${req.method} request for ${req.orginalUrl} from ${req.connection.remoteAddress}`);
         res.render('index', {
-          title: creator.name,
+          title: creator.nameDisp,
           sums,
           serviceAPI,
           limitToCreator: creator.id,

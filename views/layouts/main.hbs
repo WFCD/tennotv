@@ -3,7 +3,11 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>Tenno.Tv | {{title}}</title>
+    {{#if title}}
+      <title>Tenno.tv | {{title}}</title>
+    {{else}}
+      <title>Tenno.tv</title>
+    {{/if}}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta property="og:title" content="Tenno.tv" />
     <meta property="og:description" content="It's YouTube, but less suck." />
@@ -15,10 +19,7 @@
   </head>
   <body>
     {{> nav}}
-    <div class="alert alert-dismissible alert-dark" id="construction">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Excuse our mess!</strong> We are still under construction, but in the meantime, check out a sister site <a href="https://hub.warframestat.us/" target="_blank" rel="noopener">here</a>
-    </div>
+    {{> alerts}}
     {{{body}}}
     {{> footer}}
   </body>

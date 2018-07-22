@@ -4,15 +4,17 @@ globals localStorage, navigator, $, fetch, gapi
 Request, YT, FlakeId, serviceAPI, SVGInjector, limitToCreator
 */
 /* eslint-disable no-console */
-let queue = [];
+const validToggles = ['weapon', 'warframe', 'machinima', 'sfm', 'lore', 'talk', 'fashion'];
 const historicalVideos = [];
 const contentCreators = [];
+const alerts = [];
+
+let queue = [];
 let lastInd = 0;
 let player;
 let done = true;
 let ready = false;
 let playlistVid;
-const validToggles = ['weapon', 'warframe', 'machinima', 'sfm', 'lore', 'talk', 'fashion'];
 
 /* Helpers */
 const titleCase = str => {
@@ -354,6 +356,7 @@ function startVideo(videoId) {
     player = new YT.Player('player', {
       videoId,
       rel: 0,
+      cc_load_policy: 0,
       events: {
         onReady: onPlayerReady,
         onStateChange: onPlayerStateChange,
@@ -466,7 +469,22 @@ const handleReset = async e => {
 };
 
 const adjustPlayerSize = () => {
-  let height = $(window).height() - $('#top-nav').height() - $('#footer-content').height() - ($('#construction').length > 0 ? $('#construction').height() : 0) - 100;
+  const staticHeights = $('#top-nav').height()
+    + $('#footer-content').height()
+    + $('#under-player-controls').height();
+  let dynamicHeights = 0;
+  alerts
+    .filter(alert => {
+      const jItem = $(`#${alert}`);
+      return jItem.length;
+    })
+    .forEach(alert => {
+      const jItem = $(`#${alert}`);
+      dynamicHeights += jItem.height() + 37;
+    });
+  const bufferHeight = 35;
+
+  let height = $(window).height() - (staticHeights + dynamicHeights + bufferHeight);
   let width = (height / 9) * 16;
   if (width > $(window).width()) {
     width = $(window).width();
@@ -487,11 +505,11 @@ $(document).ready(() => {
   });
   $('#historyTrigger').tooltip({
     placement: 'bottom',
-    title: 'Click to Open History',
+    title: 'Open History',
   });
   $('#playlistTrigger').tooltip({
     placement: 'bottom',
-    title: 'Click to Open Playlist',
+    title: 'Open Playlist',
   });
   $('#feedbackTrigger').tooltip({
     placement: 'bottom',
@@ -505,6 +523,10 @@ $(document).ready(() => {
     placement: 'bottom',
     title: 'Reset & Options',
   });
+  $('#playerNext').tooltip({
+    placement: 'bottom',
+    title: 'Next Video',
+  });
   loadToggles();
 
   /* Still not reloading, but it wipes data */
@@ -512,14 +534,22 @@ $(document).ready(() => {
 
   SVGInjector(document.querySelectorAll('img.toggle-svg'));
 
-  adjustPlayerSize();
-  $('#construction').on('close.bs.alert', () => {
-    adjustPlayerSize();
-    localStorage.setItem('constructionVisible', 'closed');
+  const jDismissibles = $('.alert-dismissible');
+  jDismissibles.each(index => alerts.push(jDismissibles[index].id));
+  alerts.forEach(alert => {
+    const isOpen = localStorage.getItem(`${alert}Visible`) !== 'closed';
+    if (isOpen) {
+      $(`#${alert}`).on('closed.bs.alert', () => {
+        localStorage.setItem(`${alert}Visible`, 'closed');
+        adjustPlayerSize();
+      });
+    } else {
+      $(`#${alert}`).alert('close');
+      adjustPlayerSize();
+    }
   });
+  adjustPlayerSize();
   $(window).resize(adjustPlayerSize);
-  const constructionOpen = localStorage.getItem('constructionVisible');
-  if (constructionOpen === 'closed') $('#construction').alert('close');
 
   gapi.load('ytsubscribe');
   getContentCreators();

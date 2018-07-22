@@ -69,7 +69,8 @@
       "public/sums.json"
     ],
     "env": {
-      "SERVICE_API_URL": "http://localhost:3001/tennotv"
+      "SERVICE_API_URL": "http://localhost:3001/tennotv",
+      "LOG_LEVEL": "silly"
     }
   }
 }
