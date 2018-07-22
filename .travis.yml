@@ -4,8 +4,6 @@ notifications:
   email: false
 
 node_js:
-  - "node"
-  - '9'
   - '8'
 
 cache:
