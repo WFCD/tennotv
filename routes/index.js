@@ -16,11 +16,7 @@ const router = express.Router();
 const transport = new transports.Console({colorize: true});
 const logFormat = printf(info => `[${info.label}] ${info.level}: ${info.message}`);
 const logger = createLogger({
-  format: combine(
-    colorize(),
-    label({label: 'Tenno.tv'}),
-    logFormat,
-  ),
+  format: combine(colorize(), label({label: 'Tenno.tv'}), logFormat),
   transports: [transport],
 });
 
