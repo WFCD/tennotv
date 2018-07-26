@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "description": "Warframe YouTube Content",
   "scripts": {
-    "test": "npm run pre && mocha spec mochaspec.js",
+    "test": "npm run pre && mocha mochaspec.js",
     "postinstall": "npm install -g gulp-cli",
     "start": "npm run pre && node ./bin/www",
     "pre": "gulp && gulp hash",

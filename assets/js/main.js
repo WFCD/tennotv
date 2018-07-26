@@ -1,7 +1,8 @@
 /* Actual useful stuff */
 /*
-globals localStorage, navigator, $, fetch, gapi
-Request, YT, FlakeId, serviceAPI, SVGInjector, limitToCreator
+globals localStorage, navigator, $, fetch, gapi,
+Request, YT, FlakeId, serviceAPI, SVGInjector, limitToCreator,
+initialVideo
 */
 /* eslint-disable no-console */
 const validToggles = ['weapon', 'warframe', 'machinima', 'sfm', 'lore', 'talk', 'fashion'];
@@ -90,6 +91,19 @@ const resetSubBar = () => {
   $('#yt-subscribe-container').append('<div id="sub-div" class="g-ytsubscribe"></div>');
 };
 
+const notify = message => {
+  $('#top-nav').after(`
+    <div class="alert alert-dismissible alert-info" id="warn-refetch">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4 class="alert-heading">Heads up!</h4>
+      <p class="mb-0">${message}</p>
+    </div>
+  `);
+  setTimeout(() => {
+    $('#warn-refetch').alert('close');
+  }, 3000);
+};
+
 /* Video Queue */
 async function addVideoToUserHistory(id) {
   const requestInfo = {
@@ -169,7 +183,7 @@ async function addWatchedVideo(id) {
     addHistoryRow(id);
   }
 }
-async function getVideos(useQueue) {
+async function getVideos(useQueue, ignoreTags) {
   const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '[]');
   let currentToken = localStorage.getItem('watcherToken');
   if (!currentToken || !currentToken.length) {
@@ -177,12 +191,14 @@ async function getVideos(useQueue) {
     watchedVideos.forEach(videoId => addHistoryRow(videoId));
     localStorage.removeItem('watchedVideos');
   }
+
   const opts = [
-    limitToCreator ? '' : `included_tags=${getCurrentToggles().join(',')}`,
+    parseInt(limitToCreator, 10) || ignoreTags ? '' : `included_tags=${getCurrentToggles().join(',')}`,
     `excluded_video_ids=${watchedVideos.concat(useQueue ? queue.map(video => video.video_id) : []).join(',')}`,
     `token=${localStorage.getItem('watcherToken') || generateNewToken()}`,
-    limitToCreator ? `content_creator_ids=${limitToCreator}` : '',
-  ];
+    parseInt(limitToCreator, 10) ? `content_creator_ids=${limitToCreator}` : '',
+    initialVideo ? `initial_video=${initialVideo}` : '',
+  ].filter(param => param);
   const requestInfo = {
     method: 'GET',
     header: {
@@ -203,6 +219,10 @@ async function getVideos(useQueue) {
     } else {
       const videoData = await response.json();
       processVideoData(videoData);
+      if (videoData.length < 10) {
+        notify('Not enough videos loaded from your tags, so we added some videos from other categories,<br /> they might be unrelated.');
+        getVideos(true, true);
+      }
     }
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -281,7 +301,12 @@ function processVideoData(videoArray) {
   queue = queue.concat(videoArray);
   updatePlaylist(videoArray);
   if (ready && done) {
-    startVideo(videoArray[0].video_id);
+    if (videoArray[0]) {
+      startVideo(videoArray[0].video_id);
+    } else {
+      notify('Not enough videos loaded from your tags, so we added some videos from other categories,<br /> they might be unrelated.');
+      getVideos(true, true);
+    }
   }
 }
 function getNextVideoId(currentVideoId) {

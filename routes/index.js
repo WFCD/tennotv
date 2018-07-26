@@ -1,5 +1,3 @@
-// Routing page for pages on the root level
-
 const express = require('express');
 const snek = require('snekfetch');
 const {transports, createLogger, format} = require('winston');
@@ -38,9 +36,8 @@ snek.get(url, {headers: {'content-type': 'application/json'}})
     }));
 
     [
-      './routeSetups/root', './routeSetups/creators',
-      './routeSetups/agreement', './routeSetups/feedback',
-      './routeSetups/404',
+      './routeSetups/root', './routeSetups/creators', './routeSetups/videos',
+      './routeSetups/agreement', './routeSetups/feedback', './routeSetups/404',
     ].forEach(async setup => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       await require(setup)(deps);
