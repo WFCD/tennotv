@@ -17,6 +17,8 @@ let done = true;
 let ready = false;
 let playlistVid;
 
+let refetchWarned = false;
+
 /* Helpers */
 const titleCase = str => {
   if (!str) return '';
@@ -92,16 +94,19 @@ const resetSubBar = () => {
 };
 
 const notify = message => {
-  $('#top-nav').after(`
-    <div class="alert alert-dismissible alert-info" id="warn-refetch">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <h4 class="alert-heading">Heads up!</h4>
-      <p class="mb-0">${message}</p>
-    </div>
-  `);
-  setTimeout(() => {
-    $('#warn-refetch').alert('close');
-  }, 3000);
+  if (!$('#warn-refetch').length && !refetchWarned) {
+    refetchWarned = true;
+    $('#top-nav').after(`
+      <div class="alert alert-dismissible alert-info" id="warn-refetch">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Heads up!</h4>
+        <p class="mb-0">${message}</p>
+      </div>
+    `);
+    setTimeout(() => {
+      $('#warn-refetch').alert('close');
+    }, 3000);
+  }
 };
 
 /* Video Queue */
@@ -141,7 +146,7 @@ function makeHistoryRow(video) {
   /* eslint-disable no-plusplus */
   return `<tr id="${video.video_id}" class="video-row">
     <td class="title col-md-7"><a href="${video.video_id}" target="_blank" rel="noopener" name="${video.video_title}">${video.video_title}</a></td>
-    <td class="author col-md-2"><a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${video.account_name}</a></td>
+    <td class="author col-md-2"><a href="/${video.account_name.replace(/\s/ig, '').toLowerCase()}" name="${video.account_name}'s Channel">${video.account_name}</a></td>
     <td class="tags col-md-3">${makeTags(video.video_tag_ids)}</td>
   </tr>`;
 }
@@ -196,7 +201,7 @@ async function getVideos(useQueue, ignoreTags) {
     parseInt(limitToCreator, 10) || ignoreTags ? '' : `included_tags=${getCurrentToggles().join(',')}`,
     `excluded_video_ids=${watchedVideos.concat(useQueue ? queue.map(video => video.video_id) : []).join(',')}`,
     `token=${localStorage.getItem('watcherToken') || generateNewToken()}`,
-    parseInt(limitToCreator, 10) ? `content_creator_ids=${limitToCreator}` : '',
+    parseInt(limitToCreator, 10) && !ignoreTags ? `content_creator_ids=${limitToCreator}` : '',
     initialVideo ? `initial_video=${initialVideo}` : '',
   ].filter(param => param);
   const requestInfo = {
@@ -272,7 +277,7 @@ function makeTags(tagArray) {
 function makeRow(video) {
   const authorSpan = `<span class='author-name'>${video.account_name}</span>`;
   const authorImg = video.author_yt_thumbnail ? `<img class="author-img" alt="${video.account_name}" title="${video.account_name}" src="${video.author_yt_thumbnail}">` : '';
-  const authorLink = `<a href="https://www.youtube.com/channel/${video.youtube_key}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${authorImg}${authorSpan}</a>`;
+  const authorLink = `<a href="/${video.account_name.replace(/\s/ig, '').toLowerCase()}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${authorImg}${authorSpan}</a>`;
   const authorRow = `<td class="author col-md-2">${authorLink}</td>`;
 
   return `<tr id="${video.video_id}" class="video-row">

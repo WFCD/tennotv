@@ -193,3 +193,13 @@ input[type="checkbox"]:checked:after,
   margin-left: auto;
   margin-right: auto;
 }
+
+
+/* floating alert */
+#warn-refetch {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
