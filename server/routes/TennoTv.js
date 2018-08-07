@@ -149,8 +149,11 @@ class TennoTv extends Route {
     const url = `${base}?${opts.join('&')}`;
     try {
       this.logger.log('debug', url);
-      const snekRes = JSON.parse((await snek.get(url,
-        {headers: {'content-type': 'application/json'}})).body.toString());
+      const snekRes = JSON.parse((
+        await snek.get(
+          url,
+          {headers: {'content-type': 'application/json'}},
+        )).body.toString());
       this.setHeadersAndJson(res, snekRes);
     } catch (e) {
       this.logger.log('error', e.type === 'Buffer' ? e.string : e.toString());
