@@ -1,0 +1,9 @@
+{
+  "verbose": false,
+  "ignore": ["public/*", "assets/*", "routes/*"],
+  "env": {
+    "PORT": 3001,
+    "LOG_LEVEL": "silly",
+    "VIDEO_API_TOKEN": "lm2uLRTSSK"
+  }
+}

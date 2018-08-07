@@ -5,7 +5,10 @@ const del = require('del');
 const hashsum = require('gulp-hashsum');
 
 gulp.task('clean-js', () => del([
-  './public/js/main.js',
+  './public/js/utility.js',
+  './public/js/dataHelper.js',
+  './public/js/playerControl.js',
+  './public/js/uiControl.js',
   './public/sums.json',
 ]));
 
@@ -13,7 +16,7 @@ gulp.task('clean-css', () => del([
   './public/css/styles.css',
 ]));
 
-gulp.task('pack-js', () => gulp.src(['assets/js/*.js'])
+gulp.task('pack-js', () => gulp.src(['assets/js/utility.js', 'assets/js/dataHelper.js', 'assets/js/playerControl.js', 'assets/js/uiControl.js'])
   .pipe(minify({
     ext: {
       min: '.js',

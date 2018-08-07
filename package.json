@@ -7,9 +7,11 @@
     "postinstall": "npm install -g gulp-cli",
     "start": "npm run pre && node ./bin/www",
     "pre": "gulp && gulp hash",
-    "dev": "npm i nodemon@latest && nodemon",
+    "dev": "nodemon",
     "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "api": "node start ./server/server.js",
+    "dev:server": "nodemon ./server/server.js --config server.nodemon.json"
   },
   "repository": {
     "type": "git",
@@ -40,6 +42,7 @@
     "gulp-hashsum": "^1.2.0",
     "gulp-minify": "git://github.com/zbennett10/gulp-minify.git#e1d8905041af230fd0fb980aa8a26c12c53e03f7",
     "hbs": "^4.0.1",
+    "helmet": "^3.13.0",
     "nodemon": "^1.18.3",
     "serve-favicon": "~2.5.0",
     "sinon": "6.0.1",
@@ -66,10 +69,13 @@
     "ignore": [
       "public/js/*",
       "public/css/*",
-      "public/sums.json"
+      "public/sums.json",
+      ".git",
+      "server/*",
+      "server.nodemon.json"
     ],
     "env": {
-      "SERVICE_API_URL": "http://localhost:3001/tennotv",
+      "SERVICE_API_URL": "http://localhost:3001",
       "LOG_LEVEL": "silly"
     }
   }
