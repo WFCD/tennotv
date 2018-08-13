@@ -203,3 +203,23 @@ input[type="checkbox"]:checked:after,
   width: 100%;
   z-index: 9999;
 }
+
+.video-row .title .fa-play {
+  display: none;
+  color: var(--primary-c);
+}
+
+.video-row.table-active .title .fa-play {
+  display: inline;
+  margin-right: 10px
+}
+
+#toggle-label[disabled] {
+  background-color: #fff;
+}
+
+.creator-name {
+  font-size: 16px;
+  color: #44a9db;
+  font-weight: bold;
+}

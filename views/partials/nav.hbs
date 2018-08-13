@@ -73,12 +73,17 @@
       </div>
       <div class="modal-body">
         <div class="container">
+          <div class="row">
+            <h6 class="caption">
+              Select a content creator below to view their videos.
+            </h6>
+          </div>
           <div class="row text-center">
             {{#each creators}}
               <div class="col-sm-2" id='creator-{{this.id}}'>
                 <figure>
-                  <a href="/{{this.name}}"><img src="{{this.thumb}}" height="50px" />
-                    <figcaption>{{this.nameDisp}}</figcaption>
+                  <a href="/{{this.name}}"><img src="{{this.thumb}}" height="75px" />
+                    <figcaption class="creator-name">{{this.nameDisp}}</figcaption>
                   </a>
                 </figure>
               </div>
@@ -96,10 +101,12 @@
 <nav class="navbar navbar-inverse navbar-default navbar-fixed-top" data-backdrop="false" id="top-nav">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="/"><img class="navbar-brand" src="https://i.imgur.com/xOpIktm.png" alt="logo"/></a>
+      <a href="/"><img id="logo" class="navbar-brand" src="https://i.imgur.com/xOpIktm.png" alt="logo"/></a>
     </div>
     <div class="navbar n-right">
       <div class="btn-group btn-group-toggle" data-toggle="buttons" id="options">
+        <label class="btn btn-sm btn-secondary" id="toggle-label" name="Toggles Label" disabled>Labels <i class="fas fa-arrow-right"></i></label>
+
         <label class="btn btn-sm btn-secondary opts-h" name="Weapons Toggle" id="toggle-weapon" data-toggle-name="Weapons">
           <input type="checkbox" autocomplete="off" class="opts-h" id="toggle-weapon-check">
           <img class="toggle-img opts-h sel-img" id="toggle-weapon-img" src="/img/weapons.png?v={{lookup sums 'img/weapons.png'}}"/>

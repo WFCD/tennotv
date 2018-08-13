@@ -35,11 +35,10 @@
   const serviceAPI = '{{serviceAPI}}';
   const limitToCreator = '{{limitToCreator}}';
   const initialVideo = '{{initialVideo}}';
-  if (initialVideo) {
-    console.debug(`[DEBUG] starting with video ${initialVideo}`);
-    window.history.pushState('', '', '/');
-  }
 </script>
 
 <!-- scripts! -->
-<script src="/js/main.js?v={{lookup sums 'js/main.js'}}"></script>
+<script src="/js/utility.js?v={{lookup sums 'js/utility.js'}}"></script>
+<script src="/js/dataHelper.js?v={{lookup sums 'js/dataHelper.js'}}"></script>
+<script src="/js/playerControl.js?v={{lookup sums 'js/playerControl.js'}}"></script>
+<script src="/js/uiControl.js?v={{lookup sums 'js/uiControl.js'}}"></script>
