@@ -25,6 +25,9 @@ logger.level = process.env.LOG_LEVEL || 'error';
 
 const url = `${serviceAPI}?method=get-content-creators`;
 
+deps.creators = [];
+require('./routeSetups/root')(deps);
+
 const setup = async () => {
   try {
     logger.log('debug', `Fetching creators: ${url}`);
@@ -37,22 +40,16 @@ const setup = async () => {
     }));
   } catch (error) {
     logger.log('error', error.stack);
-    deps.creators = [];
   }
-
-  [
-    './routeSetups/root', './routeSetups/creators', './routeSetups/videos',
-    './routeSetups/agreement', './routeSetups/feedback', './routeSetups/404',
-  ].forEach(async setup => {
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    await require(setup)(deps);
-  });
-
-  // eslint-disable-next-line no-shadow
-  setTimeout(deps => {
-    // eslint-disable-next-line global-require
-    require('./routeSetups/catchAll')(deps);
-  }, 60000, deps);
+  /* eslint-disable global-require, import/no-dynamic-require */
+  await require('./routeSetups/root')(deps);
+  await require('./routeSetups/creators')(deps);
+  await require('./routeSetups/videos')(deps);
+  await require('./routeSetups/agreement')(deps);
+  await require('./routeSetups/feedback')(deps);
+  await require('./routeSetups/404')(deps);
+  /* eslint-enable global-require, import/no-dynamic-require */
+  await require('./routeSetups/catchAll')(deps);
 };
 
 setup();
