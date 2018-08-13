@@ -44,7 +44,6 @@ const setup = async () => {
     logger.log('error', error.stack);
   }
   /* eslint-disable global-require, import/no-dynamic-require */
-  await require('./routeSetups/root')(deps);
   await require('./routeSetups/creators')(deps);
   await require('./routeSetups/videos')(deps);
   await require('./routeSetups/agreement')(deps);

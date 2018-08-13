@@ -27,6 +27,19 @@ const getContentCreators = async () => {
       console.error('[ERROR] Something went wrong content creators. Contact tennotv@warframe.gg for support.');
     } else {
       contentCreators.unshift(...(await response.json()));
+      
+      if (!$($('#creators').find('.row.text-center')[0]).children().length) {
+        contentCreators.forEach(creator => {
+          $($('#creators').find('.row.text-center')[0]).append(`
+            <div class="col-sm-2" id='creator-${creator.id}'>
+              <figure>
+                <a href="/${creator.name}"><img src="${creator.thumb}" height="75px" />
+                  <figcaption class="creator-name">${creator.nameDisp}</figcaption>
+                </a>
+              </figure>
+            </div>`);
+        });
+      }
     }
   } catch (error) {
     // eslint-disable-next-line no-console
