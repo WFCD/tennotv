@@ -49,8 +49,8 @@ const setup = async () => {
   await require('./routeSetups/agreement')(deps);
   await require('./routeSetups/feedback')(deps);
   await require('./routeSetups/404')(deps);
-  /* eslint-enable global-require, import/no-dynamic-require */
   await require('./routeSetups/catchAll')(deps);
+  /* eslint-enable global-require, import/no-dynamic-require */
 };
 
 setup();

@@ -27,7 +27,7 @@ const getContentCreators = async () => {
       console.error('[ERROR] Something went wrong content creators. Contact tennotv@warframe.gg for support.');
     } else {
       contentCreators.unshift(...(await response.json()));
-      
+
       if (!$($('#creators').find('.row.text-center')[0]).children().length) {
         contentCreators.forEach(creator => {
           $($('#creators').find('.row.text-center')[0]).append(`
