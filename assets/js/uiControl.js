@@ -119,7 +119,7 @@ const adjustPlayerSize = () => {
   $('#playerWrapper').height(height);
   $('#playerWrapper').width(width);
   
-  if ($('.container-fluid').width() < 575) {
+  if ($('.container-fluid').width() < 650) {
     $('#logo').attr('src', 'https://i.imgur.com/vH13j9B.png');
   } else {
     $('#logo').attr('src', 'https://i.imgur.com/xOpIktm.png');
