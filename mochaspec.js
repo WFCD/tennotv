@@ -11,7 +11,7 @@ const test = async () => {
   app.use(router);
 
   const hbs = handlebars.create({helpers: {json: JSON.stringify}, defaultLayout: 'main', extname: '.hbs'});
-  
+
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.engine('.hbs', hbs.engine);
@@ -22,7 +22,6 @@ const test = async () => {
   
   describe('GET /', () => {
     it('respond with 200', done => {
-      
       request(app)
         .get('/')
         .expect(200)

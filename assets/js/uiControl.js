@@ -1,7 +1,7 @@
 /*
 global
 makeTags, lastInd, loadVideo, $, lastInd, validToggles, resetToggles, resetWatchedVideos, alerts
-SVGInjector, gapi, getContentCreators, getVideos, getHistoricalVideos, initialVideo
+SVGInjector, gapi, getContentCreators, getVideos, getHistoricalVideos, initialVideo, localStorage
 */
 /* eslint-disable no-unused-vars */
 
@@ -118,7 +118,7 @@ const adjustPlayerSize = () => {
   }
   $('#playerWrapper').height(height);
   $('#playerWrapper').width(width);
-  
+
   if ($('.container-fluid').width() < 650) {
     $('#logo').attr('src', 'https://i.imgur.com/vH13j9B.png');
   } else {

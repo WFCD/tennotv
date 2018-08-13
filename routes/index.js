@@ -26,6 +26,8 @@ logger.level = process.env.LOG_LEVEL || 'error';
 const url = `${serviceAPI}?method=get-content-creators`;
 
 deps.creators = [];
+
+// eslint-disable-next-line global-require
 require('./routeSetups/root')(deps);
 
 const setup = async () => {
