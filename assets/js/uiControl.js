@@ -118,6 +118,12 @@ const adjustPlayerSize = () => {
   }
   $('#playerWrapper').height(height);
   $('#playerWrapper').width(width);
+  
+  if ($('.container-fluid').height() < 575) {
+    $('#logo').attr('src', 'https://i.imgur.com/vH13j9B.png');
+  } else {
+    $('#logo').attr('src', 'https://i.imgur.com/xOpIktm.png');
+  }
 };
 
 $(document).ready(() => {
