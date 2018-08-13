@@ -33,8 +33,8 @@ const getContentCreators = async () => {
           $($('#creators').find('.row.text-center')[0]).append(`
             <div class="col-sm-2" id='creator-${creator.id}'>
               <figure>
-                <a href="/${creator.name}"><img src="${creator.thumb}" height="75px" />
-                  <figcaption class="creator-name">${creator.nameDisp}</figcaption>
+                <a href="/${creator.account_name.replace(/\s/ig, '').toLowerCase()}"><img src="${creator.youtube_thumbnail}" height="75px" />
+                  <figcaption class="creator-name">${creator.account_name}</figcaption>
                 </a>
               </figure>
             </div>`);
