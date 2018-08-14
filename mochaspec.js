@@ -21,10 +21,10 @@ const test = async () => {
   app.use(express.static(path.join(__dirname, 'public')));
 
   describe('GET /', () => {
-    it('respond with 200', done => {
+    it('redirects with 302', done => {
       request(app)
         .get('/')
-        .expect(200)
+        .expect(302)
         .end((err, res) => {
           if (err && res !== null) {
             return done(err);
