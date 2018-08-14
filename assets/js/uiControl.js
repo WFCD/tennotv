@@ -132,40 +132,6 @@ $(document).ready(() => {
   }
 
   $('.opts-h').on('click', handleOptionClick);
-  $.each($('label.opts-h'), (index, element) => {
-    $(element).tooltip({
-      placement: 'bottom',
-      title: `Click to Toggle ${$(element).attr('data-toggle-name')}`,
-    });
-  });
-  $('#historyTrigger').tooltip({
-    placement: 'bottom',
-    title: 'Open History',
-  });
-  $('#playlistTrigger').tooltip({
-    placement: 'bottom',
-    title: 'Open Playlist',
-  });
-  $('#feedbackTrigger').tooltip({
-    placement: 'bottom',
-    title: 'Feedback',
-  });
-  $('#creatorsTrigger').tooltip({
-    placement: 'bottom',
-    title: 'Content Creators',
-  });
-  $('#toggle-label').tooltip({
-    placement: 'bottom',
-    title: 'Toggle these to enable or disable them on your playlist.',
-  });
-  $('button.btn-reset').tooltip({
-    placement: 'bottom',
-    title: 'Reset & Options',
-  });
-  $('#playerNext').tooltip({
-    placement: 'bottom',
-    title: 'Next Video',
-  });
   loadToggles();
 
   /* Still not reloading, but it wipes data */
@@ -192,6 +158,10 @@ $(document).ready(() => {
 
   gapi.load('ytsubscribe');
   getContentCreators();
+
+  $(() => {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 });
 
 getVideos(true);
