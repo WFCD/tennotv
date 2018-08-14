@@ -1,4 +1,4 @@
-/* globals caches, fetch */
+/* globals caches, fetch, self */
 self.addEventListener('install', event => {
   event.waitUntil(caches
     .open('v1')
