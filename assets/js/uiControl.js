@@ -158,10 +158,10 @@ $(document).ready(() => {
 
   gapi.load('ytsubscribe');
   getContentCreators();
-  
-  $(function () {
+
+  $(() => {
     $('[data-toggle="tooltip"]').tooltip();
-  })
+  });
 });
 
 getVideos(true);
