@@ -8,8 +8,7 @@ window.self.addEventListener('install', event => {
         'js/dataHelper.js',
         'js/playerControl.js',
         'js/uiControl.js',
-      ])),
-  );
+      ])));
 });
 window.self.addEventListener('fetch', e => {
   e.respondWith(caches
