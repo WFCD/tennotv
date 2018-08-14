@@ -4,3 +4,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <!-- Bootswatch CSS -->
 <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/materia/bootstrap.min.css" />
+
+<script>
+  /* globals navigator */
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+  	navigator.serviceWorker.register('/js/service_worker.js', {scope: '/'});
+  }
+</script>
