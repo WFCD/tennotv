@@ -120,9 +120,9 @@ const adjustPlayerSize = () => {
   $('#playerWrapper').width(width);
 
   if ($('.container-fluid').width() < 650) {
-    $('#logo').attr('src', 'https://i.imgur.com/vH13j9B.png');
+    $('#logo').attr('src', '/img/logos/logo-50.webp');
   } else {
-    $('#logo').attr('src', 'https://i.imgur.com/xOpIktm.png');
+    $('#logo').attr('src', '/img/logos/banner.webp');
   }
 };
 
