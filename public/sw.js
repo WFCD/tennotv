@@ -1,5 +1,5 @@
-/* globals caches, fetch, self */
-self.addEventListener('install', event => {
+/* globals caches, fetch */
+window.self.addEventListener('install', event => {
   event.waitUntil(caches
     .open('v1')
     .then(cache => cache.addAll([
@@ -17,7 +17,7 @@ self.addEventListener('install', event => {
       'css/styles.css',
     ])));
 });
-self.addEventListener('fetch', e => {
+window.self.addEventListener('fetch', e => {
   e.respondWith(caches
     .match(e.request)
     .then(response => response || fetch(e.request)));
