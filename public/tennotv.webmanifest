@@ -1,0 +1,16 @@
+{
+  "name": "Tenno.tv",
+  "short_name": "Tenno.tv",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000",
+  "description": "Tenno.tv... Warframe YouTube content, but less suck",
+  "icons": [
+    {
+      "src": "img/logos/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ccc"
+}
