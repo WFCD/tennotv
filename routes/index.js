@@ -27,6 +27,17 @@ const url = `${serviceAPI}?method=get-content-creators`;
 
 deps.creators = [];
 
+// auto-redirect to https
+router.use((req, res, next) => {
+  if (req.secure) {
+    // request was via https, so do no special handling
+    next();
+  } else {
+    // request was via http, so redirect to https
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
+
 // eslint-disable-next-line global-require
 require('./routeSetups/root')(deps);
 
