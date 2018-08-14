@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="description" content="Tenno.tv... Warframe YouTube content, but less suck">
+    <meta name="theme-color" content="#fff">
     {{#if title}}
       <title>Tenno.tv | {{title}}</title>
     {{else}}
       <title>Tenno.tv</title>
     {{/if}}
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta property="og:title" content="Tenno.tv" />
     <meta property="og:description" content="It's YouTube, but less suck." />
     <meta property="og:url" content="https://tenno.tv" />
-    <meta property="og:image" content="img/logo.png?v={{lookup sums 'img/logo.png`'}}" />
-
+    <meta property="og:image" content="/img/logos/logo-50.png?v={{lookup sums 'img/logos/logo-50.png`'}}" />
+    <link rel="manifest" href="/manifest.json">
+    {{> criticalassets}}
     {{> analytics}}
-    {{> dependencies}}
   </head>
   <body>
     {{> nav}}
     {{> alerts}}
     {{{body}}}
+    {{> dependencies}}
     {{> footer}}
   </body>
 </html>

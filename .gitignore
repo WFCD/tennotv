@@ -61,6 +61,7 @@ typings/
 public/css/*
 public/js/*
 !public/js/flakeid.min.js
+!public/js/service_worker.js
 public/sums.json
 
 # Original files created while diffing
