@@ -82,7 +82,7 @@
             {{#each creators}}
               <div class="col-sm-2" id='creator-{{this.id}}'>
                 <figure>
-                  <a href="/{{this.name}}"><img src="{{this.thumb}}" height="75px" />
+                  <a href="/{{this.name}}" rel="noopener" title="{{this.nameDisp}}" alt="{{this.nameDisp}}'s Page"><img src="{{this.thumb}}" height="75px" width="75px" />
                     <figcaption class="creator-name">{{this.nameDisp}}</figcaption>
                   </a>
                 </figure>
