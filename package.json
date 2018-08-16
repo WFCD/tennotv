@@ -10,7 +10,7 @@
     "dev": "nodemon",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "api": "node start ./server/server.js",
+    "api": "node ./server/server.js",
     "dev:server": "nodemon ./server/server.js --config server.nodemon.json"
   },
   "repository": {
@@ -39,6 +39,7 @@
     "express-handlebars": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^3.9.4",
+    "gulp-cli": "^2.0.1",
     "gulp-hashsum": "^1.2.0",
     "gulp-minify": "git://github.com/zbennett10/gulp-minify.git#e1d8905041af230fd0fb980aa8a26c12c53e03f7",
     "hbs": "^4.0.1",
