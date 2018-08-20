@@ -3,7 +3,7 @@ globals
 
 localStorage, navigator, $, fetch, Request, serviceAPI, historicalVideos, contentCreators,
 generateNewToken, queue, limitToCreator, loadHistoricalVideo, makeHistoryRow, initialVideo,
-getCurrentToggles, processVideoData, notify
+getCurrentToggles, processVideoData, notify, player
 */
 /* eslint-disable no-unused-vars */
 const getContentCreators = async () => {
@@ -39,6 +39,11 @@ const getContentCreators = async () => {
               </figure>
             </div>`);
         });
+      }
+      if (player) {
+        loadAuthorSocialsByVideoId(player.getVideoData().video_id);
+      } else {
+        setTimeout(() => { loadAuthorSocialsByVideoId(player.getVideoData().video_id); }, 3000);
       }
     }
   } catch (error) {
@@ -196,5 +201,62 @@ async function getHistoricalVideos() {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
+  }
+}
+
+function resolveVideo(id) {
+  const playlistResults = queue.filter(video => video.video_id === id);
+  if (playlistResults.length) {
+    return playlistResults[0];
+  }
+  const historicalResults = historicalVideos.filter(video => video.video_id === id);
+  if (historicalResults.length) {
+    return historicalResults[0];
+  }
+  return undefined;
+}
+
+function loadAuthorSocialsByVideoId(videoId) {
+  const video = resolveVideo(videoId);
+  if (!video) {
+    $('.btn-social').hide();
+    return;
+  }
+  const filteredCreators = contentCreators
+    .filter(creator => creator.author_id === video.author_id);
+  const creator = filteredCreators.length ? filteredCreators[0] : undefined;
+  if (!creator) {
+    $('.btn-social').hide();
+  } else {
+    $.each($('.btn-social'), (index, element) => {
+      const target = $(element);
+      const attr = target.attr('data-social');
+      if (creator[attr]) {
+        target.show();
+        let link;
+        switch (attr) {
+        case 'account_name':
+          link = `https://youtube.com/channel/${creator.youtube_key}`;
+          break;
+        case 'patreon_name':
+          link = `https://patreon.com/${creator.patreon_name}`;
+          break;
+        case 'twitch_handle':
+          link = `https://twitch.tv/${creator.twitch_handle}`;
+          break;
+        case 'twitter_handle':
+          link = `https://twitter.com/${creator.twitter_handle}`;
+          break;
+        default:
+          break;
+        }
+        if (link) {
+          target.attr('href', link);
+          target.show();
+        } else {
+          target.hide();
+        }
+      }
+    });
   }
 }

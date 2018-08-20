@@ -119,7 +119,7 @@ const adjustPlayerSize = () => {
   $('#playerWrapper').height(height);
   $('#playerWrapper').width(width);
 
-  if ($('.container-fluid').width() < 650) {
+  if ($('#top-nav').width() < 990) {
     $('#logo').attr('src', '/img/logos/logo-50.webp');
   } else {
     $('#logo').attr('src', '/img/logos/banner.webp');
@@ -154,7 +154,6 @@ $(document).ready(() => {
     }
   });
   adjustPlayerSize();
-  $(window).resize(adjustPlayerSize);
 
   gapi.load('ytsubscribe');
   getContentCreators();
@@ -162,7 +161,12 @@ $(document).ready(() => {
   $(() => {
     $('[data-toggle="tooltip"]').tooltip();
   });
+
+  $('.btn-social').on('click', event => {
+    window.open(event.currentTarget.getAttribute('href'), '_blank');
+  });
 });
 
 getVideos(true);
 getHistoricalVideos();
+$(window).resize(adjustPlayerSize);

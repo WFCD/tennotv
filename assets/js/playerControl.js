@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars, no-global-assign */
 /* globals updatePlaylist, YT, getVideos, notify, $, addWatchedVideo,
-queue, ready, done, player, playlistVid, setUrl */
+queue, ready, done, player, playlistVid, setUrl, contentCreators,
+resolveVideo, loadAuthorSocialsByVideoId
+*/
 
 function processVideoData(videoArray) {
   queue = queue.concat(videoArray);
@@ -34,6 +36,7 @@ function loadVideo(videoId) {
   $(`#playlist #${videoId}`).addClass('table-active');
   player.loadVideoById(videoId);
   addWatchedVideo(videoId);
+  loadAuthorSocialsByVideoId(videoId);
   if (queue[queue.length - 1].video_id === videoId) {
     getVideos(true);
   }
