@@ -9,6 +9,6 @@
   /* globals navigator */
   // Register service worker
   if ('serviceWorker' in navigator) {
-  	navigator.serviceWorker.register('sw.js', {scope: '/'});
+  	navigator.serviceWorker.register('sw.js?v={{lookup sums 'sw.js'}}', {scope: '/'});
   }
 </script>

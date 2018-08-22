@@ -29,7 +29,7 @@ gulp.task('pack-css', () => gulp.src(['./assets/css/*.css'])
   .pipe(cleanCss())
   .pipe(gulp.dest('./public/css')));
 
-gulp.task('hash', () => gulp.src(['public/js/**/*.js', 'public/css/**/*.css', 'public/img/**'])
+gulp.task('hash', () => gulp.src(['public/js/**/*.js', 'public/css/**/*.css', 'public/img/**', 'public/sw.js'])
   .pipe(hashsum({
     dest: 'public',
     json: true,
