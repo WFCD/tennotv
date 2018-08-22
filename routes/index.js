@@ -7,7 +7,7 @@ const {
 } = format;
 const sums = require('../public/sums.json'); // eslint-disable-line import/no-unresolved
 
-const serviceAPI = process.env.SERVICE_API_URL || 'https://api.warframestat.us/tennotv';
+const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv';
 
 // Set up logger
 const router = express.Router();
