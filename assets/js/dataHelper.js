@@ -43,7 +43,7 @@ const getContentCreators = async () => {
       if (player) {
         loadAuthorSocialsByVideoId(player.getVideoData().video_id);
       } else {
-        setTimeout(() => { loadAuthorSocialsByVideoId(player.getVideoData().video_id); }, 3000);
+        setTimeout(() => { loadAuthorSocialsByVideoId(player.getVideoData().video_id); }, 4000);
       }
     }
   } catch (error) {
@@ -217,6 +217,10 @@ function resolveVideo(id) {
 }
 
 function loadAuthorSocialsByVideoId(videoId) {
+  if (typeof videoId === 'undefined' && player) {
+    // eslint-disable-next-line no-param-reassign
+    videoId = player.getVideoData().video_id;
+  }
   const video = resolveVideo(videoId);
   if (!video) {
     $('.btn-social').hide();
@@ -231,6 +235,14 @@ function loadAuthorSocialsByVideoId(videoId) {
     $.each($('.btn-social'), (index, element) => {
       const target = $(element);
       const attr = target.attr('data-social');
+      if (attr === 'creator_name') {
+        target.show();
+        const link = `https://tenno.tv/${creator.account_name.replace(/\s/ig, '').toLowerCase()}`;
+        target.attr('href', link);
+        const tooltip = target.find('a');
+        tooltip.attr('data-original-title', creator.account_name).tooltip();
+      }
+
       if (creator[attr]) {
         target.show();
         let link;
