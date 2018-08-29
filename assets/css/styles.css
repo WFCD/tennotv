@@ -255,3 +255,8 @@ input[type="checkbox"]:checked:after,
   background-image: none;
   color: white;
 }
+
+.dropdown-item.active {
+  background-color: var(--dblue);
+  background: var(--dblue) linear-gradient(180deg, var(--theme), var(--dblue)) repeat-x
+}

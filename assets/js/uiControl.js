@@ -54,22 +54,42 @@ function handleOptionClick(event) {
   window.location.reload();
 }
 
+function handleOptionDropdownClick(event) {
+  // do nothing
+  const target = $(event.currentTarget);
+  const newStatus = !target.hasClass('active');
+  const tag = target.attr('data-toggle-opt');
+  // add class to text-based
+  target.toggleClass('active');
+  // add checkbox
+  $(`#toggle-${tag}-check`).prop('checked', newStatus);
+  // add active on toggle
+  $(`#toggle-${tag}`).toggleClass('active');
+  localStorage.setItem(tag, newStatus ? 'on' : 'off');
+  event.stopPropagation();
+}
+
 function loadToggles() {
   validToggles.forEach(toggle => {
     const currentToggleStatus = localStorage.getItem(toggle);
     if (currentToggleStatus && currentToggleStatus === 'off') {
       $(`#toggle-${toggle}-check`).prop('checked', false);
       $(`#toggle-${toggle}`).removeClass('active');
+      $('.opts').find(`[data-toggle-opt="${toggle}"]`).removeClass('active');
     } else if (currentToggleStatus) {
       $(`#toggle-${toggle}-check`).prop('checked', true);
       $(`#toggle-${toggle}`).addClass('active');
+      $('.opts').find(`[data-toggle-opt="${toggle}"]`).addClass('active');
     }
     // set cookie if it doesn't exist
     if (!currentToggleStatus) {
       localStorage.setItem(toggle, 'off');
       $(`#toggle-${toggle}-check`).prop('checked', false);
       $(`#toggle-${toggle}`).removeClass('active');
+      $('.opts').find(`[data-toggle-opt="${toggle}"]`).removeClass('active');
     }
+
+    $(`[data-toggle-opt="${toggle}"]`).on('click', handleOptionDropdownClick);
   });
 }
 
