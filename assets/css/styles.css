@@ -1,26 +1,16 @@
 :root {
-  --primary-c: #fff;
+  --primary: #fff;
   --secondary: #c0c0c0;
   --table-c: #131313;
+  --theme: #44a9db;
+  --dblue: #045b86;
 }
 
 body {
   background-color: var(--table-c);
-  color: var(--primary-c);
+  color: white;
 }
-
-.container {
-  margin-bottom: 30px;
-}
-
 /* top nav */
-#top-nav {
-  height: 45px;
-}
-img.navbar-brand {
-  height: 50px;
-}
-
 .modal-body a img.wfcd-banner {
   height: 110px;
   overflow: hidden;
@@ -32,7 +22,7 @@ img.navbar-brand {
 }
 
 .modal-dialog, .modal-body {
-  max-height: calc(100vh - 225px);
+  /* max-height: calc(100vh - 225px); */
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -53,7 +43,7 @@ img.navbar-brand {
 
 .plist table {
   border-collapse: separate;
-  border: solid var(--primary-c) 1px;
+  border: solid var(--primary) 1px;
   -moz-border-radius:6px;
   border-radius:6px;
 }
@@ -63,7 +53,7 @@ img.navbar-brand {
 }
 
 .plist th {
-    border-bottom: 1px var(--primary-c) solid;
+    border-bottom: 1px var(--primary) solid;
 }
 
 .plist tbody tr {border-top: none; display: flex;}
@@ -78,20 +68,15 @@ img.navbar-brand {
   background-color: transparent;
 }
 
-.table-dark a { color: var(--primary-c); }
-.table-dark a:visited { color: var(--red); }
-.table-dark a:hover { color: var(--red); }
-.plist thead th { border-color: var(--primary-c); }
+.table-dark a { color: var(--primary); }
+.table-dark a:visited { color: var(--theme); }
+.table-dark a:hover { color: var(--theme); }
+.plist thead th { border-color: var(--primary); }
 .plist thead { border-bottom: 1px; }
-.plist.table thead th { border-bottom: 2px solid var(--primary-c)}
+.plist.table thead th { border-bottom: 2px solid var(--primary)}
 
 .author-img { display: none; max-height: 50px; }
 
-/* player controls */
-#under-player-controls {
-  height: 40px;
-  margin-top: -5px;
-}
 .navbar.n-center {
   box-shadow: none;
   border: none;
@@ -103,43 +88,67 @@ img.navbar-brand {
   padding-top: 5px;
 }
 
+@media (min-width: 990px) {
+  .n-right li:first-child {
+    position: fixed;
+    right: 5px;
+    top: 1em;
+    align-items: flex-start;
+    display: flex;
+    align-self: flex-end;
+  }
+
+  .n-right li:not(:first-child) {
+    display: none;
+  }
+
+  #top-nav {
+    height: 4em;
+  }
+}
+
+@media (max-width: 990px) {
+  .n-right li:first-child {
+    display: none;
+  }
+}
+
 /* Modal content */
-.modal-content { background-color: rgba(40, 40, 40, .8); color: var(--primary-c); overflow-x: hidden; }
+.modal-content { background-color: rgba(40, 40, 40, .8); color: var(--primary); overflow-x: hidden; }
 .modal-content img { background-color: rgba(255, 255, 255, 0.3); }
 .modal-footer { border-top: #131313; }
 .modal-header { border-bottom: #131313; }
 
 /* Footer content */
-.navbar {
-  box-shadow: 0 1px 2px var(--primary-c);
-}
 .navbar-footer {
   bottom: 0;
   width: 100%;
   height: 31px;
   position: fixed;
-  color: var(--primary-c);
+  color: var(--primary);
   background-color: var(--table-c);
-}
-
-.n-right {
-  margin-top: 5px;
-  box-shadow: none;
-  border:  none;
+  box-shadow: 0 1px 2px var(--primary);
 }
 
 .navbar-footer > div > div {
     padding-top: 7px;
     padding-bottom: 7px;
 }
-.navbar-footer a, a { color: #e51c23; }
+
+.navbar-footer a, a { color: var(--theme); }
 
 /* Buttons */
 .btn-outline-danger { border: 1px solid #e51c23; }
 .btn-danger { border: 1px solid transparent; }
+
+/* nav stuff */
 .navbar {
   padding: 0.5rem 0.5rem;
   margin-bottom: 10px;
+}
+
+#under-player-controls .navbar {
+  padding: 0;
 }
 
 #options button {
@@ -192,8 +201,8 @@ input[type="checkbox"]:checked:after,
 #playerWrapper {
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 40px;
 }
-
 
 /* floating alert */
 #warn-refetch {
@@ -206,7 +215,7 @@ input[type="checkbox"]:checked:after,
 
 .video-row .title .fa-play {
   display: none;
-  color: var(--primary-c);
+  color: var(--primary);
 }
 
 .video-row.table-active .title .fa-play {
@@ -222,4 +231,37 @@ input[type="checkbox"]:checked:after,
   font-size: 16px;
   color: #44a9db;
   font-weight: bold;
+}
+
+/* Social icons */
+.btn-social-youtube, .btn-social-youtube:hover {
+  color: #F00;
+}
+.btn-social-twitch, .btn-social-twitch:hover {
+  color: #6441A4;
+}
+.btn-social-patreon, .btn-social-patreon:hover {
+  color: #F96854;
+}
+.btn-social-twitter, .btn-social-twitter:hover {
+  color: #1DA1F2;
+}
+
+.dropdown-menu {
+  background-color: inherit;
+}
+
+.dropdown-menu a {
+  color: white;
+}
+
+.dropdown-item:hover {
+  background-color: #303030;
+  background-image: none;
+  color: white;
+}
+
+.dropdown-item.active {
+  background-color: var(--dblue);
+  background: var(--dblue) linear-gradient(180deg, var(--theme), var(--dblue)) repeat-x
 }

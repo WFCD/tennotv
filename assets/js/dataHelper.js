@@ -3,7 +3,7 @@ globals
 
 localStorage, navigator, $, fetch, Request, serviceAPI, historicalVideos, contentCreators,
 generateNewToken, queue, limitToCreator, loadHistoricalVideo, makeHistoryRow, initialVideo,
-getCurrentToggles, processVideoData, notify
+getCurrentToggles, processVideoData, notify, player
 */
 /* eslint-disable no-unused-vars */
 const getContentCreators = async () => {
@@ -31,7 +31,7 @@ const getContentCreators = async () => {
       if (!$($('#creators').find('.row.text-center')[0]).children().length) {
         contentCreators.forEach(creator => {
           $($('#creators').find('.row.text-center')[0]).append(`
-            <div class="col-sm-2" id='creator-${creator.id}'>
+            <div class="col-sm-2" id='creator-${creator.author_id}'>
               <figure>
                 <a href="/${creator.account_name.replace(/\s/ig, '').toLowerCase()}"  rel="noopener" title="${creator.account_name}" alt="${creator.account_name}'s Page"><img src="${creator.youtube_thumbnail}" height="75px" width="75px" />
                   <figcaption class="creator-name">${creator.account_name}</figcaption>
@@ -39,6 +39,9 @@ const getContentCreators = async () => {
               </figure>
             </div>`);
         });
+      }
+      if (player) {
+        loadAuthorSocialsByVideoId(player.getVideoData().video_id);
       }
     }
   } catch (error) {
@@ -196,5 +199,76 @@ async function getHistoricalVideos() {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
+  }
+}
+
+function resolveVideo(id) {
+  const playlistResults = queue.filter(video => video.video_id === id);
+  if (playlistResults.length) {
+    return playlistResults[0];
+  }
+  const historicalResults = historicalVideos.filter(video => video.video_id === id);
+  if (historicalResults.length) {
+    return historicalResults[0];
+  }
+  return undefined;
+}
+
+function loadAuthorSocialsByVideoId(videoId) {
+  if (typeof videoId === 'undefined' && player) {
+    // eslint-disable-next-line no-param-reassign
+    videoId = player.getVideoData().video_id;
+  }
+  const video = resolveVideo(videoId);
+  if (!video) {
+    $('.btn-social').hide();
+    return;
+  }
+
+  const filteredCreators = contentCreators
+    .filter(creator => creator.author_id === video.author_id);
+  const creator = filteredCreators.length ? filteredCreators[0] : undefined;
+
+  if (!creator) {
+    $('.btn-social').hide();
+  } else {
+    $.each($('.btn-social'), (index, element) => {
+      const target = $(element);
+      const attr = target.attr('data-social');
+      if (attr === 'creator_name' && creator.author_id !== limitToCreator) {
+        target.show();
+        const link = `/${creator.account_name.replace(/\s/ig, '').toLowerCase()}`;
+        target.attr('href', link);
+        const tooltip = target.find('a');
+        tooltip.attr('data-original-title', creator.account_name).tooltip();
+      } else if (creator[attr]) {
+        target.show();
+        let link;
+        switch (attr) {
+        case 'account_name':
+          link = `https://youtube.com/channel/${creator.youtube_key}`;
+          break;
+        case 'patreon_name':
+          link = `https://patreon.com/${creator.patreon_name}`;
+          break;
+        case 'twitch_handle':
+          link = `https://twitch.tv/${creator.twitch_handle}`;
+          break;
+        case 'twitter_handle':
+          link = `https://twitter.com/${creator.twitter_handle}`;
+          break;
+        default:
+          break;
+        }
+        if (link) {
+          target.attr('href', link);
+          target.show();
+        } else {
+          target.hide();
+        }
+      } else {
+        target.hide();
+      }
+    });
   }
 }

@@ -16,6 +16,7 @@ self.addEventListener('install', event => {
       'img/lotus.svg',
       'img/sfm.svg',
       'css/styles.css',
+      'js/flakeid.min.js',
     ])));
 });
 self.addEventListener('fetch', e => {

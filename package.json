@@ -76,7 +76,7 @@
       "server.nodemon.json"
     ],
     "env": {
-      "SERVICE_API_URL": "http://localhost:3001",
+      "SERVICE_API_URL": "https://api.tenno.tv",
       "LOG_LEVEL": "silly"
     }
   }

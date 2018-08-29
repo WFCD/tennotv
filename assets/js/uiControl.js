@@ -54,22 +54,42 @@ function handleOptionClick(event) {
   window.location.reload();
 }
 
+function handleOptionDropdownClick(event) {
+  // do nothing
+  const target = $(event.currentTarget);
+  const newStatus = !target.hasClass('active');
+  const tag = target.attr('data-toggle-opt');
+  // add class to text-based
+  target.toggleClass('active');
+  // add checkbox
+  $(`#toggle-${tag}-check`).prop('checked', newStatus);
+  // add active on toggle
+  $(`#toggle-${tag}`).toggleClass('active');
+  localStorage.setItem(tag, newStatus ? 'on' : 'off');
+  event.stopPropagation();
+}
+
 function loadToggles() {
   validToggles.forEach(toggle => {
     const currentToggleStatus = localStorage.getItem(toggle);
     if (currentToggleStatus && currentToggleStatus === 'off') {
       $(`#toggle-${toggle}-check`).prop('checked', false);
       $(`#toggle-${toggle}`).removeClass('active');
+      $('.opts').find(`[data-toggle-opt="${toggle}"]`).removeClass('active');
     } else if (currentToggleStatus) {
       $(`#toggle-${toggle}-check`).prop('checked', true);
       $(`#toggle-${toggle}`).addClass('active');
+      $('.opts').find(`[data-toggle-opt="${toggle}"]`).addClass('active');
     }
     // set cookie if it doesn't exist
     if (!currentToggleStatus) {
       localStorage.setItem(toggle, 'off');
       $(`#toggle-${toggle}-check`).prop('checked', false);
       $(`#toggle-${toggle}`).removeClass('active');
+      $('.opts').find(`[data-toggle-opt="${toggle}"]`).removeClass('active');
     }
+
+    $(`[data-toggle-opt="${toggle}"]`).on('click', handleOptionDropdownClick);
   });
 }
 
@@ -108,7 +128,7 @@ const adjustPlayerSize = () => {
       const jItem = $(`#${alert}`);
       dynamicHeights += jItem.height() + 37;
     });
-  const bufferHeight = 35;
+  const bufferHeight = 50;
 
   let height = $(window).height() - (staticHeights + dynamicHeights + bufferHeight);
   let width = (height / 9) * 16;
@@ -119,7 +139,7 @@ const adjustPlayerSize = () => {
   $('#playerWrapper').height(height);
   $('#playerWrapper').width(width);
 
-  if ($('.container-fluid').width() < 650) {
+  if ($('#top-nav').width() < 990) {
     $('#logo').attr('src', '/img/logos/logo-50.webp');
   } else {
     $('#logo').attr('src', '/img/logos/banner.webp');
@@ -154,7 +174,6 @@ $(document).ready(() => {
     }
   });
   adjustPlayerSize();
-  $(window).resize(adjustPlayerSize);
 
   gapi.load('ytsubscribe');
   getContentCreators();
@@ -162,7 +181,17 @@ $(document).ready(() => {
   $(() => {
     $('[data-toggle="tooltip"]').tooltip();
   });
+
+  $('.btn-social').on('click', event => {
+    window.open(event.currentTarget.getAttribute('href'), '_blank');
+  });
+
+  setTimeout(() => {
+    // This hides the address bar:
+    window.scrollTo(0, 1);
+  }, 0);
 });
 
 getVideos(true);
 getHistoricalVideos();
+$(window).resize(adjustPlayerSize);

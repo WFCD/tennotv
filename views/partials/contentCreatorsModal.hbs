@@ -1,0 +1,36 @@
+<!-- creators modal dialog -->
+<div class="modal plist-modal" id="creators" tabindex="-1" role="dialog" aria-labelledby="creatorsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Content Creators</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" name="Dismiss Modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <h6 class="caption">
+              Select a content creator below to view their videos.
+            </h6>
+          </div>
+          <div class="row text-center">
+            {{#each creators}}
+              <div class="col-sm-2" id='creator-{{this.id}}'>
+                <figure>
+                  <a href="/{{this.name}}" rel="noopener" title="{{this.nameDisp}}" alt="{{this.nameDisp}}'s Page"><img src="{{this.thumb}}" height="75px" width="75px" />
+                    <figcaption class="creator-name">{{this.nameDisp}}</figcaption>
+                  </a>
+                </figure>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button name="Dismiss Modal" type="button" class="btn btn-secondary btn-danger" data-dismiss="modal" style="cursor:pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

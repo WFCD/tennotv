@@ -1,0 +1,14 @@
+<button type="button" name="Feedback" aria-label="Feedback" id="feedbackTrigger" class="btn btn-info btn-sm" href="/feedback" onclick="window.open('https://tenno.tv/feedback', '_blank')" data-toggle="tooltip" data-placement="bottom" title="Feedback">
+  <img class="icon icons8-Comment"alt="Feedback" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAB+0lEQVR4Xu2b/VHDMAzF39uADYAJKBPABsAElAnoCGUDNgAmoJ0ARqATUDaACcTpjnLX1I6pyYecyP+6TvR+kfzaWCVGPjhy/XAAngEjJ+AlMPIE8E3wTyUgItcALgGcAzgwnjWfAF4BLEg+pWKtBSAiEwDPAI5SFzI6vwZwRfItFl8UgIhMATwYFbZvWDckH0OLggBERFP9Zd+7GP/8aSgTYgDeC0772HNYkzyuTu4AGFjqV/XulEIIwALAhfF0zg1vSVLd7HeEAAwx/TeCd8ogBEBy8ZawjuSWZgdQfWoi4hlQQirnxugl4HuAb4LuAqkvQu4CuTtsCevcBdwF3AXcBdwFEu8D3AZLsLPcGN0G3QbdBt0G3QbdBuvPBUb/PUCPlA9zfdb4uhVJPfKvPRnS5oIz40Jyw7sjOU8B0HN07QgZ2vgAMCGpHSS1GTDE3oAvbe/Zpz9gSGWwAjCNtcnEGiS0EUohnBReB8sf8VtpX1sCm0kRUQi6YdwWCEFTfk7yPhV7sk1ORLRDbKYbSCHuoE99RlLtPDmSAFJX+OdpcrR7K3Xfpub7BNC7eIXYFwAT4vsCYEZ8HwBMie8agDnxXQIwKb4rAGbFdwHAtPi2AZgX3yaAIsS3BaAY8W0AKEp80wCKE98kgCLFNwVAXzcF/5DU1E/WNq/zDTwpCFDRIIQVAAAAAElFTkSuQmCC" width="16" height="16">
+</button>
+<div class="btn-group" id="resets">
+  <button type="button" name="Reset All" aria-label="Reset All" class="btn btn-sm btn-danger btn-reset" data-reset="all"  data-toggle="tooltip" data-placement="bottom" title="Reset & Options"><i class="fas fa-undo"></i></button>
+  <button type="button" name="Reset Options" aria-label="Reset Options" class="btn btn-sm btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right">
+    <a class="dropdown-item btn-reset" href="#" data-reset="all">Reset All</a>
+    <a class="dropdown-item btn-reset" href="#" data-reset="toggles">Just Toggles</a>
+    <a class="dropdown-item btn-reset" href="#" data-reset="videos">Just Watched Videos</a>
+  </div>
+</div>

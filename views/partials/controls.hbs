@@ -1,7 +1,7 @@
 <div class="container" id="under-player-controls">
   <div class="row">
     <div class="navbar n-center text-center">
-      <button name="Histogr" aria-label="History" type="button" id="historyTrigger" class="btn btn-secondary btn-sm" href="#history" data-target="#history" data-toggle="modal">
+      <button name="History" aria-label="History" type="button" id="historyTrigger" class="btn btn-secondary btn-sm" href="#history" data-target="#history" data-toggle="modal">
         <a data-toggle="tooltip" data-placement="bottom" title="Open History">
           <i class="fas fa-history"></i>
           </a>
@@ -16,9 +16,34 @@
           <i class="fas fa-users"></i>
         </a>
       </button>
+      <button name="Creator" aria-label="Creator" type="button" class="btn btn-secondary btn-sm btn-social btn-social-creator" data-social="creator_name" style="display:none">
+        <a data-toggle="tooltip" data-placement="bottom" title="Creator">
+          <i class="fas fa-user"></i>
+        </a>
+      </button>
       <button name="Next Video" aria-label="Next Video" type="button" id="playerNext" onclick="player.seekTo(player.getDuration())" class="btn btn-secondary btn-sm">
         <a data-toggle="tooltip" data-placement="bottom" title="Next Video">
           <i class="fas fa-fast-forward"></i>
+        </a>
+      </button>
+      <button name="Twitter Feed" aria-label="Twitter Feed" type="button" class="btn btn-secondary btn-sm btn-social btn-social-twitter" data-social="twitter_handle" style="display:none">
+        <a data-toggle="tooltip" data-placement="bottom" title="Twitter Feed">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </button>
+      <button name="Twitch Channel" aria-label="Twitch Channel" type="button" class="btn btn-secondary btn-sm btn-social btn-social-twitch" data-social="twitch_handle" style="display:none">
+        <a data-toggle="tooltip" data-placement="bottom" title="Twitch Channel">
+          <i class="fab fa-twitch"></i>
+        </a>
+      </button>
+      <button name="Patreon Page" aria-label="Patreon Page" type="button" class="btn btn-secondary btn-sm btn-social btn-social-patreon" data-social="patreon_name" style="display:none">
+        <a data-toggle="tooltip" data-placement="bottom" title="Patreon Page">
+          <i class="fab fa-patreon"></i>
+        </a>
+      </button>
+      <button name="YouTube Channel" aria-label="YouTube Channel" type="button" class="btn btn-secondary btn-sm btn-social btn-social-youtube" data-social="account_name" style="display:none">
+        <a data-toggle="tooltip" data-placement="bottom" title="YouTube Channel">
+          <i class="fab fa-youtube"></i>
         </a>
       </button>
     </div>
