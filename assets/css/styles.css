@@ -22,7 +22,7 @@ body {
 }
 
 .modal-dialog, .modal-body {
-  max-height: calc(100vh - 225px);
+  /* max-height: calc(100vh - 225px); */
   overflow-y: auto;
   overflow-x: hidden;
 }

@@ -54,6 +54,7 @@ function loadHistoricalVideo(videoId) {
 /* Player events */
 function onPlayerReady(event) {
   event.target.playVideo();
+  loadAuthorSocialsByVideoId(player.getVideoData.video_id);
 }
 function onPlayerStateChange(event) {
   const vidId = player.getVideoData().video_id;

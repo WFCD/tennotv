@@ -185,6 +185,11 @@ $(document).ready(() => {
   $('.btn-social').on('click', event => {
     window.open(event.currentTarget.getAttribute('href'), '_blank');
   });
+
+  setTimeout(() => {
+    // This hides the address bar:
+    window.scrollTo(0, 1);
+  }, 0);
 });
 
 getVideos(true);

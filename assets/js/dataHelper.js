@@ -31,7 +31,7 @@ const getContentCreators = async () => {
       if (!$($('#creators').find('.row.text-center')[0]).children().length) {
         contentCreators.forEach(creator => {
           $($('#creators').find('.row.text-center')[0]).append(`
-            <div class="col-sm-2" id='creator-${creator.id}'>
+            <div class="col-sm-2" id='creator-${creator.author_id}'>
               <figure>
                 <a href="/${creator.account_name.replace(/\s/ig, '').toLowerCase()}"  rel="noopener" title="${creator.account_name}" alt="${creator.account_name}'s Page"><img src="${creator.youtube_thumbnail}" height="75px" width="75px" />
                   <figcaption class="creator-name">${creator.account_name}</figcaption>
@@ -42,8 +42,6 @@ const getContentCreators = async () => {
       }
       if (player) {
         loadAuthorSocialsByVideoId(player.getVideoData().video_id);
-      } else {
-        setTimeout(() => { loadAuthorSocialsByVideoId(player.getVideoData().video_id); }, 4000);
       }
     }
   } catch (error) {
@@ -226,16 +224,18 @@ function loadAuthorSocialsByVideoId(videoId) {
     $('.btn-social').hide();
     return;
   }
+
   const filteredCreators = contentCreators
     .filter(creator => creator.author_id === video.author_id);
   const creator = filteredCreators.length ? filteredCreators[0] : undefined;
+
   if (!creator) {
     $('.btn-social').hide();
   } else {
     $.each($('.btn-social'), (index, element) => {
       const target = $(element);
       const attr = target.attr('data-social');
-      if (attr === 'creator_name') {
+      if (attr === 'creator_name' && creator.author_id !== limitToCreator) {
         target.show();
         const link = `/${creator.account_name.replace(/\s/ig, '').toLowerCase()}`;
         target.attr('href', link);
