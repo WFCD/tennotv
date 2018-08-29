@@ -237,13 +237,11 @@ function loadAuthorSocialsByVideoId(videoId) {
       const attr = target.attr('data-social');
       if (attr === 'creator_name') {
         target.show();
-        const link = `https://tenno.tv/${creator.account_name.replace(/\s/ig, '').toLowerCase()}`;
+        const link = `/${creator.account_name.replace(/\s/ig, '').toLowerCase()}`;
         target.attr('href', link);
         const tooltip = target.find('a');
         tooltip.attr('data-original-title', creator.account_name).tooltip();
-      }
-
-      if (creator[attr]) {
+      } else if (creator[attr]) {
         target.show();
         let link;
         switch (attr) {
@@ -268,6 +266,8 @@ function loadAuthorSocialsByVideoId(videoId) {
         } else {
           target.hide();
         }
+      } else {
+        target.hide();
       }
     });
   }

@@ -77,12 +77,6 @@ body {
 
 .author-img { display: none; max-height: 50px; }
 
-/* player controls */
-#under-player-controls {
-  height: 40px;
-  margin-top: -10px;
-}
-
 .navbar.n-center {
   box-shadow: none;
   border: none;
@@ -98,6 +92,7 @@ body {
   .n-right li:first-child {
     position: fixed;
     right: 5px;
+    top: 1em;
     align-items: flex-start;
     display: flex;
     align-self: flex-end;
@@ -105,6 +100,10 @@ body {
 
   .n-right li:not(:first-child) {
     display: none;
+  }
+
+  #top-nav {
+    height: 4em;
   }
 }
 
@@ -141,9 +140,15 @@ body {
 /* Buttons */
 .btn-outline-danger { border: 1px solid #e51c23; }
 .btn-danger { border: 1px solid transparent; }
+
+/* nav stuff */
 .navbar {
   padding: 0.5rem 0.5rem;
   margin-bottom: 10px;
+}
+
+#under-player-controls .navbar {
+  padding: 0;
 }
 
 #options button {

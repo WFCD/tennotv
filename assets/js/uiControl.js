@@ -128,7 +128,7 @@ const adjustPlayerSize = () => {
       const jItem = $(`#${alert}`);
       dynamicHeights += jItem.height() + 37;
     });
-  const bufferHeight = 35;
+  const bufferHeight = 50;
 
   let height = $(window).height() - (staticHeights + dynamicHeights + bufferHeight);
   let width = (height / 9) * 16;
