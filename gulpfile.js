@@ -9,6 +9,7 @@ gulp.task('clean-js', () => del([
   './public/js/dataHelper.js',
   './public/js/playerControl.js',
   './public/js/uiControl.js',
+  './public/js/dashControl.js',
   './public/sums.json',
 ]));
 
@@ -16,7 +17,13 @@ gulp.task('clean-css', () => del([
   './public/css/styles.css',
 ]));
 
-gulp.task('pack-js', () => gulp.src(['assets/js/utility.js', 'assets/js/dataHelper.js', 'assets/js/playerControl.js', 'assets/js/uiControl.js'])
+gulp.task('pack-js', () => gulp.src([
+  'assets/js/utility.js',
+  'assets/js/dataHelper.js',
+  'assets/js/playerControl.js',
+  'assets/js/uiControl.js',
+  'assets/js/dashControl.js',
+])
   .pipe(minify({
     ext: {
       min: '.js',

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-global-assign */
 /* globals updatePlaylist, YT, getVideos, notify, $, addWatchedVideo,
 queue, ready, done, player, playlistVid, setUrl, contentCreators,
-resolveVideo, loadAuthorSocialsByVideoId
+resolveVideo, loadAuthorSocialsByVideoId, initialVideo
 */
 
 function processVideoData(videoArray) {
@@ -54,7 +54,10 @@ function loadHistoricalVideo(videoId) {
 /* Player events */
 function onPlayerReady(event) {
   event.target.playVideo();
-  loadAuthorSocialsByVideoId(player.getVideoData.video_id);
+  loadAuthorSocialsByVideoId(player.getVideoData().video_id);
+  if (!initialVideo) {
+    window.history.pushState('', '', `/v/${player.getVideoData().video_id}`);
+  }
 }
 function onPlayerStateChange(event) {
   const vidId = player.getVideoData().video_id;

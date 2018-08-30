@@ -147,10 +147,6 @@ const adjustPlayerSize = () => {
 };
 
 $(document).ready(() => {
-  if (initialVideo) {
-    window.history.pushState('', '', '/');
-  }
-
   $('.opts-h').on('click', handleOptionClick);
   loadToggles();
 
