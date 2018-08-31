@@ -53,7 +53,7 @@ const construct = async () => {
             <div class='shade hide text-center'>
               <div class='shade-author hide'>${video.account_name}</div>
               <div class='shade-title'>${video.video_title}</div>
-            <div>
+            </div>
           </a>
         </span>`);
       $(`#${video.video_id}-video`).hover(() => {
@@ -63,12 +63,11 @@ const construct = async () => {
     });
   });
 
-  var videoWidth = null
+  let videoWidth = null;
 
   $('.next').click(event => {
-    if(!videoWidth)
-    {
-        videoWidth = $('.video').width()
+    if (!videoWidth) {
+      videoWidth = $('.video').width()
             + Number($('.video').css('margin-left').replace('px', ''))
             + Number($('.video').css('margin-right').replace('px', ''));
     }
@@ -77,7 +76,7 @@ const construct = async () => {
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
-    const scrollLeft = offset + ((width / videoWidth).toFixed(0) * videoWidth);
+    const scrollLeft = offset + ((width / videoWidth).toFixed(0) * videoWidth) - videoWidth;
 
     $(scroll).animate({
       scrollLeft,
@@ -85,9 +84,8 @@ const construct = async () => {
   });
 
   $('.previous').click(event => {
-    if(!videoWidth)
-    {
-        videoWidth = $('.video').width()
+    if (!videoWidth) {
+      videoWidth = $('.video').width()
             + Number($('.video').css('margin-left').replace('px', ''))
             + Number($('.video').css('margin-right').replace('px', ''));
     }
@@ -96,7 +94,7 @@ const construct = async () => {
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
-    const scrollLeft = offset - ((width / videoWidth).toFixed(0) * videoWidth);
+    const scrollLeft = offset - ((width / videoWidth).toFixed(0) * videoWidth) + videoWidth;
     $(scroll).animate({
       scrollLeft,
     }, 500);

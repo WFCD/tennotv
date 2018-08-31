@@ -229,12 +229,12 @@ input[type="checkbox"]:checked:after,
   z-index: 9999;
 }
 
-.video-row .title .fa-play {
+.video-row .title i {
   display: none;
   color: var(--primary);
 }
 
-.video-row.table-active .title .fa-play {
+.video-row.table-active .title i {
   display: inline;
   margin-right: 10px
 }
@@ -296,6 +296,17 @@ input[type="checkbox"]:checked:after,
   margin-bottom: 0.25em;
   margin-top: 1.5em;
   margin-left: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.content_creator_playlist .title i {
+  font-size: 1em;
+}
+
+.content_creator_playlist .title a {
+  text-decoration: none;
 }
 
 .content_creator_playlist .playlist
@@ -372,16 +383,16 @@ input[type="checkbox"]:checked:after,
   font-size: 1.1em;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
 }
 
 .content_creator_playlist .video .shade .shade-title {
-  position: absolute;
-  bottom: 0;
   color: #ccf;
   font-size: 11px;
-  margin: 0 5px 5px 5px;
-  text-align: center;
-  vertical-align: middle;
+  margin: 0 5px 0 5px;
+
 }
 
 .content_creator_playlist .video img
@@ -404,5 +415,5 @@ input[type="checkbox"]:checked:after,
 }
 
 .hide {
-  display: none;
+  display: none!important;
 }
