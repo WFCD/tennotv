@@ -2,8 +2,10 @@
 {{> playlistModal}}
 {{> contentCreatorsModal}}
 
-<nav class="navbar navbar-dark sticky-top navbar-expand-lg " data-backdrop="false" id="top-nav">
-  <a href="/"><img id="logo" class="navbar-brand" src="/img/logos/banner.webp" alt="logo"/></a>
+<nav class="navbar navbar-dark sticky-top navbar-expand-lg" data-backdrop="false" id="top-nav">
+  <a href="/">
+    <img id="logo" class="navbar-brand" src="/img/logos/banner.webp?v={{lookup sums 'img/logos/banner.png`'}}" alt="logo"/>
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-collapsible-content" aria-controls="header-collapsible-content" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

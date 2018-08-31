@@ -1,5 +1,5 @@
 /* globals
-  FlakeId, $, serviceAPI, processVideoData, window
+  FlakeId, $, serviceAPI, processVideoData, window, Raven
 */
 
 /* eslint-disable no-unused-vars, prefer-const */
@@ -101,14 +101,12 @@ const resetWatchedVideos = async () => {
   try {
     const response = await fetch(request);
     if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.error('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
+      Raven.captureException('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
     } else {
       processVideoData(await response.json());
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    Raven.captureException(error);
   }
 };
 

@@ -1,5 +1,5 @@
 const videos = async ({
-  router, logger, sums, serviceAPI,
+  router, logger, sums, serviceAPI, ravenDSN,
 }) => {
   router.get('/v/:videoId', (req, res) => {
     logger.log('silly', `Received ${req.method} request for ${req.orginalUrl} from ${req.connection.remoteAddress}`);
@@ -7,6 +7,7 @@ const videos = async ({
       sums,
       serviceAPI,
       initialVideo: req.params.videoId,
+      ravenDSN,
     });
   });
 };

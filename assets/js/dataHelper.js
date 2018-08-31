@@ -3,7 +3,7 @@ globals
 
 localStorage, navigator, $, fetch, Request, serviceAPI, historicalVideos, contentCreators,
 generateNewToken, queue, limitToCreator, loadHistoricalVideo, makeHistoryRow, initialVideo,
-getCurrentToggles, processVideoData, notify, player
+getCurrentToggles, processVideoData, notify, player, Raven
 */
 /* eslint-disable no-unused-vars */
 const getContentCreators = async () => {
@@ -23,8 +23,7 @@ const getContentCreators = async () => {
     const request = new Request(url, requestInfo);
     const response = await fetch(request);
     if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.error('[ERROR] Something went wrong content creators. Contact tennotv@warframe.gg for support.');
+      Raven.captureException('[ERROR] Something went wrong content creators. Contact tennotv@warframe.gg for support.');
     } else {
       contentCreators.unshift(...(await response.json()));
 
@@ -45,8 +44,7 @@ const getContentCreators = async () => {
       }
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    Raven.captureException(error);
   }
 };
 
@@ -74,12 +72,10 @@ async function addVideoToUserHistory(id) {
     const request = new Request(url, requestInfo);
     const response = await fetch(request);
     if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.error(`[ERROR] Something went wrong adding ${id} to history. Contact tennotv@warframe.gg for support.`);
+      Raven.captureException(`[ERROR] Something went wrong adding ${id} to history. Contact tennotv@warframe.gg for support.`);
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    Raven.captureException(error);
   }
 }
 
@@ -154,8 +150,7 @@ async function getVideos(useQueue, ignoreTags) {
   try {
     const response = await fetch(request);
     if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.error('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
+      Raven.captureException('[ERROR] Something went wrong fetching videos. Contact tennotv@warframe.gg for support.');
     } else {
       const videoData = await response.json();
       processVideoData(videoData);
@@ -165,8 +160,7 @@ async function getVideos(useQueue, ignoreTags) {
       }
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    Raven.captureException(error);
   }
 }
 
@@ -186,8 +180,7 @@ async function getHistoricalVideos() {
   try {
     const response = await fetch(request);
     if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.error('[ERROR] Something went wrong fetching historical videos. Contact tennotv@warframe.gg for support.');
+      Raven.captureException('[ERROR] Something went wrong fetching historical videos. Contact tennotv@warframe.gg for support.');
     } else {
       const fetchedHistoricalVideos = await response.json();
       $.each(fetchedHistoricalVideos, videoIndex => {
@@ -197,8 +190,7 @@ async function getHistoricalVideos() {
       });
     }
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
+    Raven.captureException(error);
   }
 }
 

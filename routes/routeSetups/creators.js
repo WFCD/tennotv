@@ -1,5 +1,5 @@
 const contentCreators = async ({
-  router, logger, sums, serviceAPI, creators,
+  router, logger, sums, serviceAPI, creators, ravenDSN,
 }) => {
   creators
     .forEach(creator => {
@@ -11,6 +11,7 @@ const contentCreators = async ({
           serviceAPI,
           limitToCreator: creator.id,
           creators,
+          ravenDSN,
         });
       });
     });
