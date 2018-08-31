@@ -11,7 +11,7 @@ const requestInfo = {
   credentials: 'omit',
   referrer: 'no-referrer',
 };
-const url = `${serviceAPI}/dashboard`;
+const url = `${serviceAPI}dashboard`;
 const request = new Request(url, requestInfo);
 
 const construct = async () => {
