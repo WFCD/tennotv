@@ -1,5 +1,5 @@
 /*
- globals $
+ globals $, serviceAPI
 */
 
 const requestInfo = {
@@ -11,7 +11,7 @@ const requestInfo = {
   credentials: 'omit',
   referrer: 'no-referrer',
 };
-const url = 'http://xenogelion.com/Hidden/content_creator_scraper.php?method=get-content-creator-playlists';
+const url = `${serviceAPI}/dashboard`;
 const request = new Request(url, requestInfo);
 
 const construct = async () => {
