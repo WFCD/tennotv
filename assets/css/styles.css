@@ -297,16 +297,17 @@ input[type="checkbox"]:checked:after,
   margin-top: 1.5em;
   margin-left: 5px;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 .content_creator_playlist .title i {
-  font-size: 1em;
+  font-size: 0.75em;
+  margin: 5px;
 }
 
 .content_creator_playlist .title a {
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .content_creator_playlist .playlist
