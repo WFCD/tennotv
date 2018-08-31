@@ -57,20 +57,35 @@ const construct = async () => {
     });
   });
 
-  const videoWidth = $('.video').width() + Number($('.video').css('margin-left').replace('px', ''));
+  var videoWidth = null
 
   $('.next').click(event => {
+    if(!videoWidth)
+    {
+        videoWidth = $('.video').width()
+            + Number($('.video').css('margin-left').replace('px', ''))
+            + Number($('.video').css('margin-right').replace('px', ''));
+    }
+
     const target = $(event.currentTarget);
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
     const scrollLeft = offset + ((width / videoWidth).toFixed(0) * videoWidth);
+
     $(scroll).animate({
       scrollLeft,
     }, 500);
   });
 
   $('.previous').click(event => {
+    if(!videoWidth)
+    {
+        videoWidth = $('.video').width()
+            + Number($('.video').css('margin-left').replace('px', ''))
+            + Number($('.video').css('margin-right').replace('px', ''));
+    }
+
     const target = $(event.currentTarget);
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
