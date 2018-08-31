@@ -292,9 +292,10 @@ input[type="checkbox"]:checked:after,
 }
 
 .content_creator_playlist .title {
-  font-size: 1.25em;
-  margin-bottom: 1em;
+  font-size: 1.75em;
+  margin-bottom: 0.25em;
   margin-top: 1.5em;
+  margin-left: 5px;
 }
 
 .content_creator_playlist .playlist

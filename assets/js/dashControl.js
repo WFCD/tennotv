@@ -26,7 +26,13 @@ const construct = async () => {
     $('#dashboard_results').append(`<div id="${id}" class="content_creator_playlist"></div>`);
 
     /* create title element */
-    $(`#${id}`).append(`<div class="title">${name}</div><div class="bottom"></div>`);
+    $(`#${id}`).append(`
+        <div class="title">
+            <a href="/${name}">
+                ${name} <i class="fas fa-play"></i>
+            </a>
+        </div>
+        <div class="bottom"></div>`);
     $(`#${id} .bottom`).append(`
       <div class="previous">
         <i class="fas fa-angle-left"></i>
