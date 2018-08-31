@@ -1,5 +1,5 @@
 /*
- globals $, serviceAPI
+ globals $, serviceAPI, Raven,
 */
 
 const requestInfo = {
@@ -76,7 +76,7 @@ const construct = async () => {
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
-    const scrollLeft = offset + ((width / videoWidth).toFixed(0) * videoWidth) - videoWidth;
+    const scrollLeft = offset + (((width / videoWidth).toFixed(0) * videoWidth) - videoWidth);
 
     $(scroll).animate({
       scrollLeft,
@@ -94,7 +94,7 @@ const construct = async () => {
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
-    const scrollLeft = offset - ((width / videoWidth).toFixed(0) * videoWidth) + videoWidth;
+    const scrollLeft = offset - (((width / videoWidth).toFixed(0) * videoWidth) + videoWidth);
     $(scroll).animate({
       scrollLeft,
     }, 500);
@@ -105,12 +105,12 @@ async function getRequest() {
   try {
     const response = await fetch(request);
     if (!response.ok) {
-      console.error('[ERROR] Bad stuff.');
+      Raven.captureException('[ERROR] Bad stuff.');
     } else {
       return response.json();
     }
   } catch (error) {
-    console.error(error);
+    Raven.captureException(error);
   }
   return undefined;
 }

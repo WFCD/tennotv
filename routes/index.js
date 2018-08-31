@@ -1,5 +1,6 @@
 const express = require('express');
 const snek = require('snekfetch');
+const Sentry = require('winston-raven-sentry');
 const {transports, createLogger, format} = require('winston');
 
 const {
@@ -8,20 +9,26 @@ const {
 const sums = require('../public/sums.json'); // eslint-disable-line import/no-unresolved
 
 const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv';
+const publicDSN = process.env.RAVEN_DSN;
+const privateDSN = process.env.RAVEN_DSN_PRIVATE;
+const logLevel = process.env.LOG_LEVEL || 'error';
 
 // Set up logger
 const router = express.Router();
-const transport = new transports.Console({colorize: true});
+const consoleTransport = new transports.Console({colorize: true});
+const sentry = new Sentry({dsn: privateDSN, level: logLevel});
 const logFormat = printf(info => `[${info.label}] ${info.level}: ${info.message}`);
 const logger = createLogger({
   format: combine(colorize(), label({label: 'Tenno.tv'}), logFormat),
-  transports: [transport],
+  transports: [consoleTransport],
 });
 
+logger.add(sentry);
+
 const deps = {
-  router, logger, sums, serviceAPI,
+  router, logger, sums, serviceAPI, ravenDSN: publicDSN,
 };
-logger.level = process.env.LOG_LEVEL || 'error';
+logger.level = logLevel;
 
 const url = `${serviceAPI}?method=get-content-creators`;
 
