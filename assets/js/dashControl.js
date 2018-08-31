@@ -42,24 +42,31 @@ const construct = async () => {
       $(`#${id} .playlist`).append(`
         <span class="video" id='${video.video_id}-video'>
           <a href="/v/${video.video_id}">
-            <i class="far fa-play-circle hide" id="${video.video_id}-button"></i>
+            <i class="fas fa-play faded" id="${video.video_id}-button"></i>
             <img src="https://img.youtube.com/vi/${video.video_id}/mqdefault.jpg" />
+            <div class='shade hide text-center'>
+              <div class='shade-author hide'>${video.account_name}</div>
+              <div class='shade-title'>${video.video_title}</div>
+            <div>
           </a>
         </span>`);
       $(`#${video.video_id}-video`).hover(() => {
-        $(`#${video.video_id}-button`).toggleClass('hide');
+        $(`#${video.video_id}-button`).toggleClass('faded');
+        $(`#${video.video_id}-video`).find('.shade').toggleClass('hide');
       });
     });
   });
+
+  const videoWidth = $('.video').width() + Number($('.video').css('margin-left').replace('px', ''));
 
   $('.next').click(event => {
     const target = $(event.currentTarget);
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
-
+    const scrollLeft = offset + ((width / videoWidth).toFixed(0) * videoWidth);
     $(scroll).animate({
-      scrollLeft: offset + width,
+      scrollLeft,
     }, 500);
   });
 
@@ -68,9 +75,9 @@ const construct = async () => {
     const scroll = target.parent().find('.scroll');
     const offset = $(scroll).scrollLeft();
     const width = $(scroll).width();
-
+    const scrollLeft = offset - ((width / videoWidth).toFixed(0) * videoWidth);
     $(scroll).animate({
-      scrollLeft: offset - width,
+      scrollLeft,
     }, 500);
   });
 };
