@@ -42,6 +42,12 @@ body {
   }
 }
 
+@media (min-width: 1700px)  {
+  .container {
+      max-width: 1500px;
+  }
+}
+
 .hide-overflow { text-overflow: ellipsis; overflow: hidden; }
 .numRow { width: 8.33333333%; }
 .title { width: 50% }
