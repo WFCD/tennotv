@@ -77,7 +77,7 @@
       "server.nodemon.json"
     ],
     "env": {
-      "SERVICE_API_URL": "https://api.tenno.tv",
+      "SERVICE_API_URL": "https://api.tenno.tv/",
       "LOG_LEVEL": "silly",
       "RAVEN_DSN": "https://54bb243e64894b728ec1ff1077f290d8@sentry.warframestat.us/10",
       "RAVEN_DSN_PRIVATE": "https://54bb243e64894b728ec1ff1077f290d8:a4be6261c3b141208c15dfb050f2019f@sentry.warframestat.us/10"
