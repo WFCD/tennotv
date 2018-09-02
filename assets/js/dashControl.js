@@ -34,7 +34,7 @@ const construct = async () => {
         </div>
         <div class="bottom"></div>`);
     $(`#${id} .bottom`).append(`
-      <div class="previous">
+      <div class="previous hide">
         <i class="fas fa-angle-left"></i>
       </div>
       <div class="scroll">
@@ -73,12 +73,18 @@ const construct = async () => {
     }
 
     const target = $(event.currentTarget);
-    const scroll = target.parent().find('.scroll');
-    const offset = $(scroll).scrollLeft();
-    const width = $(scroll).width();
+    const scroll = $(target.parent().find('.scroll'));
+    const offset = scroll.scrollLeft();
+    const width = scroll.width();
     const scrollLeft = offset + (((width / videoWidth).toFixed(0) * videoWidth) - videoWidth);
+    const scrolled = Math.ceil(offset + width + 5);
+    const fullWidth = Math.ceil(videoWidth * scroll.find('.playlist').children().length);
 
-    $(scroll).animate({
+    if (scrolled === fullWidth) {
+      target.addClass('hide');
+    }
+    target.siblings('.previous.hide').removeClass('hide');
+    scroll.animate({
       scrollLeft,
     }, 500);
   });
@@ -91,13 +97,26 @@ const construct = async () => {
     }
 
     const target = $(event.currentTarget);
-    const scroll = target.parent().find('.scroll');
-    const offset = $(scroll).scrollLeft();
-    const width = $(scroll).width();
+    const scroll = $(target.parent().find('.scroll'));
+    const offset = scroll.scrollLeft();
+    const width = scroll.width();
     const scrollLeft = offset - (((width / videoWidth).toFixed(0) * videoWidth) + videoWidth);
-    $(scroll).animate({
+
+    scroll.animate({
       scrollLeft,
     }, 500);
+
+    setTimeout(() => {
+      if (scroll.scrollLeft() === 0) {
+        target.addClass('hide');
+      }
+
+      const scrolled = Math.ceil(offset + width + 5);
+      const fullWidth = Math.ceil(scroll.scrollLeft() * scroll.find('.playlist').children().length);
+      if (scrolled !== fullWidth) {
+        target.siblings('.next.hide').removeClass('hide');
+      }
+    }, 600);
   });
 };
 

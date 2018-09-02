@@ -346,17 +346,28 @@ input[type="checkbox"]:checked:after,
 .content_creator_playlist .previous,
   .content_creator_playlist .next
 {
-  position: absolute;
-  z-index: 3;
-  width: 50px;
-  background-color: rgba(0,0,0, 0.5);
-  color: #FFFFFF;
+    position: absolute;
+    top: 40%;
+    z-index: 3;
+    width: 30px;
+    height: 30px;
+    background-color: var(--theme);
+    color: #fff;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 15px;
+    box-shadow: inset 0px 0px 2px 1px rgba(255, 255, 255, 0.75);
 }
 
 .content_creator_playlist .next
 {
   float: right;
-  right: 0px;
+  right: -15px;
+}
+
+.content_creator_playlist .previous
+{
+  left: -15px;
 }
 
 .content_creator_playlist .previous i,
