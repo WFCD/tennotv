@@ -8,7 +8,7 @@ const {
 } = format;
 const sums = require('../public/sums.json'); // eslint-disable-line import/no-unresolved
 
-const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv';
+const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv/';
 const publicDSN = process.env.RAVEN_DSN;
 const privateDSN = process.env.RAVEN_DSN_PRIVATE;
 const logLevel = process.env.LOG_LEVEL || 'error';

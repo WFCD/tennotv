@@ -91,15 +91,9 @@ function startVideo(videoId) {
     done = false;
     player = new YT.Player('player', {
       videoId,
-      rel: 0,
-      cc_load_policy: 0,
       events: {
         onReady: onPlayerReady,
         onStateChange: onPlayerStateChange,
-      },
-      playerVars: {
-        modestbranding: 1,
-        widget_referrer: 'https://tenno.tv',
       },
     });
     $('.table-active').removeClass('table-active');
