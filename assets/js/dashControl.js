@@ -28,7 +28,7 @@ const construct = async () => {
     /* create title element */
     $(`#${id}`).append(`
         <div class="title">
-            <a href="/${name}">
+            <a href="/${name.replace(/\s/ig, '').toLowerCase()}">
                 ${name} <i class="fas fa-play"></i>
             </a>
         </div>
