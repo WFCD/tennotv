@@ -117,7 +117,7 @@ const handleReset = async e => {
 const adjustPlayerSize = () => {
   const staticHeights = $('#top-nav').height()
     + $('#footer-content').height()
-    + $('#under-player-controls').height();
+    + $('#above-player-controls').height();
   let dynamicHeights = 0;
   alerts
     .filter(alert => {
