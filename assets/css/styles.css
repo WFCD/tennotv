@@ -425,6 +425,17 @@ input[type="checkbox"]:checked:after,
   position: relative;
 }
 
+/* Player control buttons */
+.liked
+{
+  color: green;
+}
+
+.disliked
+{
+  color: red;
+}
+
 /* Shade */
 
 /* general styles */

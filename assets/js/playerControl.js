@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, no-global-assign */
 /* globals updatePlaylist, YT, getVideos, notify, $, addWatchedVideo,
 queue, ready, done, player, playlistVid, setUrl, contentCreators,
-resolveVideo, loadAuthorSocialsByVideoId, initialVideo
+resolveVideo, loadAuthorSocialsByVideoId, initialVideo, hello
 */
 
 function processVideoData(videoArray) {
@@ -103,4 +103,42 @@ function startVideo(videoId) {
   if (player && ready && done) {
     loadVideo(videoId);
   }
+}
+
+function getRating(videoId) {
+  // Get the current rating that the user has on the video,
+  // and add classes to the like/dislike buttons as appropriate
+
+}
+
+function likeVideo() {
+  var videoId = player.getVideoData().video_id
+
+  hello('google').login();
+  // If the like button doesn't have the class 'liked':
+  // 0) Call YT rating API with 'like' value
+  // 1) Add the 'liked' class to the like button
+  // 2) Remove the 'disliked' class from the dislike button
+
+  // If the like button DOES have the class 'liked'
+  // 0) Call YT rating API with 'none' value
+  // 1) Remove the 'liked' class from the like button
+
+  console.log(videoId + " liked!")
+}
+
+function dislikeVideo() {
+  var videoId = player.getVideoData().video_id
+
+  hello('google').logout();
+  // If the dislike button doesn't have the class 'disliked':
+  // 0) Call YT rating API with 'dislike' value
+  // 1) Add the 'disliked' class to the dislike button
+  // 2) Remove the 'liked' class from the like button
+
+  // If the dislike button DOES have the class 'disliked'
+  // 0) Call YT rating API with 'none' value
+  // 1) Remove the 'disliked' class from the dislike button
+
+  console.log(videoId + " disliked!")
 }
