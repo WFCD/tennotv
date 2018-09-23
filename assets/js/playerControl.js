@@ -4,6 +4,9 @@ queue, ready, done, player, playlistVid, setUrl, contentCreators,
 resolveVideo, loadAuthorSocialsByVideoId, initialVideo, hello
 */
 
+var api_key = 'AIzaSyD22uMB0bxCnYFocXRDqdLatjWzmUPf_sw';
+var access_token = 'MISSING';
+
 function processVideoData(videoArray) {
   queue = queue.concat(videoArray);
   updatePlaylist(videoArray);
@@ -105,40 +108,58 @@ function startVideo(videoId) {
   }
 }
 
-function getRating(videoId) {
-  // Get the current rating that the user has on the video,
-  // and add classes to the like/dislike buttons as appropriate
-
-}
-
 function likeVideo() {
-  var videoId = player.getVideoData().video_id
-
-  hello('google').login();
-  // If the like button doesn't have the class 'liked':
-  // 0) Call YT rating API with 'like' value
-  // 1) Add the 'liked' class to the like button
-  // 2) Remove the 'disliked' class from the dislike button
-
-  // If the like button DOES have the class 'liked'
-  // 0) Call YT rating API with 'none' value
-  // 1) Remove the 'liked' class from the like button
-
-  console.log(videoId + " liked!")
+  var videoId = player.getVideoData().video_id;
+  // If the like button already has the 'liked' class and is pressed,
+  // send the 'none' rating instead to undo the like (otherwise, like the video via post)
+  if ($('#playerLike').hasClass('liked')) {
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=none&key='+api_key+'&access_token='
+    tryAuthenticateAndPost(postUrl)
+    $('#playerLike').removeClass('liked')
+  } else {
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=like&key='+api_key+'&access_token='
+    tryAuthenticateAndPost(postUrl)
+    $('#playerLike').addClass('liked')
+    $('#playerDislike').removeClass('disliked')
+  }
 }
 
 function dislikeVideo() {
   var videoId = player.getVideoData().video_id
+  // If the dislike button already has the 'disliked' class and is pressed,
+  // send the 'none' rating instead to undo the dislike (otherwise, dislike the video via post)
+  if ($('#playerDislike').hasClass('disliked')) {
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=none&key='+api_key+'&access_token='
+    tryAuthenticateAndPost(postUrl)
+    $('#playerDislike').removeClass('disliked')
+  } else {
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=dislike&key='+api_key+'&access_token='
+    tryAuthenticateAndPost(postUrl)
+    $('#playerDislike').addClass('disliked')
+    $('#playerLike').removeClass('liked')
+  }
+}
 
-  hello('google').logout();
-  // If the dislike button doesn't have the class 'disliked':
-  // 0) Call YT rating API with 'dislike' value
-  // 1) Add the 'disliked' class to the dislike button
-  // 2) Remove the 'liked' class from the like button
+function tryAuthenticateAndPost(requestUrl) {
+  // If the access_token is set to missing, this means we haven't gotten it yet,
+  // so use the google API login immediately, then call the function again
+  if (access_token == "MISSING") {
+    hello('google').login(function() {
+      console.log("Getting access token...")
+      access_token = hello('google').getAuthResponse().access_token;
+      tryAuthenticateAndPost(requestUrl)
+    });
+  }
 
-  // If the dislike button DOES have the class 'disliked'
-  // 0) Call YT rating API with 'none' value
-  // 1) Remove the 'disliked' class from the dislike button
-
-  console.log(videoId + " disliked!")
+  // If we fail, try logging in and calling the function again
+  $.post(requestUrl+access_token, function() {
+    console.log('Done!')
+  }).fail(function() {
+    console.log("Failed!")
+    hello('google').login(function() {
+      console.log("Getting new access token...")
+      access_token = hello('google').getAuthResponse().access_token;
+      tryAuthenticateAndPost(requestUrl)
+    });
+  })
 }
