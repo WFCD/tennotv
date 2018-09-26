@@ -149,7 +149,7 @@ function tryAuthenticateAndPost(requestUrl) {
   // If we fail, try logging in and calling the function again
   $.post(requestUrl + accessToken).fail(function authAndPostAgain() {
     hello('google').login(function getTokenAndPostAgain() {
-      access = hello('google').getAuthResponse().access_token;
+      accessToken = hello('google').getAuthResponse().access_token;
       tryAuthenticateAndPost(requestUrl);
     });
   })
