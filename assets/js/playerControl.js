@@ -4,8 +4,8 @@ queue, ready, done, player, playlistVid, setUrl, contentCreators,
 resolveVideo, loadAuthorSocialsByVideoId, initialVideo, hello
 */
 
-var api_key = 'AIzaSyD22uMB0bxCnYFocXRDqdLatjWzmUPf_sw';
-var access_token = 'MISSING';
+var apiKey = 'AIzaSyD22uMB0bxCnYFocXRDqdLatjWzmUPf_sw';
+var accessToken = 'MISSING';
 
 function processVideoData(videoArray) {
   queue = queue.concat(videoArray);
@@ -113,53 +113,53 @@ function likeVideo() {
   // If the like button already has the 'liked' class and is pressed,
   // send the 'none' rating instead to undo the like (otherwise, like the video via post)
   if ($('#playerLike').hasClass('liked')) {
-    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=none&key='+api_key+'&access_token='
-    tryAuthenticateAndPost(postUrl)
-    $('#playerLike').removeClass('liked')
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=none&key='+apiKey+'&access_token=';
+    tryAuthenticateAndPost(postUrl);
+    $('#playerLike').removeClass('liked');
   } else {
-    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=like&key='+api_key+'&access_token='
-    tryAuthenticateAndPost(postUrl)
-    $('#playerLike').addClass('liked')
-    $('#playerDislike').removeClass('disliked')
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=like&key='+apiKey+'&access_token=';
+    tryAuthenticateAndPost(postUrl);
+    $('#playerLike').addClass('liked');
+    $('#playerDislike').removeClass('disliked');
   }
 }
 
 function dislikeVideo() {
-  var videoId = player.getVideoData().video_id
+  var videoId = player.getVideoData().video_id;
   // If the dislike button already has the 'disliked' class and is pressed,
   // send the 'none' rating instead to undo the dislike (otherwise, dislike the video via post)
   if ($('#playerDislike').hasClass('disliked')) {
-    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=none&key='+api_key+'&access_token='
-    tryAuthenticateAndPost(postUrl)
-    $('#playerDislike').removeClass('disliked')
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=none&key='+apiKey+'&access_token=';
+    tryAuthenticateAndPost(postUrl);
+    $('#playerDislike').removeClass('disliked');
   } else {
-    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=dislike&key='+api_key+'&access_token='
-    tryAuthenticateAndPost(postUrl)
-    $('#playerDislike').addClass('disliked')
-    $('#playerLike').removeClass('liked')
+    var postUrl = 'https://www.googleapis.com/youtube/v3/videos/rate?id='+videoId+'&rating=dislike&key='+apiKey+'&access_token=';
+    tryAuthenticateAndPost(postUrl);
+    $('#playerDislike').addClass('disliked');
+    $('#playerLike').removeClass('liked');
   }
 }
 
 function tryAuthenticateAndPost(requestUrl) {
-  // If the access_token is set to missing, this means we haven't gotten it yet,
+  // If the accessToken is set to missing, this means we haven't gotten it yet,
   // so use the google API login immediately, then call the function again
-  if (access_token == "MISSING") {
+  if (accessToken == 'MISSING') {
     hello('google').login(function() {
-      console.log("Getting access token...")
-      access_token = hello('google').getAuthResponse().access_token;
-      tryAuthenticateAndPost(requestUrl)
+      console.log("Getting access token...");
+      accessToken = hello('google').getAuthResponse().access_token;
+      tryAuthenticateAndPost(requestUrl);
     });
   }
 
   // If we fail, try logging in and calling the function again
-  $.post(requestUrl+access_token, function() {
-    console.log('Done!')
+  $.post(requestUrl+access, function() {
+    console.log('Done!');
   }).fail(function() {
-    console.log("Failed!")
+    console.log("Failed!");
     hello('google').login(function() {
-      console.log("Getting new access token...")
-      access_token = hello('google').getAuthResponse().access_token;
-      tryAuthenticateAndPost(requestUrl)
+      console.log("Getting new access token...");
+      access = hello('google').getAuthResponse().access_token;
+      tryAuthenticateAndPost(requestUrl);
     });
   })
 }
