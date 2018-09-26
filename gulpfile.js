@@ -10,7 +10,6 @@ gulp.task('clean-js', () => del([
   './public/js/playerControl.js',
   './public/js/uiControl.js',
   './public/js/dashControl.js',
-  './public/js/hello.all.js',
   './public/sums.json',
 ]));
 
@@ -24,7 +23,6 @@ gulp.task('pack-js', () => gulp.src([
   'assets/js/playerControl.js',
   'assets/js/uiControl.js',
   'assets/js/dashControl.js',
-  'assets/js/hello.all.js',
 ])
   .pipe(minify({
     ext: {
