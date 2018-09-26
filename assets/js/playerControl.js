@@ -109,7 +109,7 @@ function startVideo(videoId) {
 }
 
 function likeVideo() {
-  let videoId = player.getVideoData().video_id;
+  const videoId = player.getVideoData().video_id;
   // If the like button already has the 'liked' class and is pressed,
   // send the 'none' rating instead to undo the like (otherwise, like the video via post)
   if ($('#playerLike').hasClass('liked')) {
@@ -123,7 +123,7 @@ function likeVideo() {
 }
 
 function dislikeVideo() {
-  let videoId = player.getVideoData().video_id;
+  const videoId = player.getVideoData().video_id;
   // If the dislike button already has the 'disliked' class and is pressed,
   // send the 'none' rating instead to undo the dislike (otherwise, dislike the video via post)
   if ($('#playerDislike').hasClass('disliked')) {
