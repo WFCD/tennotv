@@ -58,7 +58,7 @@ const notify = message => {
 function makeTags(tagArray) {
   if (!tagArray || tagArray.length === 0) return '';
   return $.map(tagArray, tag => {
-    if (tag && tag !== null) {
+    if (tag && tag !== null && validToggles.includes(tag.toLowerCase())) {
       return `<span class="badge badge-light">${titleCase(tag)}</span>`;
     }
     return '';
