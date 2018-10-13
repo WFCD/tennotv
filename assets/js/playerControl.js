@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars, no-global-assign */
 /* globals updatePlaylist, YT, getVideos, notify, $, addWatchedVideo,
 queue, ready, done, player, playlistVid, setUrl, contentCreators,
-resolveVideo, loadAuthorSocialsByVideoId, initialVideo, hello
+resolveVideo, loadAuthorSocialsByVideoId, initialVideo, hello, ytApiKey
 */
 
-const apiKey = 'AIzaSyD22uMB0bxCnYFocXRDqdLatjWzmUPf_sw';
 let accessToken = 'MISSING';
 
 function processVideoData(videoArray) {
@@ -113,10 +112,10 @@ function likeVideo() {
   // If the like button already has the 'liked' class and is pressed,
   // send the 'none' rating instead to undo the like (otherwise, like the video via post)
   if ($('#playerLike').hasClass('liked')) {
-    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=none&key=${apiKey}&access_token=`);
+    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=none&key=${ytApiKey}&access_token=`);
     $('#playerLike').removeClass('liked');
   } else {
-    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=like&key=${apiKey}&access_token=`);
+    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=like&key=${ytApiKey}&access_token=`);
     $('#playerLike').addClass('liked');
     $('#playerDislike').removeClass('disliked');
   }
@@ -127,10 +126,10 @@ function dislikeVideo() {
   // If the dislike button already has the 'disliked' class and is pressed,
   // send the 'none' rating instead to undo the dislike (otherwise, dislike the video via post)
   if ($('#playerDislike').hasClass('disliked')) {
-    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=none&key=${apiKey}&access_token=`);
+    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=none&key=${ytApiKey}&access_token=`);
     $('#playerDislike').removeClass('disliked');
   } else {
-    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=dislike&key=${apiKey}&access_token=`);
+    tryAuthenticateAndPost(`https://www.googleapis.com/youtube/v3/videos/rate?id=${videoId}&rating=dislike&key=${ytApiKey}&access_token=`);
     $('#playerDislike').addClass('disliked');
     $('#playerLike').removeClass('liked');
   }
@@ -139,18 +138,18 @@ function dislikeVideo() {
 function tryAuthenticateAndPost(requestUrl) {
   // If the accessToken is set to missing, this means we haven't gotten it yet,
   // so use the google API login immediately, then call the function again
-  if (accessToken == 'MISSING') {
-    hello('google').login(function getTokenAndPost() {
+  if (accessToken === 'MISSING') {
+    hello('google').login(() => {
       accessToken = hello('google').getAuthResponse().access_token;
       tryAuthenticateAndPost(requestUrl);
     });
   }
 
   // If we fail, try logging in and calling the function again
-  $.post(requestUrl + accessToken).fail(function authAndPostAgain() {
-    hello('google').login(function getTokenAndPostAgain() {
+  $.post(requestUrl + accessToken).fail(() => {
+    hello('google').login(() => {
       accessToken = hello('google').getAuthResponse().access_token;
       tryAuthenticateAndPost(requestUrl);
     });
-  })
+  });
 }
