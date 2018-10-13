@@ -9,6 +9,7 @@ const files = [
   'img/logos/banner.webp',
   'img/logos/logo-50.webp',
   'img/warframes.png',
+  'img/streamlab.png',
   'img/weapons.png',
   'img/lotus.svg',
   'img/sfm.svg',
