@@ -249,6 +249,12 @@ function loadAuthorSocialsByVideoId(videoId) {
         case 'twitter_handle':
           link = `https://twitter.com/${creator.twitter_handle}`;
           break;
+        case 'instagram_name':
+          link = `https://instagram.com/${creator.instagram_name}`;
+          break;
+        case 'streamlabs':
+          link = `https://streamlabs.com/${creator.streamlabs}`;
+          break;
         default:
           break;
         }
