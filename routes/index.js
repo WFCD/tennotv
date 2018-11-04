@@ -5,12 +5,16 @@ const {
 
 const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv/';
 const publicDSN = process.env.RAVEN_DSN;
+const privateDSN = process.env.RAVEN_DSN_PRIVATE;
+const logLevel = process.env.LOG_LEVEL || 'error';
+const ytApiKey = process.env.YT_API_KEY || '';
+const ytClientId = process.env.YT_CLIENT_ID || '';
 
 // Set up logger
 const router = express.Router();
 
 const deps = {
-  router, logger, sums, serviceAPI, ravenDSN: publicDSN,
+  router, logger, sums, serviceAPI, ravenDSN: publicDSN, ytApiKey, ytClientId,
 };
 
 deps.creators = [];

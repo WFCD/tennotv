@@ -1,4 +1,4 @@
-<div class="container" id="under-player-controls">
+<div class="container" id="above-player-controls">
   <div class="row">
     <div class="navbar n-center text-center">
       <button name="History" aria-label="History" type="button" id="historyTrigger" class="btn btn-secondary btn-sm" href="#history" data-target="#history" data-toggle="modal">
@@ -19,6 +19,16 @@
       <button name="Next Video" aria-label="Next Video" type="button" id="playerNext" onclick="player.seekTo(player.getDuration())" class="btn btn-secondary btn-sm">
         <a data-toggle="tooltip" data-placement="bottom" title="Next Video">
           <i class="fas fa-fast-forward"></i>
+        </a>
+      </button>
+      <button name="Like Video" aria-label="Like Video" type="button" id="playerLike" onclick="likeVideo()" class="btn btn-secondary btn-sm">
+        <a data-toggle="tooltip" data-placement="bottom" title="Like Video">
+          <i class="fas fa-thumbs-up"></i>
+        </a>
+      </button>
+      <button name="Dislike Video" aria-label="Dislike Video" type="button" id="playerDislike" onclick="dislikeVideo()" class="btn btn-secondary btn-sm">
+        <a data-toggle="tooltip" data-placement="bottom" title="Dislike Video">
+          <i class="fas fa-thumbs-down"></i>
         </a>
       </button>
     </div>

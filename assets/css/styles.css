@@ -169,7 +169,7 @@ body {
   margin-bottom: 10px;
 }
 
-#under-player-controls .navbar {
+#above-player-controls .navbar {
   padding: 0;
 }
 
@@ -423,6 +423,17 @@ input[type="checkbox"]:checked:after,
 {
   margin: 0 5px 0 5px;
   position: relative;
+}
+
+/* Player control buttons */
+.liked
+{
+  color: green;
+}
+
+.disliked
+{
+  color: red;
 }
 
 /* Shade */

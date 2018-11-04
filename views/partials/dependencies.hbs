@@ -13,7 +13,18 @@
 <script src="/js/flakeid.min.js?v={{lookup sums 'js/flakeid.min.js'}}"></script>
 <!-- YouTube subscribe button -->
 <script src="https://apis.google.com/js/api.js"></script>
-
+<!-- OAuth2 Javascript Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hellojs/2.0.0-4/hello.all.js"></script>
+<script>
+  hello.init({
+    google: '{{ytClientId}}'
+  }, {
+	  redirect_uri: 'http://tenno.tv/',
+    scope: 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.force-ssl',
+    access_type: 'offline',
+    prompt: 'consent'
+  });
+</script>
 <!-- favicon -->
 <link rel="icon" type="/image/png" href="/img/logo.png?v={{lookup sums 'img/logo.png'}}"/>
 <!--- font awesome -->
@@ -32,6 +43,7 @@
   const serviceAPI = '{{serviceAPI}}';
   const limitToCreator = '{{limitToCreator}}';
   const initialVideo = '{{initialVideo}}';
+  const ytApiKey = '{{ytApiKey}}';
   Raven.config('{{ravenDSN}}').install()
 </script>
 
