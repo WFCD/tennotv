@@ -1,5 +1,5 @@
 const contentCreators = async ({
-  router, logger, sums, serviceAPI, creators, ravenDSN,
+  router, logger, sums, serviceAPI, creators, ravenDSN, ytApiKey, ytClientId,
 }) => {
   creators
     .forEach(creator => {
@@ -12,6 +12,8 @@ const contentCreators = async ({
           limitToCreator: creator.id,
           creators,
           ravenDSN,
+          ytApiKey,
+          ytClientId,
         });
       });
     });
