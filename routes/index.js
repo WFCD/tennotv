@@ -1,12 +1,7 @@
 const express = require('express');
-const snek = require('snekfetch');
-const Sentry = require('winston-raven-sentry');
-const {transports, createLogger, format} = require('winston');
-
 const {
-  combine, label, printf, colorize,
-} = format;
-const sums = require('../public/sums.json'); // eslint-disable-line import/no-unresolved
+  setHeadersAndJson, fetchCreators, logger, sums,
+} = require('../assets/js/serverUtils');
 
 const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv/';
 const publicDSN = process.env.RAVEN_DSN;
@@ -17,22 +12,10 @@ const ytClientId = process.env.YT_CLIENT_ID || '';
 
 // Set up logger
 const router = express.Router();
-const consoleTransport = new transports.Console({colorize: true});
-const sentry = new Sentry({dsn: privateDSN, level: logLevel});
-const logFormat = printf(info => `[${info.label}] ${info.level}: ${info.message}`);
-const logger = createLogger({
-  format: combine(colorize(), label({label: 'Tenno.tv'}), logFormat),
-  transports: [consoleTransport],
-});
-
-logger.add(sentry);
 
 const deps = {
   router, logger, sums, serviceAPI, ravenDSN: publicDSN, ytApiKey, ytClientId,
 };
-logger.level = logLevel;
-
-const url = `${serviceAPI}?method=get-content-creators`;
 
 deps.creators = [];
 
@@ -41,14 +24,7 @@ require('./routeSetups/root')(deps);
 
 const setup = async () => {
   try {
-    logger.log('debug', `Fetching creators: ${url}`);
-    const fetched = await snek.get(url, {headers: {'content-type': 'application/json'}});
-    deps.creators = fetched.body.map(creator => ({
-      name: creator.account_name.replace(/\s/g, '').toLowerCase(),
-      id: creator.author_id,
-      nameDisp: creator.account_name,
-      thumb: creator.youtube_thumbnail,
-    }));
+    deps.creators = await fetchCreators();
   } catch (error) {
     logger.log('error', error.stack);
   }
@@ -57,6 +33,16 @@ const setup = async () => {
   await require('./routeSetups/videos')(deps);
   await require('./routeSetups/agreement')(deps);
   await require('./routeSetups/feedback')(deps);
+
+  router.get('/force-creator-refresh', async (req, res) => {
+    const before = deps.creators;
+    logger.log('debug', `Creators before: ${deps.creators.length}`);
+    deps.creators = await fetchCreators();
+    logger.log('debug', `Creators after: ${deps.creators.length}`);
+    setHeadersAndJson(res, {status: 'ok', message: `New creators: ${deps.creators.length - before.length}`});
+    res.status(200).end();
+  });
+
   await require('./routeSetups/404')(deps);
   await require('./routeSetups/catchAll')(deps);
   /* eslint-enable global-require, import/no-dynamic-require */
