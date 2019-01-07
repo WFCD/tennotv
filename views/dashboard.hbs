@@ -2,10 +2,10 @@
   <div class='row'>
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <a class="nav-link active" href="#" data-tab-id="creators">Creators</a>
+        <a class="nav-link active" href="#" data-tab-id='creators-plist'>Creators</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" data-tab-id="shows">Shows</a>
+        <a class="nav-link" href="#" data-tab-id="shows">Shows</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" data-tab-id="categories">Categories</a>
@@ -13,5 +13,44 @@
     </ul>
   </div>
 
-  <div id='dashboard_results' class='body-wrapper'></div>
+  <div id='creators-plist' class='body-wrapper'>
+    {{#each playlists.creators}}
+      <div id="{{this.data}}" class="content_creator_playlist">
+        <div class="title">
+          <a href="/{{this.link}}">
+            {{this.name}} <i class="fas fa-play"></i>
+          </a>
+        </div>
+        <div class="bottom">
+          <div class="previous hide">
+            <i class="fas fa-angle-left"></i>
+          </div>
+          <div class="scroll">
+            <div class="playlist">
+              {{#each this.playlist}}
+              <span class="video" id='{{this.video_id}}-video' data-button='{{this.video_id}}'>
+                <a href="/v/{{this.video_id}}">
+                  <i class="fas fa-play faded" id="{{this.video_id}}-button"></i>
+                  <img src="https://img.youtube.com/vi/{{this.video_id}}/mqdefault.jpg" />
+                  <div class='shade hide text-center'>
+                    <div class='shade-author hide'>{{this.account_name}}</div>
+                    <div class='shade-title'>{{this.video_title}}</div>
+                  </div>
+                </a>
+              </span>
+              {{/each}}
+            </div>
+          </div>
+          <div class="next text-right">
+            <i class="fas fa-angle-right"></i>
+          </div>
+        </div>
+      </div>
+    {{else}}
+      {{> no-videos}}
+    {{/each}}
+  </div>
+  <div id='shows' class='body-wrapper'>
+    {{> no-videos}}
+  </div>
 </div>

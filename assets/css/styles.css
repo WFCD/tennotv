@@ -446,3 +446,12 @@ input[type="checkbox"]:checked:after,
 .hide {
   display: none!important;
 }
+
+.no-content-warning {
+  display: inline-block;
+  font-size: 5em;
+}
+
+.dim {
+  opacity: 0.5;
+}
