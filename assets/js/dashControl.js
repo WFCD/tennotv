@@ -84,6 +84,7 @@ const construct = async () => {
       $('[data-tab-id]').removeClass('active');
       target.addClass('active');
       $(`#${target.attr('data-tab-id')}`).show();
+      construct();
     }
   });
 };
