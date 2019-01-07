@@ -80,6 +80,15 @@ const construct = async () => {
     }, 600);
   });
 
+  $('[data-tab-id]').each((index, element) => {
+    const target = $(element);
+    if(target.hasClass('active')) {
+      $(`#${target.attr('data-tab-id')}`).show();
+    } else {
+      $(`#${target.attr('data-tab-id')}`).hide();
+    }
+  });
+
   $('[data-tab-id]').click((e) => {
     const target = $(e.currentTarget);
     if (!target.attr('disabled')) {
@@ -88,7 +97,7 @@ const construct = async () => {
       target.addClass('active');
       $(`#${target.attr('data-tab-id')}`).show();
     }
-  })
+  });
 };
 
 construct();

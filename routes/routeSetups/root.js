@@ -9,12 +9,7 @@ const root = ({
     logger.log('silly', `Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);
     const creatorData = (await fetch(`${serviceAPI}dashboard`)
       .then(data => data.json()))
-    const stripped = creatorData.map(thing => {
-      const d = Object.assign({}, thing);
-      delete d.playlist;
-      return d;
-    })
-    logger.log('error', JSON.stringify(stripped));
+
     const playlists = {
       creators: creatorData.map(account => ({
           name: account.account_name,
