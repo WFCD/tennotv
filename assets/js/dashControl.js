@@ -88,8 +88,6 @@ const construct = async () => {
   });
 };
 
-$('.body-wrapper').hide();
-
 $(document).ready(() => {
   construct();
 });
