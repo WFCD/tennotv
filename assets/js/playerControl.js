@@ -1,5 +1,3 @@
-'use strict';
-
 /* eslint-disable no-unused-vars, no-global-assign */
 /* globals updatePlaylist, YT, getVideos, notify, $, addWatchedVideo,
 queue, ready, done, player, playlistVid, setUrl, contentCreators,
@@ -78,7 +76,6 @@ function onPlayerStateChange(event) {
   }
 }
 function onPlayerError(event) {
-  console.log(JSON.stringify(event));
   const reloadErrors = [2, 100, 101, 150];
   if (reloadErrors.includes(parseInt(event.data, 10))) {
     loadVideo(getNextVideoId());

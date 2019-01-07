@@ -1,5 +1,3 @@
-'use strict';
-
 const Sentry = require('winston-raven-sentry');
 const {transports, createLogger, format} = require('winston');
 const fetch = require('node-fetch');

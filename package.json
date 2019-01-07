@@ -10,8 +10,7 @@
     "dev": "nodemon",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "api": "node ./server/server.js",
-    "dev:server": "nodemon ./server/server.js --config server.nodemon.json"
+    "api": "node ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +21,7 @@
     "tennotv"
   ],
   "author": "TobiTenno",
-  "license": "APACHE 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/WFCD/tennotv/issues"
   },
@@ -72,9 +71,7 @@
       "public/js/*",
       "public/css/*",
       "public/sums.json",
-      ".git",
-      "server/*",
-      "server.nodemon.json"
+      ".git"
     ],
     "env": {
       "SERVICE_API_URL": "https://api.tenno.tv/",

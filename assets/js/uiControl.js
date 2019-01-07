@@ -1,7 +1,7 @@
 /*
 global
 makeTags, lastInd, loadVideo, $, lastInd, validToggles, resetToggles, resetWatchedVideos, alerts
-SVGInjector, gapi, getContentCreators, getVideos, getHistoricalVideos, initialVideo, localStorage
+SVGInjector, gapi, getContentCreators, getVideos, getHistoricalVideos, localStorage
 */
 /* eslint-disable no-unused-vars */
 
@@ -164,6 +164,7 @@ $(document).ready(() => {
         localStorage.setItem(`${alert}Visible`, 'closed');
         adjustPlayerSize();
       });
+      $(`#${alert}`).css('visibility', 'visible');
     } else {
       $(`#${alert}`).alert('close');
       adjustPlayerSize();

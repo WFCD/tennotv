@@ -1,18 +1,6 @@
 /*
- globals $, serviceAPI, Raven,
+ globals $
 */
-
-const requestInfo = {
-  method: 'GET',
-  header: {
-    'content-type': 'application/json',
-    'user-agent': navigator.userAgent,
-  },
-  credentials: 'omit',
-  referrer: 'no-referrer',
-};
-const url = `${serviceAPI}dashboard`;
-const request = new Request(url, requestInfo);
 
 const construct = async () => {
   $('[data-button]').each((index, element) => {
@@ -82,14 +70,14 @@ const construct = async () => {
 
   $('[data-tab-id]').each((index, element) => {
     const target = $(element);
-    if(target.hasClass('active')) {
+    if (target.hasClass('active')) {
       $(`#${target.attr('data-tab-id')}`).show();
     } else {
       $(`#${target.attr('data-tab-id')}`).hide();
     }
   });
 
-  $('[data-tab-id]').click((e) => {
+  $('[data-tab-id]').click(e => {
     const target = $(e.currentTarget);
     if (!target.attr('disabled')) {
       $('.body-wrapper').hide();
@@ -100,4 +88,8 @@ const construct = async () => {
   });
 };
 
-construct();
+$('.body-wrapper').hide();
+
+$(document).ready(() => {
+  construct();
+});
