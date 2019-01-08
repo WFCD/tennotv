@@ -14,6 +14,9 @@ const construct = async () => {
 
   let videoWidth = null;
 
+  /**
+   * Defines what happenes when the "next" button is pressed.
+   **/
   $('.next').click(event => {
     if (!videoWidth) {
       videoWidth = $('.video').width()
@@ -86,6 +89,13 @@ const construct = async () => {
       $(`#${target.attr('data-tab-id')}`).show();
       construct();
     }
+  });
+
+  /**
+   * Fix for large width error causing strange spacing and overflowing shade.
+   */
+  $(".video").each(() => {
+    $(this).width( $(this).find('img').width() );
   });
 };
 
