@@ -2,7 +2,7 @@
  globals $
 */
 
-const construct = async () => {
+const shadeHoverSetup = () => {
   $('[data-button]').each((index, element) => {
     const target = $(element);
     const vid = target.attr('data-button');
@@ -11,6 +11,10 @@ const construct = async () => {
       $(`#${vid}-video`).find('.shade').toggleClass('hide');
     });
   });
+};
+
+const construct = async () => {
+  shadeHoverSetup();
 
   let videoWidth = null;
 
@@ -80,22 +84,23 @@ const construct = async () => {
     }
   });
 
-  $('[data-tab-id]').click(e => {
+  $('[data-tab-id]').click(async e => {
     const target = $(e.currentTarget);
     if (!target.attr('disabled')) {
       $('.body-wrapper').hide();
       $('[data-tab-id]').removeClass('active');
       target.addClass('active');
       $(`#${target.attr('data-tab-id')}`).show();
-      construct();
+      await construct();
+      shadeHoverSetup();
     }
   });
 
   /**
    * Fix for large width error causing strange spacing and overflowing shade.
    */
-  $(".video").each(() => {
-    $(this).width( $(this).find('img').width() );
+  $('.video').each((index, element) => {
+    $(element).width($($(element).find('img')).width());
   });
 };
 

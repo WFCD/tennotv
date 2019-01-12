@@ -28,9 +28,9 @@
           <div class="scroll">
             <div class="playlist">
               {{#each this.playlist}}
-              <span class="video" id='{{this.video_id}}-video' data-button='{{this.video_id}}'>
+              <span class="video" id='{{this.video_id}}-creators-video' data-button='{{this.video_id}}-creators'>
                 <a href="/v/{{this.video_id}}">
-                  <i class="fas fa-play faded" id="{{this.video_id}}-button"></i>
+                  <i class="fas fa-play faded" id="{{this.video_id}}-creators-button"></i>
                   <img src="https://img.youtube.com/vi/{{this.video_id}}/mqdefault.jpg" />
                   <div class='shade hide text-center'>
                     <div class='shade-author hide'>{{this.account_name}}</div>
@@ -63,9 +63,9 @@
           <div class="scroll">
             <div class="playlist">
               {{#each this.playlist}}
-              <span class="video" id='{{this.video_id}}-video' data-button='{{this.video_id}}'>
+              <span class="video" id='{{this.video_id}}-cat-video' data-button='{{this.video_id}}-cat'>
                 <a href="/v/{{this.video_id}}">
-                  <i class="fas fa-play faded" id="{{this.video_id}}-button"></i>
+                  <i class="fas fa-play faded" id="{{this.video_id}}-cat-button"></i>
                   <img src="https://img.youtube.com/vi/{{this.video_id}}/mqdefault.jpg" />
                   <div class='shade hide text-center'>
                     <div class='shade-author hide'>{{this.account_name}}</div>

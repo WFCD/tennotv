@@ -37,6 +37,9 @@ module.exports = {
   fetchCreators: async () => {
     logger.log('debug', `Fetching creators: ${creatorUrl}`);
     const fetched = await fetch(creatorUrl).then(data => data.json());
+    if (!fetched.length) {
+      return [];
+    }
     return fetched.map(creator => ({
       name: creator.account_name.replace(/\s/g, '').toLowerCase(),
       id: creator.author_id,
