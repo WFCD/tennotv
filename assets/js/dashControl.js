@@ -20,7 +20,7 @@ const construct = async () => {
 
   /**
    * Defines what happenes when the "next" button is pressed.
-   **/
+   */
   $('.next').click(event => {
     if (!videoWidth) {
       videoWidth = $('.video').width()
