@@ -10,8 +10,7 @@
     "dev": "nodemon",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "api": "node ./server/server.js",
-    "dev:server": "nodemon ./server/server.js --config server.nodemon.json"
+    "api": "node ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +21,7 @@
     "tennotv"
   ],
   "author": "TobiTenno",
-  "license": "APACHE 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/WFCD/tennotv/issues"
   },
@@ -30,12 +29,12 @@
   "dependencies": {
     "biguint-format": "^1.0.0",
     "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "cookie-parser": "^1.4.3",
     "debug": "~4.1.0",
     "del": "^3.0.0",
-    "eslint": "^5.0.0",
-    "express": "~4.16.3",
+    "eslint": "^5.12.0",
+    "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^4.0.0",
@@ -43,25 +42,25 @@
     "gulp-hashsum": "^1.2.0",
     "gulp-minify": "git://github.com/zbennett10/gulp-minify.git#e1d8905041af230fd0fb980aa8a26c12c53e03f7",
     "hbs": "^4.0.1",
-    "helmet": "^3.13.0",
-    "nodemon": "^1.18.3",
+    "helmet": "^3.15.0",
+    "node-fetch": "^2.3.0",
     "serve-favicon": "~2.5.0",
-    "sinon": "6.0.1",
-    "snekfetch": "^4.0.4",
-    "supertest": "^3.0.0",
-    "winston": "^3.0.0",
+    "sinon": "7.2.4",
+    "supertest": "^3.3.0",
+    "winston": "^3.1.0",
     "winston-raven-sentry": "^2.0.0"
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.3",
     "greenkeeper-lockfile": "^1.14.0",
-    "mocha": "^5.1.1",
-    "vinyl-source-stream": "^2.0.0",
-    "travis-deploy-once": "^5.0.0",
-    "semantic-release": "^15.5.0"
+    "mocha": "^6.0.0",
+    "nodemon": "^1.18.9",
+    "semantic-release": "^15.13.2",
+    "travis-deploy-once": "^5.0.11",
+    "vinyl-source-stream": "^2.0.0"
   },
   "engines": {
     "node": ">=8.9.0",
@@ -72,9 +71,7 @@
       "public/js/*",
       "public/css/*",
       "public/sums.json",
-      ".git",
-      "server/*",
-      "server.nodemon.json"
+      ".git"
     ],
     "env": {
       "SERVICE_API_URL": "https://api.tenno.tv/",

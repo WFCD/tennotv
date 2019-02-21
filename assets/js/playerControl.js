@@ -18,7 +18,7 @@ function processVideoData(videoArray) {
     }
   }
 }
-function getNextVideoId(currentVideoId) {
+function getNextVideoId(currentVideoId = player.getVideoData().video_id) {
   let nextId;
   $.each(queue, queueIndex => {
     if (queue[queueIndex].video_id === currentVideoId) {
@@ -75,8 +75,13 @@ function onPlayerStateChange(event) {
     done = false;
   }
 }
+function onPlayerError(event) {
+  const reloadErrors = [2, 100, 101, 150];
+  if (reloadErrors.includes(parseInt(event.data, 10))) {
+    loadVideo(getNextVideoId());
+  }
+}
 
-// eslint-disable-next-line no-unused-vars
 function onYouTubeIframeAPIReady() {
   ready = true;
 }
@@ -96,6 +101,7 @@ function startVideo(videoId) {
       events: {
         onReady: onPlayerReady,
         onStateChange: onPlayerStateChange,
+        onError: onPlayerError,
       },
     });
     $('.table-active').removeClass('table-active');

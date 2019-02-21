@@ -31,7 +31,7 @@ const test = async () => {
           }
           return done();
         });
-    });
+    }).timeout(10000);
   });
 };
 

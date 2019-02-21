@@ -30,21 +30,9 @@ body {
   overflow-x: hidden;
 }
 
-@media (min-width: 1700px)  {
+@media (max-width: 3000px), (min-width: 1700px), (min-width: 1800px), (min-width: 2200px) {
   .container {
-      max-width: 1500px;
-  }
-}
-
-@media (min-width: 1800px)  {
-  .container {
-      max-width: 1700px;
-  }
-}
-
-@media (min-width: 2200px)  {
-  .container {
-      max-width: 2000px;
+      max-width: calc(100% - 30px);
   }
 }
 
@@ -326,7 +314,7 @@ input[type="checkbox"]:checked:after,
 
 .content_creator_playlist .scroll
 {
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 }
 
@@ -417,6 +405,7 @@ input[type="checkbox"]:checked:after,
 {
   width: auto;
   height: 100%;
+  vertical-align: unset;
 }
 
 .content_creator_playlist .video
@@ -445,4 +434,13 @@ input[type="checkbox"]:checked:after,
 
 .hide {
   display: none!important;
+}
+
+.no-content-warning {
+  display: inline-block;
+  font-size: 5em;
+}
+
+.dim {
+  opacity: 0.5;
 }

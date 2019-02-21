@@ -9,9 +9,7 @@
 
 # Contribute
 
-At the moment, we aren't looking for contributors, as we are preparing for an initial release.
-
-If you have any interest in contributing or any feature requests, feel free to add an issue or feature request.
+If you have any interest in contributing or any feature requests, feel free to add an issue or feature request, and if you'd like to implement it, feel free to give it a shot.
 
 
 ## Prerequisite
@@ -22,7 +20,7 @@ In order to run your own version of Warframe Hub, you are required to have the f
 ## Dependencies
 Most software related dependencies should be managed by NPM, and will be automatically installed when you try to run the project. We'll cover those dependencies in the following section.
 
-Warframe Hub also relies on the availability of the internet, as it will parse the Warframe WorldState. It uses a slightly easier to parse WorldState provided by [Warframe Stat](https://warframestat.us/)
+Tenno.tv relies on connection to the internet as we include data from an outside api.
 
 ## Installation
 Clone or download and unpack this repository. Install the dependencies using NPM

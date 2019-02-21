@@ -1,6 +1,6 @@
 const Sentry = require('winston-raven-sentry');
 const {transports, createLogger, format} = require('winston');
-const snek = require('snekfetch');
+const fetch = require('node-fetch');
 
 const sums = require('../../public/sums.json'); // eslint-disable-line import/no-unresolved
 
@@ -36,8 +36,11 @@ module.exports = {
   logger,
   fetchCreators: async () => {
     logger.log('debug', `Fetching creators: ${creatorUrl}`);
-    const fetched = await snek.get(creatorUrl, {headers: {'content-type': 'application/json'}});
-    return fetched.body.map(creator => ({
+    const fetched = await fetch(creatorUrl).then(data => data.json());
+    if (!fetched.length) {
+      return [];
+    }
+    return fetched.map(creator => ({
       name: creator.account_name.replace(/\s/g, '').toLowerCase(),
       id: creator.author_id,
       nameDisp: creator.account_name,
