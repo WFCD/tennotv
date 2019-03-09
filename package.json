@@ -46,7 +46,7 @@
     "node-fetch": "^2.3.0",
     "serve-favicon": "~2.5.0",
     "sinon": "7.2.4",
-    "supertest": "^3.3.0",
+    "supertest": "^4.0.0",
     "winston": "^3.1.0",
     "winston-raven-sentry": "^2.0.0"
   },
