@@ -32,7 +32,7 @@
     "chai": "^4.2.0",
     "cookie-parser": "^1.4.3",
     "debug": "~4.1.0",
-    "del": "^3.0.0",
+    "del": "^4.0.0",
     "eslint": "^5.12.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
@@ -45,7 +45,7 @@
     "helmet": "^3.15.0",
     "node-fetch": "^2.3.0",
     "serve-favicon": "~2.5.0",
-    "sinon": "7.2.4",
+    "sinon": "7.2.5",
     "supertest": "^4.0.0",
     "winston": "^3.1.0",
     "winston-raven-sentry": "^2.0.0"
