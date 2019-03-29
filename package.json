@@ -45,7 +45,7 @@
     "helmet": "^3.15.0",
     "node-fetch": "^2.3.0",
     "serve-favicon": "~2.5.0",
-    "sinon": "7.2.5",
+    "sinon": "7.3.1",
     "supertest": "^4.0.0",
     "winston": "^3.1.0",
     "winston-raven-sentry": "^2.0.0"
