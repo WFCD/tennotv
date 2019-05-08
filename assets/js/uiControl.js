@@ -16,7 +16,7 @@ function makeHistoryRow(video) {
 
 function makeRow(video) {
   const authorSpan = `<span class='author-name'>${video.account_name}</span>`;
-  const authorImg = video.author_yt_thumbnail ? `<img class="author-img" alt="${video.account_name}" title="${video.account_name}" src="${video.author_yt_thumbnail}">` : '';
+  const authorImg = video.author_yt_thumbnail ? `<img class="author-img" alt="${video.account_name}" title="${video.account_name}" src="https://cdn.warframestat.us/0_webp/${video.author_yt_thumbnail}">` : '';
   const authorLink = `<a href="/${video.account_name.replace(/\s/ig, '').toLowerCase()}" name="${video.account_name}'s Channel" target="_blank" rel="noopener">${authorImg}${authorSpan}</a>`;
   const authorRow = `<td class="author col-md-2">${authorLink}</td>`;
 
