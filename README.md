@@ -1,7 +1,7 @@
 # [Tenno.tv](https://tenno.tv)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/WFCD/tennotv.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/WFCD/tennotv.svg?branch=master)](https://travis-ci.org/WFCD/tennotv)
+[![Build Status](https://travis-ci.com/WFCD/tennotv.svg?branch=master)](https://travis-ci.com/WFCD/tennotv)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 [![Supported by Warframe Community Developers](https://warframestat.us/wfcd.png)](https://github.com/WFCD "Supported by Warframe Community Developers")
