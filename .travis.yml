@@ -23,17 +23,5 @@ before_install:
 
 install: npm install
 
-before_script:
-  - npm install -g mocha gulp gulp-minify gulp-clean-css del
-  - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
-
 script:
   - npm test
-
-after_success:
-  - chmod +x .github/success.sh
-  - ./.github/success.sh
-  - npm run travis-deploy-once "npm run semantic-release"
-after_failure:
-  - chmod +x .github/fail.sh
-  - ./.github/fail.sh

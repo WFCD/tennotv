@@ -7,10 +7,7 @@
     "postinstall": "npm install -g gulp-cli",
     "start": "npm run pre && node ./bin/www",
     "pre": "gulp && gulp hash",
-    "dev": "nodemon",
-    "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release",
-    "api": "node ./server/server.js"
+    "dev": "npx nodemon"
   },
   "repository": {
     "type": "git",
@@ -33,7 +30,6 @@
     "cookie-parser": "^1.4.3",
     "debug": "~4.1.0",
     "del": "^5.0.0",
-    "eslint": "^6.0.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "gulp": "^4.0.0",
@@ -51,15 +47,13 @@
     "winston-raven-sentry": "^2.0.0"
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^18.0.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.3",
     "greenkeeper-lockfile": "^1.14.0",
-    "mocha": "^6.0.0",
-    "nodemon": "^1.18.9",
-    "semantic-release": "^15.13.4",
-    "travis-deploy-once": "^5.0.11",
+    "mocha": "^6.2.0",
     "vinyl-source-stream": "^2.0.0"
   },
   "engines": {
@@ -76,8 +70,8 @@
     "env": {
       "SERVICE_API_URL": "https://api.tenno.tv/",
       "LOG_LEVEL": "silly",
-      "RAVEN_DSN": "https://54bb243e64894b728ec1ff1077f290d8@sentry.warframestat.us/10",
-      "RAVEN_DSN_PRIVATE": "https://54bb243e64894b728ec1ff1077f290d8:a4be6261c3b141208c15dfb050f2019f@sentry.warframestat.us/10"
+      "RAVEN_DSN": "",
+      "RAVEN_DSN_PRIVATE": ""
     }
   }
 }
