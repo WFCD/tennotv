@@ -1,28 +1,46 @@
-const Sentry = require('winston-raven-sentry');
 const {transports, createLogger, format} = require('winston');
 const fetch = require('node-fetch');
 
 const sums = require('../../public/sums.json'); // eslint-disable-line import/no-unresolved
 
+const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv/';
+const privateDSN = process.env.RAVEN_DSN_PRIVATE;
+const publicDSN = process.env.RAVEN_DSN;
+const ytApiKey = process.env.YT_API_KEY || '';
+const ytClientId = process.env.YT_CLIENT_ID || '';
+
 const {
   combine, label, printf, colorize,
 } = format;
-
-const serviceAPI = process.env.SERVICE_API_URL || 'https://api.tenno.tv/';
-const privateDSN = process.env.RAVEN_DSN_PRIVATE;
-const logLevel = process.env.LOG_LEVEL || 'error';
-
-const consoleTransport = new transports.Console({colorize: true});
-const sentry = new Sentry({dsn: privateDSN, level: logLevel});
+const transport = new transports.Console({colorize: true});
 const logFormat = printf(info => `[${info.label}] ${info.level}: ${info.message}`);
 const logger = createLogger({
-  format: combine(colorize(), label({label: 'Tenno.tv'}), logFormat),
-  transports: [consoleTransport],
+  format: combine(
+    colorize(),
+    label({label: 'TTV'}),
+    logFormat,
+  ),
+  transports: [transport],
 });
+logger.level = process.env.LOG_LEVEL || 'error';
 
-logger.add(sentry);
+const creators = [];
 
-const creatorUrl = `${serviceAPI}?method=get-content-creators`;
+const creatorUrl = `${serviceAPI}videos/creators`;
+
+const fetchCreators = async () => {
+  logger.debug(`Fetching creators: ${creatorUrl}`);
+  const fetched = await fetch(creatorUrl).then(data => data.json());
+  if (!fetched.length) {
+    return [];
+  }
+  return fetched.map(creator => ({
+    name: creator.account_name.replace(/\s/g, '').toLowerCase(),
+    id: creator.author_id,
+    nameDisp: creator.account_name,
+    thumb: creator.youtube_thumbnail,
+  }));
+};
 
 module.exports = {
   setHeadersAndJson: (res, json) => {
@@ -34,18 +52,12 @@ module.exports = {
     res.json(json);
   },
   logger,
-  fetchCreators: async () => {
-    logger.log('debug', `Fetching creators: ${creatorUrl}`);
-    const fetched = await fetch(creatorUrl).then(data => data.json());
-    if (!fetched.length) {
-      return [];
-    }
-    return fetched.map(creator => ({
-      name: creator.account_name.replace(/\s/g, '').toLowerCase(),
-      id: creator.author_id,
-      nameDisp: creator.account_name,
-      thumb: creator.youtube_thumbnail,
-    }));
-  },
+  fetchCreators,
   sums,
+  api: serviceAPI,
+  publicDSN,
+  privateDSN,
+  ytKey: ytApiKey,
+  ytId: ytClientId,
+  creators,
 };

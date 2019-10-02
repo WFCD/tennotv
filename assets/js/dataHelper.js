@@ -1,7 +1,7 @@
 /*
 globals
 
-localStorage, navigator, $, fetch, Request, serviceAPI, historicalVideos, contentCreators,
+$, serviceAPI, historicalVideos, contentCreators,
 generateNewToken, queue, limitToCreator, loadHistoricalVideo, makeHistoryRow, initialVideo,
 getCurrentToggles, processVideoData, notify, player, Raven
 */
@@ -16,9 +16,7 @@ const getContentCreators = async () => {
     credentials: 'omit',
     referrer: 'no-referrer',
   };
-  const opts = [];
-  opts.push('method=get-content-creators');
-  const url = `${serviceAPI}?${opts.join('&')}`;
+  const url = `${serviceAPI}videos/creators`;
   try {
     const request = new Request(url, requestInfo);
     const response = await fetch(request);
@@ -56,18 +54,14 @@ async function addVideoToUserHistory(id) {
       'user-agent': navigator.userAgent,
     },
     body: {
-      method: 'add-watcher-history',
       token: localStorage.getItem('watcherToken') || generateNewToken(),
       video_id: id,
     },
     credentials: 'omit',
     referrer: 'no-referrer',
   };
-  const opts = [];
-  opts.push('method=add-watcher-history');
-  opts.push(`video_id=${id}`);
-  opts.push(`token=${localStorage.getItem('watcherToken') || generateNewToken()}`);
-  const url = `${serviceAPI}?${opts.join('&')}`;
+
+  const url = `${serviceAPI}history/add`;
   try {
     const request = new Request(url, requestInfo);
     const response = await fetch(request);
@@ -144,7 +138,7 @@ async function getVideos(useQueue, ignoreTags) {
     credentials: 'omit',
     referrer: 'no-referrer',
   };
-  const url = `${serviceAPI}?${opts.join('&')}`;
+  const url = `${serviceAPI}videos/?${opts.join('&')}`;
   const request = new Request(url, requestInfo);
 
   try {
@@ -165,6 +159,7 @@ async function getVideos(useQueue, ignoreTags) {
 }
 
 async function getHistoricalVideos() {
+  const token = localStorage.getItem('watcherToken') || generateNewToken();
   const requestInfo = {
     method: 'GET',
     header: {
@@ -174,7 +169,7 @@ async function getHistoricalVideos() {
     credentials: 'omit',
     referrer: 'no-referrer',
   };
-  const url = `${serviceAPI}?method=get-watched-videos-list&token=${localStorage.getItem('watcherToken') || generateNewToken()}`;
+  const url = `${serviceAPI}videos/watched?token=${token}`;
   const request = new Request(url, requestInfo);
 
   try {

@@ -3,10 +3,12 @@
   "version": "0.0.0-development",
   "description": "Warframe YouTube Content",
   "scripts": {
-    "test": "npm run pre && mocha mochaspec.js",
+    "test": "npm run build && mocha mochaspec.js",
     "postinstall": "npm install -g gulp-cli",
-    "start": "npm run pre && node ./bin/www",
-    "pre": "gulp && gulp hash",
+    "start": "npm run build && node app.js",
+    "build": "gulp && gulp hash",
+    "lint": "npx eslint assets/js/*.js routes/**/*.js app.js",
+    "lint:fix": "npx eslint assets/js/*.js routes/**/*.js app.js --fix",
     "dev": "npx nodemon"
   },
   "repository": {
@@ -24,6 +26,7 @@
   },
   "homepage": "https://tenno.tv",
   "dependencies": {
+    "@sentry/node": "^5.6.2",
     "biguint-format": "^1.0.0",
     "body-parser": "^1.18.2",
     "chai": "^4.2.0",
@@ -43,15 +46,13 @@
     "serve-favicon": "~2.5.0",
     "sinon": "7.4.0",
     "supertest": "^4.0.0",
-    "winston": "^3.1.0",
-    "winston-raven-sentry": "^2.0.0"
+    "winston": "^3.1.0"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.3",
     "greenkeeper-lockfile": "^1.14.0",
     "mocha": "^6.2.0",
     "vinyl-source-stream": "^2.0.0"
@@ -68,10 +69,12 @@
       ".git"
     ],
     "env": {
-      "SERVICE_API_URL": "https://api.tenno.tv/",
+      "x_SERVICE_API_URL": "https://api.tenno.tv/",
+      "SERVICE_API_URL": "http://localhost:3001/",
       "LOG_LEVEL": "silly",
       "RAVEN_DSN": "",
-      "RAVEN_DSN_PRIVATE": ""
+      "RAVEN_DSN_PRIVATE": "",
+      "PORT": 3002
     }
   }
 }

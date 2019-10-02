@@ -1,17 +1,18 @@
-const videos = async ({
-  router, logger, sums, serviceAPI, ravenDSN, ytApiKey, ytClientId,
-}) => {
-  router.get('/v/:videoId', (req, res) => {
-    logger.log('silly', `Received ${req.method} request for ${req.orginalUrl} from ${req.connection.remoteAddress}`);
-    res.render('index', {
-      sums,
-      serviceAPI,
-      initialVideo: req.params.videoId,
-      ravenDSN,
-      ytApiKey,
-      ytClientId,
-    });
-  });
-};
+const router = require('express').Router();
+const {
+  logger, sums, api, creators, ytKey, ytId,
+} = require('../../assets/js/serverUtils');
 
-module.exports = videos;
+router.get('/:videoId', (req, res) => {
+  logger.silly(`Received ${req.method} request for ${req.path} from ${req.connection.remoteAddress}`);
+  res.render('index', {
+    sums,
+    serviceAPI: api,
+    initialVideo: req.params.videoId,
+    creators,
+    ytApiKey: ytKey,
+    ytClientId: ytId,
+  });
+});
+
+module.exports = router;
