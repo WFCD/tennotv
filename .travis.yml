@@ -21,7 +21,6 @@ branches:
 stages:
   - lint
   - test
-  - coverage
 
 jobs:
   include:
@@ -29,7 +28,5 @@ jobs:
       script: npm run lint
     - stage: test
       script: npm test
-    - stage: coverage
-      script: npm run coverage
 
 install: npm install

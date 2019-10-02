@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 
@@ -31,7 +30,6 @@ if (process.env.SENTRY_DSN) {
 // default node js includes
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
 app.use(require('./routes'));
 
 const port = process.env.PORT || 3002;
