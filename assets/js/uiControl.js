@@ -1,7 +1,7 @@
 /*
 global
 makeTags, lastInd, loadVideo, $, lastInd, validToggles, resetToggles, resetWatchedVideos, alerts
-SVGInjector, gapi, getContentCreators, getVideos, getHistoricalVideos, localStorage
+SVGInjector, gapi, getContentCreators, getVideos, getHistoricalVideos
 */
 /* eslint-disable no-unused-vars */
 
