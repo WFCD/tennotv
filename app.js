@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 
 const app = express();
-const server = require('http').Server(app);
-
 const hbs = handlebars.create({helpers: {json: JSON.stringify}, defaultLayout: 'main', extname: '.hbs'});
 
 // view engine setup
@@ -33,7 +31,5 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(require('./routes'));
 
 const port = process.env.PORT || 3002;
-const host = process.env.HOSTNAME || process.env.HOST || process.env.IP || 'localhost';
-server.listen(port, host);
-
-module.exports = app;
+const host = process.env.HOSTNAME || process.env.HOST || process.env.IP || '0.0.0.0';
+app.listen(port, host);
