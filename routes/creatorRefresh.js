@@ -1,6 +1,6 @@
 const express = require('express');
 
-const deps = require('../../assets/js/serverUtils');
+const deps = require('../assets/js/serverUtils');
 
 const router = express.Router();
 

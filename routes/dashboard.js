@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const router = require('express').Router();
 const {
   logger, sums, api, creators, ytKey, ytId,
-} = require('../../assets/js/serverUtils');
+} = require('../assets/js/serverUtils');
 
 router.get('/', async (req, res) => {
   logger.silly(`Received ${req.method} request for ${req.originalUrl} from ${req.connection.remoteAddress}`);

@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const deps = require('../assets/js/serverUtils');
 
-const { logger, setHeadersAndJson, sums, publicDSN, api, fetchCreators } = deps;
+const {
+  logger, sums, publicDSN, api, fetchCreators, ytKey, ytId,
+} = deps;
 
-router.use('/', require('./routeSetups/dashboard'));
+router.use('/', require('./dashboard'));
 
 router.get(`/:creator(${deps.creators.map(c => c.name).join('|')})`, (req, res) => {
   const creator = deps.creators.find(c => c.name === req.params.creator);
@@ -21,13 +23,13 @@ router.get(`/:creator(${deps.creators.map(c => c.name).join('|')})`, (req, res) 
   });
 });
 
-router.use('/v', require('./routeSetups/videos'));
-router.use('/agreement', require('./routeSetups/agreement'));
-router.use('/feedback', require('./routeSetups/feedback'));
+router.use('/v', require('./videos'));
+router.use('/agreement', require('./agreement'));
+router.use('/feedback', require('./feedback'));
 
-router.use('/force-creator-refresh', require('./routeSetups/creatorRefresh'));
-router.use('/404', require('./routeSetups/404'));
-router.use(require('./routeSetups/404'));
+router.use('/force-creator-refresh', require('./creatorRefresh'));
+router.use('/404', require('./404'));
+router.use(require('./404'));
 
 const setup = async () => {
   try {
