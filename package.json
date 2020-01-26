@@ -48,7 +48,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "greenkeeper-lockfile": "^1.14.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.1",
     "sinon": "^8.0.1",
     "supertest": "^4.0.2",
     "vinyl-source-stream": "^2.0.0"
