@@ -35,7 +35,7 @@
     "express-handlebars": "^3.1.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
-    "gulp-cli": "^2.2.1",
+    "gulp-cli": "^2.3.0",
     "gulp-hashsum": "^1.2.0",
     "gulp-minify": "git://github.com/zbennett10/gulp-minify.git#e1d8905041af230fd0fb980aa8a26c12c53e03f7",
     "hbs": "^4.1.1",
